@@ -1,0 +1,2707 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5b2fb0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MC358">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<title>Caderno de MC358</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Gochi+Hand&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Mesmo caderno do jogo de MC322: quadriculado (claro) / lousa (escuro), abas como orelhas, quiz numa folha central */
+:root {
+  --paper: #f7f6fb;
+  --grid: rgba(110, 70, 170, 0.08);
+  --sheet: #ffffff;
+  --fg: #1f1c2c;
+  --muted: #625d78;
+  --ink: #5b2fb0;
+  --marker: #ffe36b;
+  --marker-soft: rgba(255, 227, 107, 0.55);
+  --red: #c9302c;
+  --red-soft: rgba(201, 48, 44, 0.08);
+  --green: #1f8a5b;
+  --green-soft: rgba(31, 138, 91, 0.1);
+  --line: #dedaea;
+  --code-bg: #f3f0fa;
+  --tag-t: #eae3fb; --tag-t-fg: #5b2fb0;
+  --tag-e: #e2f1ff; --tag-e-fg: #1d5fa8;
+  --tag-x: #fff0dc; --tag-x-fg: #9a5a00;
+  --gold: #e8a91a;
+  --shadow: 0 1px 0 rgba(31, 28, 44, 0.06), 0 6px 18px rgba(91, 47, 176, 0.07);
+  --f-display: "Gochi Hand", "Comic Sans MS", cursive;
+  --f-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-math: "STIX Two Text", "Cambria Math", "Cambria", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1b1a24; --grid: rgba(230, 220, 255, 0.045); --sheet: #24222f; --fg: #ecebf3; --muted: #a9a4bd;
+    --ink: #c3a6ff; --marker: #f2cf5b; --marker-soft: rgba(242, 207, 91, 0.22); --red: #ff8a80; --red-soft: rgba(255, 138, 128, 0.1);
+    --green: #79dba7; --green-soft: rgba(121, 219, 167, 0.12); --line: #3a3749; --code-bg: #1a1923;
+    --tag-t: #352a52; --tag-t-fg: #d2bdff; --tag-e: #1f3349; --tag-e-fg: #9cc9ff; --tag-x: #3f3020; --tag-x-fg: #f5c27a;
+    --gold: #f2c14e; --shadow: 0 1px 0 rgba(0,0,0,.3), 0 8px 22px rgba(0,0,0,.25); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #1b1a24; --grid: rgba(230, 220, 255, 0.045); --sheet: #24222f; --fg: #ecebf3; --muted: #a9a4bd;
+  --ink: #c3a6ff; --marker: #f2cf5b; --marker-soft: rgba(242, 207, 91, 0.22); --red: #ff8a80; --red-soft: rgba(255, 138, 128, 0.1);
+  --green: #79dba7; --green-soft: rgba(121, 219, 167, 0.12); --line: #3a3749; --code-bg: #1a1923;
+  --tag-t: #352a52; --tag-t-fg: #d2bdff; --tag-e: #1f3349; --tag-e-fg: #9cc9ff; --tag-x: #3f3020; --tag-x-fg: #f5c27a;
+  --gold: #f2c14e; --shadow: 0 1px 0 rgba(0,0,0,.3), 0 8px 22px rgba(0,0,0,.25); color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--fg);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+}
+.app {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-block: 18px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, .opt:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.m sub, .m sup { font-size: .72em; line-height: 0; }
+.m { font-family: var(--f-math); font-size: 1.08em; background: var(--code-bg); padding: 0 .3em; border-radius: 4px; overflow-wrap: anywhere; white-space: pre-wrap; }
+/* topo */
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; margin-bottom: 16px; }
+.brand { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.brand h1 { font-family: var(--f-display); font-weight: 400; font-size: 2.4rem; line-height: 1; margin: 0; color: var(--ink); cursor: pointer; }
+.brand .sub { color: var(--muted); font-size: .9rem; }
+.hud { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--sheet); font-size: .86rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chip b { color: var(--ink); }
+.iconbtn { border: 1.5px solid var(--line); background: var(--sheet); border-radius: 999px; padding: 5px 11px; font-size: .86rem; }
+.iconbtn:hover { border-color: var(--ink); }
+/* abas */
+.tabs { display: flex; gap: 4px; overflow-x: auto; margin-bottom: 22px; border-bottom: 2px solid var(--line); scrollbar-width: thin; }
+.tab { flex: none; border: 0; background: transparent; padding: 9px 13px 8px; border-radius: 10px 10px 0 0; font-weight: 700; font-size: .94rem; color: var(--muted); white-space: nowrap; }
+.tab:hover { color: var(--fg); }
+.tab[aria-selected="true"] { color: var(--ink); background: var(--sheet); box-shadow: inset 0 -3px 0 var(--ink); }
+.tab .cnt { font-weight: 400; font-size: .78rem; margin-left: 4px; font-variant-numeric: tabular-nums; }
+/* nível */
+.levelbar { background: var(--sheet); border: 1.5px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: center; box-shadow: var(--shadow); margin-bottom: 26px; }
+.levelbar .rank { font-family: var(--f-display); font-size: 1.6rem; line-height: 1.1; }
+.levelbar .rank small { display: block; font-family: var(--f-body); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.meter { grid-column: 1 / -1; height: 10px; border-radius: 99px; background: var(--code-bg); overflow: hidden; }
+.meter i { display: block; height: 100%; background: var(--ink); border-radius: 99px; transition: width .6s ease; }
+.levelbar .next { color: var(--muted); font-size: .85rem; text-align: right; font-variant-numeric: tabular-nums; }
+/* mapa de capítulos */
+.section-h { font-family: var(--f-display); font-weight: 400; font-size: 1.8rem; line-height: 1.15; margin: 0 0 4px; color: var(--fg); text-wrap: balance; }
+.section-p { margin: 0 0 14px; color: var(--muted); max-width: 72ch; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.fbtn { border: 1.5px solid var(--line); background: var(--sheet); border-radius: 999px; padding: 6px 13px; font-size: .88rem; font-weight: 700; color: var(--muted); }
+.fbtn:hover { border-color: var(--ink); color: var(--fg); }
+.fbtn[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); background: var(--marker-soft); }
+.map { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-bottom: 30px; }
+.page {
+  position: relative; text-align: left; border: 1.5px solid var(--line); background: var(--sheet); border-radius: 4px 14px 14px 4px;
+  padding: 14px 16px 14px 26px; display: flex; flex-direction: column; gap: 6px; min-height: 170px; box-shadow: var(--shadow);
+  transition: transform .15s ease, border-color .15s ease;
+}
+.page::before { content: ""; position: absolute; left: 12px; top: 10px; bottom: 10px; border-left: 2px dotted var(--line); }
+.page:hover { transform: translateY(-3px) rotate(-.4deg); border-color: var(--ink); }
+.page .num { font-family: var(--f-display); font-size: 2rem; line-height: 1; color: var(--ink); }
+.page .num small { font-family: var(--f-body); font-size: .78rem; color: var(--muted); margin-left: 6px; letter-spacing: .04em; }
+.page .name { font-weight: 700; font-size: 1.02rem; line-height: 1.25; }
+.page .desc { color: var(--muted); font-size: .84rem; line-height: 1.35; flex: 1; }
+.page .foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: .8rem; color: var(--muted); flex-wrap: wrap; }
+.page.done .num { background: linear-gradient(transparent 55%, var(--marker-soft) 55%); align-self: flex-start; padding: 0 4px; }
+.counts { display: flex; gap: 4px; flex-wrap: wrap; }
+.stars { letter-spacing: 2px; font-size: 1.05rem; color: var(--line); }
+.stars .on { color: var(--gold); }
+.tagu { font-size: .68rem; font-weight: 700; letter-spacing: .05em; padding: 2px 7px; border-radius: 5px; white-space: nowrap; }
+.tagu.T { background: var(--tag-t); color: var(--tag-t-fg); }
+.tagu.E { background: var(--tag-e); color: var(--tag-e-fg); }
+.tagu.X { background: var(--tag-x); color: var(--tag-x-fg); }
+.extras { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.card { background: var(--sheet); border: 1.5px solid var(--line); border-radius: 14px; padding: 16px 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+.card h3 { margin: 0; font-size: 1.05rem; }
+.card p { margin: 0; color: var(--muted); font-size: .9rem; flex: 1; }
+.btn { border: 2px solid var(--ink); background: var(--ink); color: var(--sheet); border-radius: 10px; padding: 9px 16px; font-weight: 700; align-self: flex-start; }
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.howto { margin-top: 26px; color: var(--muted); font-size: .86rem; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+kbd { font-family: var(--f-body); font-size: .8em; border: 1.5px solid var(--line); border-bottom-width: 3px; border-radius: 5px; padding: 0 5px; background: var(--sheet); }
+/* lista de erros */
+.qlist { display: grid; gap: 8px; margin-bottom: 18px; }
+.qrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; text-align: left; width: 100%; border: 1.5px solid var(--line); background: var(--sheet); border-radius: 10px; padding: 10px 14px; }
+.qrow:hover { border-color: var(--ink); }
+.qrow .qt { min-width: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: .93rem; line-height: 1.35; }
+.qrow .side { display: flex; gap: 6px; align-items: center; color: var(--muted); font-size: .78rem; }
+.empty { background: var(--sheet); border: 1.5px dashed var(--line); border-radius: 14px; padding: 22px; color: var(--muted); text-align: center; }
+/* quiz */
+.quizhead { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.quizhead .title { font-family: var(--f-display); font-size: 1.6rem; line-height: 1.1; flex: 1; min-width: 0; }
+.progress { display: flex; gap: 3px; margin-bottom: 16px; }
+.progress span { flex: 1; height: 7px; border-radius: 99px; background: var(--line); }
+.progress span.ok { background: var(--green); }
+.progress span.bad { background: var(--red); }
+.progress span.cur { background: var(--ink); }
+.sheet { background: var(--sheet); border: 1.5px solid var(--line); border-radius: 16px; padding: clamp(14px, 4vw, 30px); box-shadow: var(--shadow); max-width: 900px; margin: 0 auto; }
+.qmeta { display: flex; justify-content: space-between; align-items: center; gap: 6px 10px; flex-wrap: wrap; font-size: .76rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 10px; }
+.qtext { font-size: 1.14rem; line-height: 1.5; font-weight: 700; margin: 0 0 14px; text-wrap: pretty; }
+.qtext .qnum { font-family: var(--f-display); font-weight: 400; color: var(--ink); font-size: 1.3em; margin-right: 6px; }
+.lead { font-size: .86rem; color: var(--muted); margin: -6px 0 12px; }
+.opts { display: grid; gap: 10px; }
+.opt {
+  display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; align-items: start; text-align: left; width: 100%;
+  border: 2px solid var(--line); background: var(--sheet); border-radius: 12px; padding: 11px 14px; line-height: 1.45;
+  transition: border-color .12s ease, background .12s ease;
+}
+.opt .l { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font-weight: 700; font-size: .9rem; color: var(--muted); }
+.opt .t { min-width: 0; overflow-wrap: anywhere; padding-top: 3px; }
+.opt:not(:disabled):hover { border-color: var(--ink); background: var(--marker-soft); }
+.opt:disabled { cursor: default; }
+.opt.wrong { border-color: var(--red); background: var(--red-soft); color: var(--muted); }
+.opt.wrong .t { text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+.opt.wrong .l { border-color: var(--red); color: var(--red); }
+.opt.right { border-color: var(--green); background: var(--green-soft); }
+.opt.right .l { border-color: var(--green); background: var(--green); color: var(--sheet); }
+.opt.right .t { background: linear-gradient(transparent 60%, var(--marker-soft) 60%); }
+.hint { margin-top: 14px; border-left: 4px solid var(--gold); background: var(--marker-soft); border-radius: 0 10px 10px 0; padding: 8px 12px; font-size: .92rem; }
+.ref { margin-top: 16px; font-size: .84rem; color: var(--muted); border-top: 1.5px dashed var(--line); padding-top: 10px; }
+.ref b { color: var(--fg); }
+.shake { animation: shake .35s ease; }
+@keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.feedback { margin-top: 16px; border-radius: 12px; padding: 12px 16px; font-size: .95rem; }
+.feedback.bad { background: var(--red-soft); border: 1.5px dashed var(--red); }
+.feedback.good { background: var(--green-soft); border: 1.5px solid var(--green); }
+.feedback .who { font-family: var(--f-display); font-size: 1.35rem; line-height: 1.1; display: block; margin-bottom: 4px; }
+.feedback.bad .who { color: var(--red); }
+.feedback.good .who { color: var(--green); }
+.actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+.combo { font-family: var(--f-display); font-size: 1.3rem; color: var(--muted); }
+.combo.hot { color: #e8771a; }
+.floatxp { position: fixed; pointer-events: none; font-family: var(--f-display); font-size: 1.6rem; color: var(--green); animation: up 1s ease forwards; z-index: 20; }
+@keyframes up { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-50px); } }
+/* resultado */
+.result { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.result h2 { font-family: var(--f-display); font-weight: 400; font-size: 2.6rem; line-height: 1; margin: 6px 0 0; color: var(--ink); text-wrap: balance; }
+.result .bigstars { font-size: 2.6rem; letter-spacing: 6px; color: var(--line); }
+.result .bigstars .on { color: var(--gold); }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; width: 100%; max-width: 480px; margin: 8px 0; }
+.stat { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 8px; }
+.stat b { display: block; font-size: 1.5rem; font-variant-numeric: tabular-nums; color: var(--fg); }
+.stat span { font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.result .row { justify-content: center; }
+.result p { margin: 0; color: var(--muted); max-width: 52ch; }
+.confirm { margin-top: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: .9rem; }
+#confetti { position: fixed; inset: 0; pointer-events: none; z-index: 30; }
+@media (max-width: 520px) {
+  .brand h1 { font-size: 2rem; }
+  .brand .sub { display: none; }
+  .qtext { font-size: 1.03rem; }
+  .levelbar { grid-template-columns: 1fr; }
+  .levelbar .next { text-align: left; }
+  .quizhead .title { font-size: 1.3rem; }
+  .opt { grid-template-columns: 28px minmax(0, 1fr); gap: 9px; padding: 10px 11px; }
+  .opt .l { width: 26px; height: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <h1 id="home" title="Voltar ao início">Caderno de MC358</h1>
+      <span class="sub">Matemática Discreta com Rosen e Gersting</span>
+    </div>
+    <div class="hud">
+      <span class="chip">XP <b id="hud-xp">0</b></span>
+      <span class="chip">Combo <b id="hud-combo">0</b></span>
+      <button class="iconbtn" id="btn-som" type="button" aria-pressed="true">Som: ligado</button>
+      <button class="iconbtn" id="btn-tema" type="button">Tema</button>
+    </div>
+  </header>
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Seções"></nav>
+  <main id="view" aria-live="polite"></main>
+</div>
+
+<script>
+// ---------- Livros (cada capítulo vive em src/livro1-rosen/ ou src/livro2-gersting/ e chama capitulo()) ----------
+const LIVROS = {
+  rosen: {
+    id: "rosen", aba: "Livro 1 · Rosen", curto: "Rosen",
+    titulo: "Matemática Discreta e Suas Aplicações", autor: "Kenneth H. Rosen", edicao: "6ª edição (McGraw-Hill/AMGH)",
+    caps: []
+  },
+  gersting: {
+    id: "gersting", aba: "Livro 2 · Gersting", curto: "Gersting",
+    titulo: "Fundamentos Matemáticos para a Ciência da Computação", autor: "Judith L. Gersting", edicao: "7ª edição (LTC)",
+    caps: []
+  }
+};
+function capitulo(livro, cap) { LIVROS[livro].caps.push(cap); }
+
+// Rosen, Cap. 1 · Os Fundamentos: Lógica e Demonstrações (Seções 1.1–1.7)
+// t: "T" teoria · "E" exemplo resolvido · "X" exercício resolvido. o[0] é sempre a correta (o jogo embaralha).
+capitulo("rosen", {
+  num: 1, nome: "Lógica e Demonstrações", secoes: "1.1–1.7",
+  desc: "Proposições, equivalências, predicados, quantificadores, regras de inferência e métodos de demonstração.",
+  qs: [
+    { t: "T", sec: "1.1", q: "Sobre o condicional `p → q`, qual afirmação é rigorosamente correta?",
+      o: ["É falso somente quando `p` é verdadeiro e `q` é falso; se `p` é falso, o condicional é verdadeiro (por vacuidade).",
+          "É verdadeiro somente quando `p` e `q` têm o mesmo valor-verdade.",
+          "É falso sempre que `p` é falso, pois nada se pode concluir de uma hipótese falsa.",
+          "É logicamente equivalente à sua recíproca `q → p`."],
+      exp: "Pela tabela-verdade, `p → q` só falha na linha `p = V, q = F`. “Mesmo valor-verdade” descreve o bicondicional `p ↔ q`, e a recíproca não é equivalente (basta `p = F, q = V`).",
+      dica: "Uma promessa só é quebrada quando a condição acontece e o prometido não." },
+    { t: "T", sec: "1.1", q: "Qual proposição é logicamente equivalente a `p → q`?",
+      o: ["A contrapositiva `¬q → ¬p`.", "A recíproca `q → p`.", "A inversa `¬p → ¬q`.", "A conjunção `¬p ∧ q`."],
+      exp: "`p → q ≡ ¬p ∨ q ≡ q ∨ ¬p ≡ ¬q → ¬p`. A recíproca e a inversa são equivalentes entre si (uma é a contrapositiva da outra), mas não ao condicional original.",
+      dica: "Troque e negue os dois lados." },
+    { t: "T", sec: "1.2", q: "Uma proposição composta é uma tautologia quando:",
+      o: ["É verdadeira para toda atribuição de valores-verdade às suas variáveis proposicionais.",
+          "É verdadeira para pelo menos uma atribuição de valores-verdade.",
+          "É logicamente equivalente à sua própria negação.",
+          "Não contém o conectivo de negação."],
+      exp: "Tautologia = sempre verdadeira. “Pelo menos uma atribuição” é a definição de satisfatível; uma proposição equivalente à sua negação é impossível.",
+      dica: "Pense em `p ∨ ¬p`." },
+    { t: "T", sec: "1.2", q: "Por que `p ≡ q` (equivalência lógica) é diferente de `p ↔ q` (bicondicional)?",
+      o: ["`p ↔ q` é uma proposição que pode ser V ou F; `p ≡ q` é a afirmação (metalinguística) de que `p ↔ q` é uma tautologia.",
+          "São sinônimos: ambos denotam a mesma proposição composta.",
+          "`p ≡ q` vale quando `p` e `q` são ambas verdadeiras; `p ↔ q` exige que sejam ambas falsas.",
+          "`p ↔ q` só se aplica a proposições atômicas, e `≡` a proposições compostas."],
+      exp: "O Rosen define: `p` e `q` são logicamente equivalentes se `p ↔ q` é tautologia. O símbolo `≡` não é um conectivo, e sim uma relação entre proposições.",
+      dica: "Um deles é um conectivo; o outro afirma algo sobre todas as linhas da tabela." },
+    { t: "T", sec: "1.3", q: "Pelas leis de De Morgan para quantificadores, `¬∀x (P(x) → Q(x))` é equivalente a:",
+      o: ["`∃x (P(x) ∧ ¬Q(x))`", "`∀x (P(x) ∧ ¬Q(x))`", "`∃x (¬P(x) → ¬Q(x))`", "`∀x (¬P(x) ∨ Q(x))`"],
+      exp: "`¬∀x R(x) ≡ ∃x ¬R(x)` e `¬(P → Q) ≡ P ∧ ¬Q`. Juntando: existe um `x` com `P(x)` verdadeiro e `Q(x)` falso, ou seja, um contraexemplo.",
+      dica: "Negar “para todo” é exibir um contraexemplo." },
+    { t: "T", sec: "1.4", q: "No domínio dos números reais, compare `∀x ∃y (x + y = 0)` e `∃y ∀x (x + y = 0)`.",
+      o: ["A primeira é verdadeira (tome `y = −x`), a segunda é falsa (nenhum `y` fixo anula todo `x`).",
+          "Ambas são verdadeiras, pois a ordem dos quantificadores não importa.",
+          "Ambas são falsas, pois `y` depende de `x`.",
+          "A primeira é falsa e a segunda é verdadeira, com `y = 0`."],
+      exp: "Em `∀x∃y`, o `y` pode depender de `x`. Em `∃y∀x`, um único `y` serviria para todos os `x`: com `x = 0` teríamos `y = 0`, mas então `x = 1` falha.",
+      dica: "Quantificadores diferentes aninhados não comutam." },
+    { t: "T", sec: "1.5", q: "A forma de argumento `[(p → q) ∧ ¬q] → ¬p` corresponde a qual regra de inferência?",
+      o: ["Modus tollens", "Modus ponens", "Silogismo hipotético", "Silogismo disjuntivo"],
+      exp: "Modus tollens nega o consequente para negar o antecedente. Modus ponens é `[(p → q) ∧ p] → q`.",
+      dica: "“Tollens” = remover; aqui se nega a conclusão." },
+    { t: "T", sec: "1.5", q: "“Se `n` é um primo maior que 2, então `n` é ímpar. `n` é ímpar. Logo, `n` é primo maior que 2.” O raciocínio:",
+      o: ["É falacioso: afirma o consequente, pois `[(p → q) ∧ q] → p` não é tautologia (ex.: `n = 9`).",
+          "É válido por modus ponens.",
+          "É válido por modus tollens, pois `n` ímpar nega “`n` par”.",
+          "É falacioso por negar a hipótese, `[(p → q) ∧ ¬p] → ¬q`."],
+      exp: "Com `p` falso e `q` verdadeiro as premissas são verdadeiras e a conclusão é falsa; `n = 9` é ímpar e não é primo.",
+      dica: "Procure um ímpar que não seja primo." },
+    { t: "T", sec: "1.6", q: "Em uma prova por contraposição de `p → q`, o que se faz?",
+      o: ["Supõe-se `¬q` e, por passos válidos, conclui-se `¬p`.",
+          "Supõe-se `q` e conclui-se `p`.",
+          "Supõe-se `¬p` e conclui-se `¬q`.",
+          "Supõe-se `p` e conclui-se `q` sem hipóteses adicionais."],
+      exp: "Prova-se `¬q → ¬p` diretamente, que é equivalente a `p → q`. Supor `q` e concluir `p` provaria a recíproca; supor `¬p` e concluir `¬q` provaria a inversa.",
+      dica: "A contrapositiva é equivalente; a recíproca não." },
+    { t: "T", sec: "1.6", q: "O que é uma prova vacuosa de `p → q`?",
+      o: ["Mostrar que `p` é falsa; então `p → q` é verdadeira qualquer que seja `q`.",
+          "Mostrar que `q` é verdadeira; então `p → q` é verdadeira qualquer que seja `p`.",
+          "Mostrar que `p` e `q` são ambas falsas.",
+          "Mostrar que não existe contraexemplo testando casos pequenos."],
+      exp: "Vacuosa: hipótese falsa. Mostrar `q` verdadeira é a prova trivial. Testar casos pequenos não prova uma afirmação universal.",
+      dica: "Uma é vacuosa, a outra é trivial: qual olha para a hipótese?" },
+    { t: "T", sec: "1.7", q: "Qual é a diferença entre uma prova de existência construtiva e uma não construtiva de `∃x P(x)`?",
+      o: ["A construtiva exibe um `a` específico com `P(a)`; a não construtiva prova a existência sem indicar qual elemento a satisfaz.",
+          "A construtiva usa indução; a não construtiva usa contradição.",
+          "A não construtiva só vale para domínios finitos.",
+          "A construtiva prova `∀x P(x)` e daí deduz `∃x P(x)`."],
+      exp: "Ex. clássico do Rosen: existem irracionais `x, y` com `x^y` racional. Considera-se `√2^√2`: se for racional, serve; se não, `(√2^√2)^√2 = 2` serve. Não se sabe qual caso ocorre: prova não construtiva.",
+      dica: "Uma entrega a testemunha; a outra só garante que ela existe." },
+
+    { t: "E", sec: "1.1", q: "Traduza para lógica: “Você pode acessar a Internet do campus somente se for aluno de Ciência da Computação ou não for calouro”, com `a`: acessa, `c`: é aluno de CC, `f`: é calouro.",
+      o: ["“`p` somente se `q`” significa `p → q` (`q` é condição necessária). Aqui `p` = `a` e `q` = `c ∨ ¬f`. Resultado: `a → (c ∨ ¬f)`.",
+          "“Somente se” indica que a condição vem primeiro, então a condição implica o acesso. Resultado: `(c ∨ ¬f) → a`.",
+          "“Somente se” é sempre um bicondicional, pois exclui outros casos. Resultado: `a ↔ (c ∨ ¬f)`.",
+          "A negação de “calouro” se distribui sobre a disjunção, logo o acesso exige `¬(c ∨ f)`. Resultado: `a → ¬(c ∨ f)`."],
+      exp: "Este é um exemplo da Seção 1.1. “Somente se” marca a condição necessária, que fica no consequente. A frase não diz que ser de CC garante o acesso.",
+      dica: "Quem vem depois de “somente se” é condição necessária." },
+    { t: "E", sec: "1.2", q: "Mostre que `¬(p ∨ (¬p ∧ q)) ≡ ¬p ∧ ¬q` usando equivalências.",
+      o: ["De Morgan: `¬p ∧ ¬(¬p ∧ q)`; De Morgan + dupla negação: `¬p ∧ (p ∨ ¬q)`; distributiva: `(¬p ∧ p) ∨ (¬p ∧ ¬q)`; `¬p ∧ p ≡ F`, identidade: `¬p ∧ ¬q`.",
+          "De Morgan: `¬p ∨ ¬(¬p ∧ q)`; De Morgan: `¬p ∨ (p ∨ ¬q)`; associativa: `(¬p ∨ p) ∨ ¬q ≡ V`. Resultado: é tautologia, não `¬p ∧ ¬q`.",
+          "Absorção direta: `p ∨ (¬p ∧ q) ≡ p`, logo a expressão vale `¬p`. Resultado: `¬p`.",
+          "Distributiva primeiro: `(p ∨ ¬p) ∧ (p ∨ q) ≡ p ∨ q`, cuja negação por De Morgan é `¬p ∨ ¬q`. Resultado: `¬p ∨ ¬q`."],
+      exp: "A cadeia correta é a do exemplo da Seção 1.2. A alternativa “distributiva primeiro” começa bem (`p ∨ q`), mas erra De Morgan: `¬(p ∨ q) ≡ ¬p ∧ ¬q`, não `¬p ∨ ¬q`.",
+      dica: "De Morgan troca `∨` por `∧` e nega cada parte." },
+    { t: "E", sec: "1.4", q: "Com domínio = todas as pessoas, `S(x)`: “x é estudante desta turma” e `C(x)`: “x estudou cálculo”, expresse “Todo estudante desta turma estudou cálculo”.",
+      o: ["Quantificador universal com restrição se faz com condicional: para todo `x`, se `x` é da turma então estudou cálculo. Resultado: `∀x (S(x) → C(x))`.",
+          "“Todo” pede conjunção: todo `x` é da turma e estudou cálculo. Resultado: `∀x (S(x) ∧ C(x))`.",
+          "Basta um estudante, então usa-se o existencial com condicional. Resultado: `∃x (S(x) → C(x))`.",
+          "Universal e restrição se combinam com bicondicional. Resultado: `∀x (S(x) ↔ C(x))`."],
+      exp: "`∀x (S(x) ∧ C(x))` afirmaria que toda pessoa é da turma. `∀x (S(x) ↔ C(x))` diria que só os da turma estudaram cálculo. Regra: `∀` com `→`, `∃` com `∧`.",
+      dica: "`∀` combina com `→`; `∃` combina com `∧`." },
+    { t: "E", sec: "1.5", q: "Premissas: “Se chover hoje, não teremos churrasco hoje. Se não tivermos churrasco hoje, teremos amanhã.” Que conclusão se obtém e por qual regra?",
+      o: ["Com `r`: chove, `b`: churrasco hoje, `t`: churrasco amanhã, temos `r → ¬b` e `¬b → t`. Silogismo hipotético: `r → t` (“Se chover hoje, teremos churrasco amanhã”).",
+          "De `r → ¬b` e `¬b → t`, por modus ponens, `t`: “Teremos churrasco amanhã”.",
+          "Por modus tollens, `¬r`: “Não vai chover hoje”.",
+          "Por silogismo disjuntivo, `r ∨ t`: “Chove hoje ou teremos churrasco amanhã”."],
+      exp: "Modus ponens exigiria saber `r` como premissa, o que não temos. O encadeamento de condicionais é o silogismo hipotético (exemplo da Seção 1.5).",
+      dica: "Duas setas que se encaixam." },
+    { t: "E", sec: "1.6", q: "Prove diretamente: “se `n` é um inteiro ímpar, então `n²` é ímpar”.",
+      o: ["Suponha `n` ímpar: `n = 2k + 1`, `k ∈ ℤ`. Então `n² = 4k² + 4k + 1 = 2(2k² + 2k) + 1`, com `2k² + 2k ∈ ℤ`. Logo `n²` é ímpar.",
+          "Suponha `n²` ímpar: `n² = 2k + 1`; então `n = √(2k+1)`, que é ímpar. Logo vale.",
+          "Teste `n = 1, 3, 5`: `1, 9, 25` são ímpares. Como não há contraexemplo, vale para todo ímpar.",
+          "Suponha `n` par: `n = 2k`, `n² = 4k²` é par. Logo `n` ímpar implica `n²` ímpar."],
+      exp: "A segunda prova a recíproca (e de forma não rigorosa). A terceira é verificação de casos, não prova. A quarta prova a inversa (“`n` par → `n²` par”), que não é equivalente.",
+      dica: "Prova direta: assuma a hipótese e use a definição de ímpar." },
+    { t: "E", sec: "1.6", q: "Prove que `√2` é irracional.",
+      o: ["Por contradição: suponha `√2 = a/b` com `mdc(a, b) = 1`. Então `a² = 2b²`, logo `a` é par, `a = 2c`; daí `b² = 2c²` e `b` também é par, contradizendo `mdc(a, b) = 1`.",
+          "Por contraposição: se `√2` fosse racional, sua expansão decimal seria finita; como `1,41421…` não termina, é irracional.",
+          "Diretamente: `√2 ≈ 1,4142` não é inteiro, e todo racional entre 1 e 2 é inteiro. Logo é irracional.",
+          "Por contradição: suponha `√2 = a/b`; então `2 = a²/b²`, e como `a²` e `b²` são quadrados perfeitos, `2` seria quadrado perfeito, absurdo."],
+      exp: "A segunda falha porque racionais podem ter dízima periódica infinita. A terceira é falsa (há racionais não inteiros entre 1 e 2). A quarta não justifica por que `a²/b² = 2` exigiria 2 quadrado perfeito.",
+      dica: "Use a fração na forma irredutível e a paridade." },
+
+    { t: "X", sec: "1.1", q: "Qual é o valor-verdade de “Se `1 + 1 = 3`, então unicórnios existem”?",
+      o: ["O antecedente `1 + 1 = 3` é falso; um condicional com antecedente falso é verdadeiro. Resultado: verdadeira.",
+          "O consequente é falso (unicórnios não existem), logo o condicional é falso. Resultado: falsa.",
+          "Antecedente e consequente são ambos falsos, e `F → F` é falso. Resultado: falsa.",
+          "Não há relação causal entre as partes, logo não é uma proposição. Resultado: indefinida."],
+      exp: "Em lógica matemática o condicional não exige relação de causa. `F → F` é verdadeiro.",
+      dica: "Olhe só para a tabela-verdade." },
+    { t: "X", sec: "1.2", q: "Mostre que `(p ∧ q) → (p ∨ q)` é uma tautologia.",
+      o: ["`≡ ¬(p ∧ q) ∨ (p ∨ q) ≡ (¬p ∨ ¬q) ∨ (p ∨ q) ≡ (¬p ∨ p) ∨ (¬q ∨ q) ≡ V ∨ V ≡ V`. Resultado: tautologia.",
+          "`≡ ¬(p ∧ q) ∧ (p ∨ q) ≡ (¬p ∨ ¬q) ∧ (p ∨ q)`, que é falsa para `p = q = V`. Resultado: não é tautologia.",
+          "Com `p = V, q = F`: `(V ∧ F) → (V ∨ F) = F → V = F`. Resultado: não é tautologia.",
+          "`≡ ¬(p ∧ q) ∨ (p ∨ q) ≡ (¬p ∧ ¬q) ∨ (p ∨ q) ≡ ¬(p ∨ q) ∨ (p ∨ q) ≡ V`. Resultado: tautologia."],
+      exp: "A quarta chega ao resultado certo usando De Morgan errado (`¬(p ∧ q)` não é `¬p ∧ ¬q`). A terceira erra a tabela: `F → V` é verdadeiro.",
+      dica: "Use `a → b ≡ ¬a ∨ b` e depois associativa/comutativa." },
+    { t: "X", sec: "1.4", q: "Negue `∀x ∃y (xy = 1)` (domínio: reais) e diga qual das duas é verdadeira.",
+      o: ["Negação: `∃x ∀y (xy ≠ 1)`. Ela é verdadeira (tome `x = 0`); logo a original é falsa.",
+          "Negação: `∃x ∀y (xy ≠ 1)`. Ela é falsa, pois todo real tem inverso; logo a original é verdadeira.",
+          "Negação: `∀x ∃y (xy ≠ 1)`. Ambas são verdadeiras.",
+          "Negação: `∃x ∃y (xy ≠ 1)`. Ela é verdadeira, e a original também."],
+      exp: "Cada quantificador troca e o predicado é negado. `0` não tem inverso multiplicativo, então `x = 0` testemunha a negação.",
+      dica: "Existe algum real sem inverso multiplicativo?" },
+    { t: "X", sec: "1.5", q: "Das premissas `p ∨ q` e `¬p ∨ r`, o que se conclui?",
+      o: ["Por resolução (se `p` é V, vale `r`; se `p` é F, vale `q`), conclui-se `q ∨ r`.",
+          "Por silogismo disjuntivo, conclui-se `q`.",
+          "Por modus ponens, conclui-se `r`.",
+          "Cancelando `p` com `¬p`, conclui-se `q ∧ r`."],
+      exp: "A regra de resolução do Rosen: `[(p ∨ q) ∧ (¬p ∨ r)] → (q ∨ r)`. Não dá para garantir `q` ou `r` isoladamente.",
+      dica: "Separe em casos sobre `p`." },
+    { t: "X", sec: "1.7", q: "Prove que, para todo inteiro `n`, `n² + n` é par.",
+      o: ["Por casos: se `n = 2k`, `n² + n = 2(2k² + k)`; se `n = 2k + 1`, `n² + n = (2k+1)(2k+2) = 2(2k+1)(k+1)`. Em ambos é par.",
+          "Como `n²` e `n` têm a mesma paridade, sua soma é sempre ímpar.",
+          "Para `n = 1, 2, 3`, obtemos `2, 6, 12`, todos pares; portanto vale sempre.",
+          "`n² + n = n(n + 1)`, e todo produto de inteiros é par."],
+      exp: "Alternativamente: `n(n+1)` é produto de consecutivos, um deles par. A quarta generaliza errado (`3·5` é ímpar). A segunda erra a paridade da soma de dois números de mesma paridade.",
+      dica: "Prova por casos sobre a paridade de `n`." }
+  ]
+});
+
+// Rosen, Cap. 2 · Estruturas Básicas: Conjuntos, Funções, Sequências e Somatórios (Seções 2.1–2.4)
+capitulo("rosen", {
+  num: 2, nome: "Conjuntos, Funções e Somatórios", secoes: "2.1–2.4",
+  desc: "Conjuntos e operações, conjunto das partes, funções injetoras/sobrejetoras, piso e teto, sequências, somatórios e cardinalidade.",
+  qs: [
+    { t: "T", sec: "2.1", q: "Por que `∅ ⊆ A` para todo conjunto `A`?",
+      o: ["Porque `∀x (x ∈ ∅ → x ∈ A)` é verdadeira por vacuidade: `x ∈ ∅` é sempre falso.",
+          "Porque `∅ ∈ A` para todo conjunto `A`.",
+          "Só vale quando `A ≠ ∅`; caso contrário a inclusão não está definida.",
+          "Por convenção de notação, sem justificativa lógica."],
+      exp: "`A ⊆ B` significa `∀x (x ∈ A → x ∈ B)`. Com `A = ∅`, o antecedente nunca é verdadeiro. Note que `∅ ∈ A` é falso em geral (ex.: `A = {1}`).",
+      dica: "Lembre da prova vacuosa do Cap. 1." },
+    { t: "T", sec: "2.1", q: "Se `|S| = n`, quantos elementos tem o conjunto das partes `P(S)` e por quê?",
+      o: ["`2ⁿ`: cada subconjunto corresponde a decidir, para cada um dos `n` elementos, se ele entra ou não (regra do produto).",
+          "`n²`: cada subconjunto é um par de elementos de `S`.",
+          "`n!`: cada subconjunto é uma ordenação dos elementos de `S`.",
+          "`2ⁿ − 1`: o conjunto vazio não é subconjunto próprio e não conta."],
+      exp: "Há 2 escolhas independentes por elemento. `∅` e o próprio `S` estão incluídos em `P(S)`. Ex.: `P(∅) = {∅}` tem `2⁰ = 1` elemento.",
+      dica: "Cada elemento: dentro ou fora." },
+    { t: "T", sec: "2.3", q: "Uma função `f: A → B` é injetora (um-para-um) quando:",
+      o: ["`∀a ∀b (f(a) = f(b) → a = b)`, isto é, elementos distintos têm imagens distintas.",
+          "`∀y ∈ B ∃x ∈ A (f(x) = y)`.",
+          "`∀a ∀b (a = b → f(a) = f(b))`.",
+          "`|A| = |B|`."],
+      exp: "A segunda é sobrejetora. A terceira vale para qualquer função (é a própria boa definição). A quarta não basta: há funções não injetoras entre conjuntos de mesmo tamanho.",
+      dica: "A condição é sobre imagens iguais forçando argumentos iguais." },
+    { t: "T", sec: "2.3", q: "Se `g ∘ f` é injetora (com `f: A → B`, `g: B → C`), o que se pode garantir?",
+      o: ["`f` é injetora; `g` não precisa ser.",
+          "`g` é injetora; `f` não precisa ser.",
+          "`f` e `g` são ambas injetoras.",
+          "`g` é sobrejetora."],
+      exp: "Se `f(a) = f(b)`, então `g(f(a)) = g(f(b))`, e a injetividade de `g ∘ f` dá `a = b`. Contraexemplo para `g`: `A = {1}`, `B = {1, 2}`, `g(1) = g(2)`: `g ∘ f` é injetora, `g` não.",
+      dica: "Suponha `f(a) = f(b)` e aplique `g`." },
+    { t: "T", sec: "2.3", q: "Qual identidade sobre piso e teto é válida para todo real `x`?",
+      o: ["`⌈x⌉ = −⌊−x⌋`", "`⌊x⌋ + ⌈x⌉ = 2x`", "`⌊2x⌋ = 2⌊x⌋`", "`⌈x + y⌉ = ⌈x⌉ + ⌈y⌉`"],
+      exp: "Contraexemplos: `x = 0,5` dá `⌊x⌋ + ⌈x⌉ = 1 = 2x` mas `x = 0,3` dá `1 ≠ 0,6`; `⌊2·0,5⌋ = 1 ≠ 0`; `⌈0,5 + 0,5⌉ = 1 ≠ 2`.",
+      dica: "Teste valores com parte fracionária." },
+    { t: "T", sec: "2.4", q: "Sobre cardinalidade, qual afirmação está correta?",
+      o: ["`ℚ⁺` é enumerável, mas o intervalo `(0, 1)` não é, como mostra o argumento diagonal de Cantor.",
+          "`ℤ` tem mais elementos que `ℕ`, pois contém os negativos.",
+          "`ℚ` não é enumerável porque entre dois racionais sempre há outro.",
+          "Todo subconjunto infinito de `ℝ` é não enumerável."],
+      exp: "`ℤ` e `ℚ` são enumeráveis (há bijeção com `ℤ⁺`). Densidade não impede enumerabilidade. `ℕ ⊂ ℝ` é infinito e enumerável.",
+      dica: "Lembre do percurso em zigue-zague das frações." },
+
+    { t: "E", sec: "2.2", q: "Prove que `A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)`.",
+      o: ["Por dupla inclusão: se `x ∈ A ∩ (B ∪ C)`, então `x ∈ A` e (`x ∈ B` ou `x ∈ C`), logo `x ∈ A ∩ B` ou `x ∈ A ∩ C`; a recíproca segue os mesmos passos ao contrário. Igualdade provada.",
+          "Por diagrama de Venn com três círculos, as regiões coincidem; isso é uma prova completa em qualquer caso.",
+          "Tome `A = {1}`, `B = {1}`, `C = ∅`: ambos os lados valem `{1}`. Logo vale em geral.",
+          "Por dupla inclusão: mostra-se só `A ∩ (B ∪ C) ⊆ (A ∩ B) ∪ (A ∩ C)`, que basta pois os conjuntos têm a mesma quantidade de elementos."],
+      exp: "O Rosen prova pela dupla inclusão (ou tabela de pertinência). Um exemplo não prova a identidade, e uma inclusão só basta se já se sabe que os conjuntos são finitos de mesmo tamanho, o que não é dado.",
+      dica: "Igualdade de conjuntos = `⊆` nos dois sentidos." },
+    { t: "E", sec: "2.3", q: "Analise `f: ℤ → ℤ`, `f(x) = x²`.",
+      o: ["Não é injetora (`f(−1) = f(1) = 1`) nem sobrejetora (`−1` não é imagem de nenhum inteiro).",
+          "É injetora, pois `x² = y²` implica `x = y`; não é sobrejetora.",
+          "É sobrejetora, pois todo inteiro positivo é um quadrado; não é injetora.",
+          "É bijetora em `ℤ`, com inversa `√x`."],
+      exp: "`x² = y²` dá `x = ±y`. Nem todo inteiro positivo é quadrado (ex.: 2), e nenhum negativo é. `√x` nem está definida em todo `ℤ`.",
+      dica: "Teste `x` e `−x`; teste `2` e `−1` no contradomínio." },
+    { t: "E", sec: "2.4", q: "Calcule `∑_{k=50}^{100} k²`, sabendo que `∑_{k=1}^{n} k² = n(n+1)(2n+1)/6`.",
+      o: ["Escreva como `∑_{1}^{100} − ∑_{1}^{49}`: `100·101·201/6 − 49·50·99/6 = 338350 − 40425 = 297925`.",
+          "Escreva como `∑_{1}^{100} − ∑_{1}^{50}`: `338350 − 42925 = 295425`.",
+          "Aplique a fórmula com `n = 100 − 50 = 50`: `50·51·101/6 = 42925`.",
+          "Multiplique a média dos extremos pelo número de termos: `(50² + 100²)/2 · 51 = 318750`."],
+      exp: "O termo `k = 50` faz parte da soma, então se subtrai até 49. A “média dos extremos” vale para progressões aritméticas, e `k²` não é uma.",
+      dica: "Cuidado para não tirar o 50 da soma." },
+    { t: "E", sec: "2.3", q: "Quantos bytes são necessários para codificar 100 bits de dados (1 byte = 8 bits)?",
+      o: ["`⌈100/8⌉ = ⌈12,5⌉ = 13` bytes, pois a última fração de byte ainda ocupa um byte inteiro.",
+          "`⌊100/8⌋ = 12` bytes, descartando a parte fracionária.",
+          "`100/8 = 12,5` bytes.",
+          "`⌈100/8⌉ + 1 = 14` bytes, contando um byte de controle."],
+      exp: "Este é um exemplo do Rosen para a função teto: com 12 bytes só cabem 96 bits.",
+      dica: "Sobrar 4 bits ainda exige mais um byte." },
+
+    { t: "X", sec: "2.1", q: "Determine `P({∅})`.",
+      o: ["Os subconjuntos de `{∅}` são `∅` e `{∅}`. Resultado: `P({∅}) = {∅, {∅}}`.",
+          "`{∅}` é vazio, então `P({∅}) = {∅}`.",
+          "`P({∅}) = {∅, ∅} = {∅}`, pois repetições não contam.",
+          "`P({∅}) = {{∅}}`, pois `∅` não é subconjunto de `{∅}`."],
+      exp: "`{∅}` tem exatamente um elemento (o conjunto vazio), logo `|P({∅})| = 2¹ = 2`.",
+      dica: "`{∅}` não é vazio: tem um elemento." },
+    { t: "X", sec: "2.3", q: "Mostre que `f: ℤ → ℤ`, `f(x) = x + 1` é bijetora e encontre sua inversa.",
+      o: ["Injetora: `x + 1 = y + 1 ⇒ x = y`. Sobrejetora: dado `y`, `f(y − 1) = y`. Resultado: bijetora, `f⁻¹(y) = y − 1`.",
+          "Injetora mas não sobrejetora, pois `0` não é imagem. Não há inversa.",
+          "Sobrejetora mas não injetora; a inversa é `1/(x + 1)`.",
+          "É bijetora e `f⁻¹(y) = y + 1`, pois a inversa repete a operação."],
+      exp: "`0 = f(−1)`, então `0` é imagem. A inversa desfaz a operação: subtrai 1. `1/(x+1)` é o inverso multiplicativo, não a função inversa.",
+      dica: "Dado `y`, qual `x` vai para ele?" },
+    { t: "X", sec: "2.4", q: "Calcule `∑_{j=0}^{8} 3·2ʲ`.",
+      o: ["É geométrica com `a = 3`, `r = 2`, 9 termos: `3(2⁹ − 1)/(2 − 1) = 3·511 = 1533`.",
+          "Geométrica com 8 termos: `3(2⁸ − 1) = 765`.",
+          "`3·2⁸ = 768`, o último termo.",
+          "`3 · (0 + 1 + … + 8) · 2 = 216`."],
+      exp: "`∑_{j=0}^{n} arʲ = a(rⁿ⁺¹ − 1)/(r − 1)`. De 0 a 8 há 9 termos.",
+      dica: "Conte os termos de 0 a 8." },
+    { t: "X", sec: "2.2", q: "Para `A = {1, 2, 3, 4, 5}` e `B = {4, 5, 6, 7, 8}`, calcule a diferença simétrica `A ⊕ B`.",
+      o: ["`A ⊕ B = (A − B) ∪ (B − A) = {1, 2, 3} ∪ {6, 7, 8} = {1, 2, 3, 6, 7, 8}`.",
+          "`A ⊕ B = A ∩ B = {4, 5}`.",
+          "`A ⊕ B = A ∪ B = {1, …, 8}`.",
+          "`A ⊕ B = A − B = {1, 2, 3}`."],
+      exp: "A diferença simétrica contém os elementos que estão em exatamente um dos conjuntos: `(A ∪ B) − (A ∩ B)`.",
+      dica: "“Ou exclusivo” de conjuntos." }
+  ]
+});
+
+// Rosen, Cap. 3 · Os Fundamentos: Algoritmos, Números Inteiros e Matrizes (Seções 3.1–3.8)
+capitulo("rosen", {
+  num: 3, nome: "Algoritmos, Inteiros e Matrizes", secoes: "3.1–3.8",
+  desc: "Notação O/Ω/Θ, complexidade, divisão, primos, mdc, congruências, aplicações e matrizes.",
+  qs: [
+    { t: "T", sec: "3.2", q: "Pela definição do Rosen, `f(x)` é `O(g(x))` quando:",
+      o: ["Existem constantes `C` e `k` tais que `|f(x)| ≤ C|g(x)|` para todo `x > k`.",
+          "`f(x) ≤ g(x)` para todo `x`.",
+          "`lim f(x)/g(x) = 1`.",
+          "Existem `C` e `k` tais que `|f(x)| ≥ C|g(x)|` para todo `x > k`."],
+      exp: "A cota precisa valer só a partir de algum `k` e com alguma constante `C`. A última é a definição de `Ω`.",
+      dica: "“A partir de certo ponto, até uma constante.”" },
+    { t: "T", sec: "3.2", q: "`f(x)` é `Θ(g(x))` se e somente se:",
+      o: ["`f(x)` é `O(g(x))` e `f(x)` é `Ω(g(x))`.",
+          "`f(x)` é `O(g(x))` mas não é `Ω(g(x))`.",
+          "`f(x) = g(x)` para `x` suficientemente grande.",
+          "`f(x)` é `O(g(x))` e `g(x)` é `O(x)`."],
+      exp: "`Θ` dá cota superior e inferior de mesma ordem. Ex.: `3x² + 8x log x` é `Θ(x²)`.",
+      dica: "Cota por cima e por baixo." },
+    { t: "T", sec: "3.3", q: "No pior caso, quantas comparações faz a busca binária em uma lista ordenada de `n` elementos?",
+      o: ["`Θ(log n)`, pois cada iteração reduz o intervalo pela metade.",
+          "`Θ(n)`, pois pode ter que examinar todos os elementos.",
+          "`Θ(n log n)`, como a ordenação.",
+          "`Θ(1)`, pois começa pelo meio."],
+      exp: "Com `n = 2ᵏ`, são `k` divisões ao meio mais as comparações finais: `2k + 2 = 2 log n + 2` no algoritmo do Rosen, que é `Θ(log n)`.",
+      dica: "Quantas vezes dá para dividir `n` ao meio?" },
+    { t: "T", sec: "3.4", q: "Pelo algoritmo da divisão, quais são `−11 div 3` e `−11 mod 3`?",
+      o: ["`−11 = 3·(−4) + 1`, com `0 ≤ r < 3`: quociente `−4`, resto `1`.",
+          "`−11 = 3·(−3) − 2`: quociente `−3`, resto `−2`.",
+          "Quociente `−3`, resto `2`.",
+          "Quociente `−4`, resto `−1`."],
+      exp: "O resto precisa satisfazer `0 ≤ r < d`. Por isso o resto não pode ser `−2` (exemplo da Seção 3.4).",
+      dica: "O resto nunca é negativo." },
+    { t: "T", sec: "3.5", q: "Na prova de Euclides de que há infinitos primos, supõe-se que `p₁, …, pₙ` são todos os primos e considera-se `Q = p₁p₂⋯pₙ + 1`. Qual é o passo-chave?",
+      o: ["Nenhum `pⱼ` divide `Q` (sobraria resto 1), mas `Q` tem um fator primo; esse primo não está na lista, contradição.",
+          "`Q` é sempre primo, então é um primo novo.",
+          "`Q` é par, então 2 não estava na lista.",
+          "`Q` é maior que todos os `pⱼ`, logo é primo."],
+      exp: "`Q` não precisa ser primo (ex.: `2·3·5·7·11·13 + 1 = 30031 = 59·509`). O que importa é que seus fatores primos são novos.",
+      dica: "`Q` pode ser composto; olhe para seus fatores." },
+    { t: "T", sec: "3.4", q: "`a ≡ b (mod m)` significa:",
+      o: ["`m` divide `a − b`; equivalentemente, `a mod m = b mod m`.",
+          "`a mod m = b`.",
+          "`a` e `b` são ambos múltiplos de `m`.",
+          "`a·b` é múltiplo de `m`."],
+      exp: "`17 ≡ 5 (mod 6)` pois `6 | 12`. A segunda só vale se `0 ≤ b < m`.",
+      dica: "A diferença é múltiplo de `m`." },
+    { t: "T", sec: "3.8", q: "Ao multiplicar uma matriz `m × k` por uma `k × n` pelo algoritmo usual, quantas multiplicações de inteiros são feitas?",
+      o: ["`mkn`: cada uma das `mn` entradas é um produto interno de `k` termos.",
+          "`mn`: uma por entrada do resultado.",
+          "`m + k + n`.",
+          "`k²`."],
+      exp: "Por isso a ordem de multiplicação de várias matrizes (associatividade) importa para o custo.",
+      dica: "Quantas entradas? Quantos produtos por entrada?" },
+
+    { t: "E", sec: "3.2", q: "Mostre que `f(x) = x² + 2x + 1` é `O(x²)`.",
+      o: ["Para `x > 1`: `x² + 2x + 1 ≤ x² + 2x² + x² = 4x²`. Testemunhas `C = 4`, `k = 1`.",
+          "Para todo `x`: `x² + 2x + 1 ≤ x²`, então `C = 1`, `k = 0`.",
+          "`lim (x² + 2x + 1)/x = ∞`, logo é `O(x²)`.",
+          "Para `x > 1`: `x² + 2x + 1 ≤ 4x`, testemunhas `C = 4`, `k = 1`."],
+      exp: "Exemplo da Seção 3.2. Usa-se `x < x²` e `1 < x²` quando `x > 1`. A cota `≤ 4x` é falsa para `x` grande.",
+      dica: "Majore cada termo por `x²`." },
+    { t: "E", sec: "3.6", q: "Calcule `mdc(414, 662)` pelo algoritmo de Euclides.",
+      o: ["`662 = 414·1 + 248`; `414 = 248·1 + 166`; `248 = 166·1 + 82`; `166 = 82·2 + 2`; `82 = 2·41`. Último resto não nulo: `2`.",
+          "`662 = 414·1 + 248`; `414 = 248·1 + 166`; `248 = 166·1 + 82`; `166 = 82·2 + 2`. O último quociente é `2`, então mdc = 41.",
+          "Fatorando, `414 = 2·3²·23` e `662 = 2·331`; mdc = `2·23 = 46`.",
+          "Como ambos são pares, mdc = `414/2 = 207`."],
+      exp: "Exemplo da Seção 3.6. O mdc é o último resto não nulo. Na terceira alternativa, 23 não divide 662.",
+      dica: "Pare quando o resto der zero." },
+    { t: "E", sec: "3.6", q: "Encontre a expansão binária de `241`.",
+      o: ["Divisões sucessivas por 2: restos `1, 0, 0, 0, 1, 1, 1, 1` (do menos para o mais significativo). Resultado: `(1111 0001)₂`.",
+          "Mesmos restos lidos de cima para baixo: `(1000 1111)₂`.",
+          "`241 = 128 + 64 + 32 + 16 + 1`, logo `(1111 1001)₂`.",
+          "`241 = 256 − 15`, logo `(1 0000 1111)₂`."],
+      exp: "`241 = 128 + 64 + 32 + 16 + 1 = (11110001)₂`. Os restos saem do bit menos significativo para o mais significativo.",
+      dica: "Confira: `128 + 64 + 32 + 16 + 1`." },
+    { t: "E", sec: "3.6", q: "Exprima `mdc(252, 198) = 18` como combinação linear (Bézout).",
+      o: ["Euclides: `252 = 198 + 54`, `198 = 3·54 + 36`, `54 = 36 + 18`. Voltando: `18 = 54 − 36 = 54 − (198 − 3·54) = 4·54 − 198 = 4·252 − 5·198`.",
+          "`18 = 252 − 198 − 36`, logo `18 = 1·252 − 1·198 − 36`.",
+          "`18 = 2·252 − 3·198`.",
+          "`18 = 5·252 − 4·198`."],
+      exp: "Exemplo da Seção 3.6. Confira: `4·252 = 1008`, `5·198 = 990`, `1008 − 990 = 18`.",
+      dica: "Substitua os restos de baixo para cima." },
+
+    { t: "X", sec: "3.6", q: "Calcule `3⁶⁴⁴ mod 645`.",
+      o: ["Exponenciação modular: `644 = (1010000100)₂`; eleva-se `3` ao quadrado sucessivamente mod 645 e multiplica-se nas posições com bit 1. Resultado: `36`.",
+          "Pelo pequeno teorema de Fermat, `3⁶⁴⁴ ≡ 1 (mod 645)`.",
+          "`3⁶⁴⁴ mod 645 = (3 mod 645)⁶⁴⁴ = 3`.",
+          "`644 mod 645 = 644`, então `3⁶⁴⁴ ≡ 3·644 ≡ 642`."],
+      exp: "Exemplo da Seção 3.6. Fermat exige módulo primo, e `645 = 3·5·43` não é primo.",
+      dica: "645 é primo?" },
+    { t: "X", sec: "3.2", q: "`7n²` é `O(n³)`? E `n³` é `O(7n²)`?",
+      o: ["`7n² ≤ 7n³` para `n > 1` (sim). Já `n³ ≤ C·7n²` exigiria `n ≤ 7C` para todo `n > k`, impossível (não).",
+          "Sim e sim, pois ambos são polinômios.",
+          "Não e sim.",
+          "Não e não, pois têm graus diferentes."],
+      exp: "O Rosen mostra exatamente esse par: a cota superior de grau maior é válida; a contrária não.",
+      dica: "Suponha `n³ ≤ C·n²` e divida por `n²`." },
+    { t: "X", sec: "3.7", q: "Cifre `MEET` com a cifra de César `f(p) = (p + 3) mod 26` (A = 0, …, Z = 25).",
+      o: ["`M=12 → 15 = P`, `E=4 → 7 = H`, `T=19 → 22 = W`. Resultado: `PHHW`.",
+          "Subtraindo 3: `JBBQ`.",
+          "`M=12 → 15 = O`, `E → G`, `T → V`. Resultado: `OGGV`.",
+          "Somando 3 só na primeira letra: `PEET`."],
+      exp: "Exemplo da Seção 3.7 (aplicações em criptografia). Para decifrar usa-se `f⁻¹(p) = (p − 3) mod 26`.",
+      dica: "Conte 3 letras para frente no alfabeto." }
+  ]
+});
+
+// Rosen, Cap. 4 · Indução e Recursão (Seções 4.1–4.5)
+capitulo("rosen", {
+  num: 4, nome: "Indução e Recursão", secoes: "4.1–4.5",
+  desc: "Indução matemática, indução forte, boa ordenação, definições recursivas, indução estrutural e algoritmos recursivos.",
+  qs: [
+    { t: "T", sec: "4.1", q: "Qual é a forma correta do princípio da indução matemática (domínio `ℤ⁺`)?",
+      o: ["`[P(1) ∧ ∀k (P(k) → P(k + 1))] → ∀n P(n)`",
+          "`[P(1) ∧ ∀k P(k)] → ∀n P(n + 1)`",
+          "`[P(1) ∧ P(2)] → ∀n P(n)`",
+          "`[∀k (P(k) → P(k + 1))] → ∀n P(n)`"],
+      exp: "Sem o passo base (última opção) a implicação não basta: `P(n): n > n` satisfaz `P(k) → P(k+1)` por vacuidade e é sempre falsa. A segunda assume o que se quer provar.",
+      dica: "Base + passo." },
+    { t: "T", sec: "4.1", q: "No passo indutivo, o que significa a hipótese de indução?",
+      o: ["Supor `P(k)` para um `k` arbitrário fixado e provar `P(k + 1)`; não é supor `∀k P(k)`.",
+          "Supor que `P(n)` vale para todo `n`, que é o que se quer provar.",
+          "Verificar `P(k)` numericamente para vários `k`.",
+          "Supor `P(k + 1)` e deduzir `P(k)`."],
+      exp: "Supor `∀n P(n)` seria raciocínio circular. O passo prova o condicional `P(k) → P(k+1)` para todo `k`.",
+      dica: "É um condicional para um `k` genérico." },
+    { t: "T", sec: "4.2", q: "Na indução forte, a hipótese indutiva é:",
+      o: ["`P(1) ∧ P(2) ∧ ⋯ ∧ P(k)`, e mostra-se `P(k + 1)`.",
+          "Apenas `P(k)`, como na indução comum.",
+          "`P(k + 1)`, e mostra-se `P(k)`.",
+          "`P(2k)`, e mostra-se `P(k)`."],
+      exp: "Útil quando `P(k + 1)` depende de casos anteriores além de `k`, como na fatoração em primos. Indução forte, comum e o princípio da boa ordenação são equivalentes.",
+      dica: "Você pode usar todos os casos anteriores." },
+    { t: "T", sec: "4.2", q: "O princípio da boa ordenação afirma que:",
+      o: ["Todo subconjunto não vazio de inteiros não negativos tem um menor elemento.",
+          "Todo subconjunto de `ℤ` tem um menor elemento.",
+          "Todo subconjunto não vazio de `ℚ⁺` tem um menor elemento.",
+          "Todo conjunto finito de inteiros tem um maior elemento."],
+      exp: "`ℤ` não tem menor elemento, nem `{1/n : n ∈ ℤ⁺} ⊆ ℚ⁺`. O princípio é o que justifica a indução e o algoritmo da divisão.",
+      dica: "Em `ℕ` não se desce para sempre." },
+    { t: "T", sec: "4.1", q: "Na “prova” de que todos os cavalos têm a mesma cor, onde está o erro?",
+      o: ["O passo `P(k) → P(k + 1)` falha para `k = 1`: os conjuntos dos `k` primeiros e dos `k` últimos cavalos não se intersectam quando `k + 1 = 2`.",
+          "O passo base `P(1)` é falso.",
+          "A indução não vale para conjuntos de cavalos, só para números.",
+          "O erro é usar indução forte em vez de indução comum."],
+      exp: "O argumento usa um cavalo comum aos dois grupos de `k` para transferir a cor. Com 2 cavalos, os grupos `{1}` e `{2}` não têm cavalo comum.",
+      dica: "Teste o passo de 1 para 2." },
+    { t: "T", sec: "4.3", q: "Para provar por indução estrutural uma propriedade de todos os elementos de um conjunto definido recursivamente, deve-se:",
+      o: ["Provar a propriedade para os elementos do passo base e mostrar que, se vale para os elementos usados na regra recursiva, vale para o novo elemento.",
+          "Provar para os elementos de tamanho 1 e 2.",
+          "Mostrar que o conjunto é finito.",
+          "Provar só a regra recursiva, pois o passo base é sempre trivial."],
+      exp: "A indução estrutural segue a forma da definição: base e regra recursiva. É usada, por exemplo, para árvores binárias cheias: `n(T) ≤ 2^(h(T)+1) − 1`.",
+      dica: "Siga a própria definição recursiva." },
+
+    { t: "E", sec: "4.1", q: "Prove `1 + 2 + ⋯ + n = n(n + 1)/2`. Como é o passo indutivo?",
+      o: ["Supondo `1 + ⋯ + k = k(k+1)/2`, soma-se `k + 1`: `k(k+1)/2 + (k+1) = (k+1)(k+2)/2`, que é `P(k + 1)`.",
+          "Supondo `P(k + 1)`, subtrai-se `k + 1` e chega-se a `P(k)`, o que fecha a indução.",
+          "Verifica-se `n = 1, 2, 3`, e como a fórmula vale, vale para todos.",
+          "Supondo `P(k)`, soma-se `k`: `k(k+1)/2 + k = k(k+3)/2`, que é `P(k + 1)`."],
+      exp: "Base: `1 = 1·2/2`. Passo: fatorar `(k+1)` dá `(k+1)(k/2 + 1) = (k+1)(k+2)/2`. A segunda inverte a direção do passo.",
+      dica: "O próximo termo da soma é `k + 1`." },
+    { t: "E", sec: "4.1", q: "Prove que `n³ − n` é divisível por 3 para todo `n ∈ ℤ⁺`.",
+      o: ["Base: `1 − 1 = 0`. Passo: `(k+1)³ − (k+1) = (k³ − k) + 3(k² + k)`; o primeiro termo é divisível por 3 pela HI e o segundo é múltiplo de 3.",
+          "Base: `n = 1`. Passo: `(k+1)³ − (k+1) = k³ + 1 − k − 1 = k³ − k`, divisível por 3 pela HI.",
+          "Como `n³ − n = n(n−1)(n+1)`, basta testar `n = 1, 2, 3`.",
+          "Base: `n = 2` dá 6. Passo: `(k+1)³ − (k+1) = 3k³`, múltiplo de 3."],
+      exp: "Exemplo da Seção 4.1. A segunda erra ao expandir `(k+1)³ = k³ + 3k² + 3k + 1`.",
+      dica: "Expanda `(k+1)³` corretamente." },
+    { t: "E", sec: "4.1", q: "Prove `2ⁿ < n!` para todo inteiro `n ≥ 4`.",
+      o: ["Base: `2⁴ = 16 < 24 = 4!`. Passo: `2^(k+1) = 2·2ᵏ < 2·k! < (k+1)·k! = (k+1)!`, pois `2 < k + 1` para `k ≥ 4`.",
+          "Base: `n = 1`: `2 < 1`. Passo como de costume.",
+          "Base: `2⁴ < 4!`. Passo: `2^(k+1) = 2ᵏ + 2 < k! + 2 < (k+1)!`.",
+          "Como `n!` cresce mais rápido que `2ⁿ`, vale para todo `n`."],
+      exp: "Exemplo da Seção 4.1. A base precisa ser `n = 4` (para `n = 1, 2, 3` a desigualdade é falsa). `2^(k+1) = 2·2ᵏ`, não `2ᵏ + 2`.",
+      dica: "`2^(k+1) = 2·2ᵏ`." },
+    { t: "E", sec: "4.2", q: "Prove que todo valor de postagem de `n ≥ 12` centavos pode ser formado com selos de 4 e 5 centavos.",
+      o: ["Indução forte. Bases: `12 = 4+4+4`, `13 = 4+4+5`, `14 = 4+5+5`, `15 = 5+5+5`. Passo (`k ≥ 15`): `k + 1 − 4 = k − 3 ≥ 12` tem solução pela HI; some um selo de 4.",
+          "Indução comum com base 12. Passo: troque um selo de 4 por um de 5.",
+          "Basta mostrar 12 e 13; o resto segue somando 1 centavo.",
+          "Indução forte com base `n = 12` somente. Passo: use `P(k − 3)`."],
+      exp: "Exemplo da Seção 4.2. Com uma só base, `P(k − 3)` não estaria coberto para `k = 13, 14, 15`. A troca de selo da segunda alternativa precisa de casos (pode não haver selo de 4).",
+      dica: "Saltos de 4 exigem 4 casos base." },
+
+    { t: "X", sec: "4.1", q: "Prove que a soma dos `n` primeiros ímpares é `n²`.",
+      o: ["Base: `1 = 1²`. Passo: `1 + 3 + ⋯ + (2k−1) + (2k+1) = k² + 2k + 1 = (k+1)²`.",
+          "Base: `1 = 1²`. Passo: somar `2k − 1` à HI: `k² + 2k − 1`.",
+          "Passo: `(k+1)² − k² = 2k + 1`, logo vale. Não precisa de base.",
+          "Base: `n = 0`, `0 = 0²`. Passo: `k² + (2k + 3) = (k+1)² + 2`."],
+      exp: "O `(k+1)`-ésimo ímpar é `2(k+1) − 1 = 2k + 1`.",
+      dica: "Qual é o `(k+1)`-ésimo número ímpar?" },
+    { t: "X", sec: "4.3", q: "Se `f(0) = 3` e `f(n + 1) = 2f(n) + 3`, quanto valem `f(1)`, `f(2)`, `f(3)`, `f(4)`?",
+      o: ["`f(1) = 2·3 + 3 = 9`, `f(2) = 21`, `f(3) = 45`, `f(4) = 93`.",
+          "`f(1) = 6`, `f(2) = 12`, `f(3) = 24`, `f(4) = 48`.",
+          "`f(1) = 9`, `f(2) = 18`, `f(3) = 36`, `f(4) = 72`.",
+          "`f(1) = 9`, `f(2) = 21`, `f(3) = 45`, `f(4) = 90`."],
+      exp: "Exemplo da Seção 4.3. Em forma fechada: `f(n) = 6·2ⁿ − 3`.",
+      dica: "Dobra e soma 3." },
+    { t: "X", sec: "4.4", q: "O algoritmo recursivo `potência(a, n)`: se `n = 0` retorna 1; senão retorna `a · potência(a, n − 1)`. Como provar que ele calcula `aⁿ`?",
+      o: ["Indução em `n`: base `n = 0` retorna `1 = a⁰`; se `potência(a, k) = aᵏ`, então `potência(a, k+1) = a·aᵏ = a^(k+1)`.",
+          "Testar o algoritmo para `n = 0, 1, 2`.",
+          "Indução em `a`: base `a = 0` retorna 0.",
+          "Mostrar que ele termina; terminar implica estar correto."],
+      exp: "Exemplo da Seção 4.4: a correção de algoritmos recursivos se prova por indução. Terminação não garante resultado correto.",
+      dica: "A recursão está em `n`." }
+  ]
+});
+
+// Rosen, Cap. 5 · Contagem (Seções 5.1–5.6)
+capitulo("rosen", {
+  num: 5, nome: "Contagem", secoes: "5.1–5.6",
+  desc: "Regras do produto e da soma, casas de pombo, permutações, combinações, coeficientes binomiais e repetições.",
+  qs: [
+    { t: "T", sec: "5.1", q: "Quando usar a regra do produto em vez da regra da soma?",
+      o: ["Produto: a tarefa é uma sequência de etapas (`n₁` maneiras e depois `n₂`). Soma: a tarefa é feita de um modo OU de outro, sendo os modos disjuntos.",
+          "Produto quando os conjuntos são disjuntos; soma quando não são.",
+          "Produto quando a ordem não importa; soma quando importa.",
+          "São intercambiáveis; o resultado é o mesmo."],
+      exp: "Regra do produto: `|A₁ × A₂| = |A₁|·|A₂|`. Regra da soma: `|A₁ ∪ A₂| = |A₁| + |A₂|` se `A₁ ∩ A₂ = ∅`; se não forem disjuntos, usa-se a regra da subtração (inclusão-exclusão).",
+      dica: "“E depois” vs. “ou”." },
+    { t: "T", sec: "5.2", q: "O princípio das casas de pombo generalizado afirma que, se `N` objetos são colocados em `k` caixas:",
+      o: ["Alguma caixa contém pelo menos `⌈N/k⌉` objetos.",
+          "Alguma caixa contém pelo menos `⌊N/k⌋ + 1` objetos.",
+          "Toda caixa contém pelo menos `⌊N/k⌋` objetos.",
+          "Alguma caixa contém exatamente `N/k` objetos."],
+      exp: "Se todas tivessem no máximo `⌈N/k⌉ − 1` objetos, o total seria `≤ k(⌈N/k⌉ − 1) < k(N/k + 1 − 1) = N`, contradição. A segunda falha quando `k | N` (ex.: `N = 4`, `k = 2`).",
+      dica: "Use teto, e teste `N` múltiplo de `k`." },
+    { t: "T", sec: "5.3", q: "Qual é a justificativa combinatória de `C(n, r) = C(n, n − r)`?",
+      o: ["Escolher os `r` elementos que entram equivale a escolher os `n − r` que ficam de fora: há uma bijeção entre os dois tipos de subconjunto.",
+          "Porque `n!/(r!(n−r)!)` é simétrico em `n` e `r`.",
+          "Porque ordenar `r` elementos é o mesmo que ordenar `n − r`.",
+          "Vale só quando `r = n/2`."],
+      exp: "Prova combinatória: contar o mesmo conjunto de duas formas, ou exibir uma bijeção (complemento). A fórmula é simétrica em `r` e `n − r`, não em `n` e `r`.",
+      dica: "Complemento de um subconjunto." },
+    { t: "T", sec: "5.4", q: "Qual é a identidade de Pascal?",
+      o: ["`C(n + 1, k) = C(n, k − 1) + C(n, k)`, para `1 ≤ k ≤ n`.",
+          "`C(n + 1, k) = C(n, k) · C(n, k − 1)`.",
+          "`C(n, k) = C(n − 1, k − 1) − C(n − 1, k)`.",
+          "`C(n + 1, k + 1) = C(n, k) + 1`."],
+      exp: "Fixe um elemento `a` de um conjunto com `n + 1` elementos: os `k`-subconjuntos que contêm `a` são `C(n, k−1)`; os que não contêm são `C(n, k)`.",
+      dica: "O subconjunto contém ou não um elemento fixo." },
+    { t: "T", sec: "5.5", q: "Quantas `r`-combinações com repetição podem ser formadas de um conjunto com `n` elementos?",
+      o: ["`C(n + r − 1, r)`, pelo método de estrelas e barras (`r` estrelas e `n − 1` barras).",
+          "`nʳ`", "`C(n, r)`", "`P(n + r, r)`"],
+      exp: "`nʳ` conta sequências ordenadas com repetição. Com repetição e sem ordem, distribuem-se `r` estrelas entre `n` tipos separados por `n − 1` barras.",
+      dica: "Estrelas e barras." },
+    { t: "T", sec: "5.5", q: "O número de permutações de `n` objetos com `n₁` indistinguíveis do tipo 1, …, `nₖ` do tipo `k` é:",
+      o: ["`n!/(n₁! n₂! ⋯ nₖ!)`", "`n!`", "`n!/k!`", "`C(n, k)`"],
+      exp: "Escolhem-se as posições do tipo 1 (`C(n, n₁)`), depois do tipo 2 entre as restantes, e assim por diante; o produto simplifica para o coeficiente multinomial.",
+      dica: "Divida pelas permutações internas de cada tipo." },
+
+    { t: "E", sec: "5.2", q: "Qual o número mínimo de estudantes para garantir que pelo menos 6 recebam a mesma nota, havendo 5 notas possíveis (A, B, C, D, F)?",
+      o: ["Queremos o menor `N` com `⌈N/5⌉ = 6`, isto é, `N = 5·5 + 1 = 26`.",
+          "`6·5 = 30`, para cada nota ter 6 alunos.",
+          "`5 + 6 = 11`.",
+          "`⌈6/5⌉ = 2`."],
+      exp: "Exemplo da Seção 5.2. Com 25, pode haver exatamente 5 de cada nota.",
+      dica: "Com 25 alunos dá para ter 5 em cada nota." },
+    { t: "E", sec: "5.5", q: "Quantas cadeias distintas podem ser formadas com as letras de `SUCCESS`?",
+      o: ["7 letras: S×3, C×2, U×1, E×1. Resultado: `7!/(3!·2!·1!·1!) = 5040/12 = 420`.",
+          "Todas as letras em ordem: `7! = 5040`.",
+          "Só as letras distintas S, U, C, E: `4! = 24`.",
+          "`7!/(3!·2!) · 2 = 840`, multiplicando pelas trocas entre U e E."],
+      exp: "Exemplo da Seção 5.5. U e E são distintas, então suas trocas já estão em `7!`.",
+      dica: "Conte as repetições de cada letra." },
+    { t: "E", sec: "5.5", q: "Quantas soluções inteiras não negativas tem `x₁ + x₂ + x₃ = 11`?",
+      o: ["Escolher 11 itens de 3 tipos com repetição: `C(3 + 11 − 1, 11) = C(13, 11) = C(13, 2) = 78`.",
+          "`C(11, 3) = 165`.",
+          "`3¹¹`.",
+          "`C(13, 3) = 286`."],
+      exp: "Exemplo da Seção 5.5: 11 estrelas e 2 barras, `C(13, 2) = 78`.",
+      dica: "Estrelas e barras com 2 barras." },
+    { t: "E", sec: "5.4", q: "Qual é o coeficiente de `x¹²y¹³` em `(2x − 3y)²⁵`?",
+      o: ["Pelo teorema binomial com `a = 2x`, `b = −3y`, `j = 13`: `C(25, 13)·2¹²·(−3)¹³ = −(25!/(13!·12!))·2¹²·3¹³`.",
+          "`C(25, 12)·2¹²·3¹³`, positivo.",
+          "`C(25, 13)`.",
+          "`C(25, 13)·2¹³·(−3)¹²`."],
+      exp: "Exemplo da Seção 5.4. O termo geral é `C(25, j)(2x)^(25−j)(−3y)ʲ`; com `j = 13` o sinal é negativo (expoente ímpar). `C(25, 12) = C(25, 13)`, mas a segunda erra o sinal.",
+      dica: "Expoente ímpar em `−3`." },
+
+    { t: "X", sec: "5.1", q: "Quantas cadeias de bits de comprimento 8 começam com `1` ou terminam com `00`?",
+      o: ["Começam com 1: `2⁷ = 128`. Terminam com 00: `2⁶ = 64`. Ambos: `2⁵ = 32`. Regra da subtração: `128 + 64 − 32 = 160`.",
+          "`128 + 64 = 192`.",
+          "`2⁸ − 32 = 224`.",
+          "`128 · 64 = 8192`."],
+      exp: "Exemplo da Seção 5.1. Sem descontar a interseção, as cadeias que começam com 1 e terminam com 00 seriam contadas duas vezes.",
+      dica: "Inclusão-exclusão com dois conjuntos." },
+    { t: "X", sec: "5.3", q: "Quantas comissões com 3 professores de Matemática (de 9) e 4 de Computação (de 11) podem ser formadas?",
+      o: ["Regra do produto de combinações: `C(9, 3)·C(11, 4) = 84·330 = 27720`.",
+          "`C(20, 7) = 77520`.",
+          "`P(9, 3)·P(11, 4) = 504·7920`.",
+          "`C(9, 3) + C(11, 4) = 414`."],
+      exp: "Exemplo da Seção 5.3. As escolhas são independentes (produto) e sem ordem (combinações).",
+      dica: "Escolha um grupo E depois o outro." },
+    { t: "X", sec: "5.3", q: "Quantas mãos de pôquer (5 cartas) podem ser distribuídas de um baralho de 52 cartas?",
+      o: ["A ordem não importa: `C(52, 5) = 52·51·50·49·48/5! = 2598960`.",
+          "`P(52, 5) = 311875200`.",
+          "`52⁵`.",
+          "`C(52, 5)·5! = 311875200`."],
+      exp: "Exemplo da Seção 5.3. `P(52, 5)` conta a ordem em que as cartas foram recebidas.",
+      dica: "Uma mão é um conjunto de cartas." },
+    { t: "X", sec: "5.5", q: "De quantas maneiras escolher 4 frutas de uma cesta com maçãs, laranjas e peras (pelo menos 4 de cada, frutas do mesmo tipo indistinguíveis)?",
+      o: ["Combinação com repetição, `n = 3`, `r = 4`: `C(3 + 4 − 1, 4) = C(6, 4) = 15`.",
+          "`3⁴ = 81`.",
+          "`C(3, 4) = 0`, pois `4 > 3`.",
+          "`C(12, 4) = 495`, considerando 12 frutas."],
+      exp: "Exemplo da Seção 5.5. Frutas iguais são indistinguíveis e a ordem não importa.",
+      dica: "Repetição permitida, ordem irrelevante." }
+  ]
+});
+
+// Rosen, Cap. 6 · Probabilidade Discreta (Seções 6.1–6.4)
+capitulo("rosen", {
+  num: 6, nome: "Probabilidade Discreta", secoes: "6.1–6.4",
+  desc: "Probabilidade de Laplace, complemento, condicional, independência, Bernoulli, Bayes, esperança e variância.",
+  qs: [
+    { t: "T", sec: "6.1", q: "Na definição de Laplace, a probabilidade de um evento `E` em um espaço amostral finito `S` é `|E|/|S|`. Qual hipótese é essencial?",
+      o: ["Todos os resultados de `S` são igualmente prováveis.", "`E` e `S` são disjuntos.", "`S` é infinito.", "`E` tem pelo menos dois elementos."],
+      exp: "Sem equiprobabilidade, usa-se a definição geral: `p(E) = ∑_{s ∈ E} p(s)`.",
+      dica: "Resultados com a mesma chance." },
+    { t: "T", sec: "6.2", q: "Dois eventos `E` e `F` são independentes quando:",
+      o: ["`p(E ∩ F) = p(E)·p(F)`.", "`E ∩ F = ∅`.", "`p(E ∪ F) = p(E) + p(F)`.", "`p(E | F) = p(F | E)`."],
+      exp: "Independência ≠ disjunção. Eventos disjuntos com probabilidade positiva são dependentes: se `E` ocorre, `F` certamente não ocorre.",
+      dica: "Saber que `F` ocorreu não muda a chance de `E`." },
+    { t: "T", sec: "6.3", q: "O teorema de Bayes afirma que `p(F | E)` é igual a:",
+      o: ["`p(E | F)p(F) / [p(E | F)p(F) + p(E | F̄)p(F̄)]`", "`p(E | F)`", "`p(E)p(F)`", "`p(E | F)p(E) / p(F)`"],
+      exp: "Numerador: `p(E ∩ F)`. Denominador: `p(E)` pela lei da probabilidade total sobre `F` e `F̄`.",
+      dica: "Inverte o condicionamento usando probabilidade total." },
+    { t: "T", sec: "6.4", q: "Sobre esperança e variância de variáveis aleatórias `X` e `Y`:",
+      o: ["`E(X + Y) = E(X) + E(Y)` sempre; `V(X + Y) = V(X) + V(Y)` exige, por exemplo, independência.",
+          "Ambas as igualdades exigem independência.",
+          "Ambas valem sempre.",
+          "`E(XY) = E(X)E(Y)` vale sempre."],
+      exp: "A linearidade da esperança não exige independência. `E(XY) = E(X)E(Y)` e a aditividade da variância valem para independentes (o Teorema de Bienaymé no Rosen).",
+      dica: "A linearidade da esperança é incondicional." },
+    { t: "T", sec: "6.2", q: "Em `n` ensaios de Bernoulli independentes com probabilidade de sucesso `p`, a probabilidade de exatamente `k` sucessos é:",
+      o: ["`C(n, k) pᵏ (1 − p)^(n−k)`", "`pᵏ (1 − p)^(n−k)`", "`C(n, k) pᵏ`", "`k/n`"],
+      exp: "Cada sequência com `k` sucessos tem probabilidade `pᵏqⁿ⁻ᵏ`, e há `C(n, k)` dessas sequências.",
+      dica: "Quantas sequências têm `k` sucessos?" },
+
+    { t: "E", sec: "6.1", q: "Qual a probabilidade de a soma de dois dados ser 7?",
+      o: ["Espaço com 36 pares equiprováveis; somam 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1). Resultado: `6/36 = 1/6`.",
+          "Somas possíveis: 2 a 12, são 11 valores, logo `1/11`.",
+          "Pares não ordenados que somam 7: {1,6}, {2,5}, {3,4}; logo `3/21 = 1/7`.",
+          "`1/6 · 1/6 = 1/36`."],
+      exp: "Exemplo da Seção 6.1. As somas 2 a 12 não são equiprováveis, nem os pares não ordenados.",
+      dica: "Os resultados equiprováveis são pares ordenados." },
+    { t: "E", sec: "6.2", q: "Uma cadeia de 4 bits é gerada ao acaso. Qual a probabilidade de conter dois 0s consecutivos, dado que o primeiro bit é 0?",
+      o: ["`F`: primeiro bit 0, `|F| = 8`. Em `F`, contêm `00`: 0000, 0001, 0010, 0011, 0100, 5 cadeias. `p(E | F) = 5/8`.",
+          "`E` tem 8 cadeias de 16, logo `p(E) = 1/2`.",
+          "`p(E | F) = p(E)·p(F) = (8/16)(8/16) = 1/4`.",
+          "Cadeias com `00` e primeiro bit 0: 4. Resultado: `4/8 = 1/2`."],
+      exp: "Exemplo da Seção 6.2: `p(E | F) = p(E ∩ F)/p(F) = (5/16)/(8/16) = 5/8`. A terceira assume independência sem justificar.",
+      dica: "Liste as 8 cadeias que começam com 0." },
+    { t: "E", sec: "6.3", q: "Uma doença atinge 1 em 100.000 pessoas. O teste dá positivo para 99% dos doentes e para 0,5% dos sadios. Dado um positivo, qual a chance de a pessoa estar doente?",
+      o: ["Bayes: `0,99·0,00001 / (0,99·0,00001 + 0,005·0,99999) ≈ 0,002`. Só cerca de 0,2%.",
+          "A sensibilidade é 99%, logo a chance é 0,99.",
+          "`1 − 0,005 = 0,995`.",
+          "`0,99 · 0,00001 ≈ 0,00001`."],
+      exp: "Exemplo da Seção 6.3: como a doença é rara, quase todos os positivos são falsos positivos.",
+      dica: "Compare doentes positivos com sadios positivos." },
+    { t: "E", sec: "6.4", q: "Qual o valor esperado da soma de dois dados honestos?",
+      o: ["Por linearidade: `E(X₁ + X₂) = E(X₁) + E(X₂) = 7/2 + 7/2 = 7`.",
+          "A soma mais frequente é 7, mas a esperança é `(2 + 12)/2 = 7` só por coincidência; o valor certo é `6`.",
+          "`E = 7/2`, pois é a média de um dado.",
+          "`E = (7/2)² = 49/4`."],
+      exp: "Exemplo da Seção 6.4. Cada dado tem esperança `(1 + ⋯ + 6)/6 = 7/2`.",
+      dica: "Use linearidade." },
+
+    { t: "X", sec: "6.2", q: "Uma moeda viciada dá cara com probabilidade `2/3`. Qual a probabilidade de exatamente 4 caras em 7 lançamentos?",
+      o: ["Binomial: `C(7, 4)(2/3)⁴(1/3)³ = 35·16/2187 = 560/2187 ≈ 0,256`.",
+          "`(2/3)⁴(1/3)³ = 16/2187`.",
+          "`4/7`.",
+          "`C(7, 4)(1/2)⁷ = 35/128`."],
+      exp: "Exemplo da Seção 6.2. A terceira alternativa trata a moeda como honesta.",
+      dica: "Lembre do fator `C(n, k)`." },
+    { t: "X", sec: "6.1", q: "Qual a probabilidade de, entre `n` pessoas, pelo menos duas fazerem aniversário no mesmo dia (366 dias equiprováveis)? Quando passa de 1/2?",
+      o: ["`1 − (365/366)(364/366)⋯((367 − n)/366)`; passa de 1/2 a partir de `n = 23`.",
+          "`n/366`; passa de 1/2 com `n = 183`.",
+          "`1 − (365/366)ⁿ`; passa de 1/2 com `n = 254`.",
+          "`C(n, 2)/366`; passa de 1/2 com `n = 20`."],
+      exp: "Problema do aniversário (Seção 6.2): calcula-se o complemento (todos distintos). O número surpreendentemente pequeno é 23.",
+      dica: "Use o complemento: todos diferentes." },
+    { t: "X", sec: "6.4", q: "Qual a variância do número de caras em `n` lançamentos de uma moeda com probabilidade `p` de cara?",
+      o: ["Soma de `n` indicadoras independentes, cada uma com variância `p(1 − p)`. Resultado: `np(1 − p)`.",
+          "`np`.", "`n²p(1 − p)`.", "`p(1 − p)`."],
+      exp: "Teorema de Bienaymé: variâncias de independentes somam. `V(Xᵢ) = E(Xᵢ²) − E(Xᵢ)² = p − p²`.",
+      dica: "Variância de uma indicadora: `p − p²`." }
+  ]
+});
+
+// Rosen, Cap. 7 · Técnicas Avançadas de Contagem (Seções 7.1–7.6)
+capitulo("rosen", {
+  num: 7, nome: "Técnicas Avançadas de Contagem", secoes: "7.1–7.6",
+  desc: "Relações de recorrência, recorrências lineares, dividir para conquistar, funções geradoras e inclusão-exclusão.",
+  qs: [
+    { t: "T", sec: "7.2", q: "Para `aₙ = c₁aₙ₋₁ + c₂aₙ₋₂` com raízes características distintas `r₁ ≠ r₂`, a solução geral é:",
+      o: ["`aₙ = α₁r₁ⁿ + α₂r₂ⁿ`, com `α₁, α₂` determinados pelas condições iniciais.",
+          "`aₙ = (α₁ + α₂n) r₁ⁿ`.",
+          "`aₙ = r₁ⁿ + r₂ⁿ`, sem constantes.",
+          "`aₙ = α r₁ⁿ r₂ⁿ`."],
+      exp: "A equação característica é `r² − c₁r − c₂ = 0`. A forma `(α₁ + α₂n)r₀ⁿ` é para raiz dupla `r₀`.",
+      dica: "Uma potência por raiz." },
+    { t: "T", sec: "7.2", q: "Se a equação característica de uma recorrência linear homogênea de ordem 2 tem raiz dupla `r₀`, a solução geral é:",
+      o: ["`aₙ = α₁r₀ⁿ + α₂ n r₀ⁿ`", "`aₙ = α₁r₀ⁿ + α₂r₀ⁿ`", "`aₙ = α r₀^(2n)`", "`aₙ = α₁r₀ⁿ + α₂ n²`"],
+      exp: "`α₁r₀ⁿ + α₂r₀ⁿ = (α₁ + α₂)r₀ⁿ` tem só uma constante livre e não acomoda duas condições iniciais.",
+      dica: "Precisa de duas soluções independentes." },
+    { t: "T", sec: "7.3", q: "Pelo teorema mestre, se `f(n) = a f(n/b) + cnᵈ` com `a ≥ 1`, `b > 1`, qual é a ordem quando `a = bᵈ`?",
+      o: ["`O(nᵈ log n)`", "`O(nᵈ)`", "`O(n^(log_b a))` com `a < bᵈ`", "`O(log n)` sempre"],
+      exp: "Casos: `a < bᵈ` → `O(nᵈ)`; `a = bᵈ` → `O(nᵈ log n)`; `a > bᵈ` → `O(n^(log_b a))`. Mergesort: `a = 2`, `b = 2`, `d = 1` → `O(n log n)`.",
+      dica: "Pense no mergesort." },
+    { t: "T", sec: "7.5", q: "O princípio da inclusão-exclusão para três conjuntos é:",
+      o: ["`|A ∪ B ∪ C| = |A| + |B| + |C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|`",
+          "`|A ∪ B ∪ C| = |A| + |B| + |C| − |A∩B∩C|`",
+          "`|A ∪ B ∪ C| = |A| + |B| + |C| − |A∩B| − |A∩C| − |B∩C|`",
+          "`|A ∪ B ∪ C| = |A|·|B|·|C|`"],
+      exp: "Elementos em três conjuntos são somados 3 vezes, subtraídos 3 vezes e somados 1 vez: total 1, como deve ser.",
+      dica: "Alterne sinais pelo tamanho das interseções." },
+    { t: "T", sec: "7.4", q: "A função geradora da sequência `aₖ = 1` para todo `k ≥ 0` é:",
+      o: ["`1/(1 − x)`, válida para `|x| < 1`.", "`1/(1 + x)`", "`eˣ`", "`(1 + x)ⁿ`"],
+      exp: "`∑ xᵏ = 1/(1 − x)`. `(1 + x)ⁿ` gera `C(n, k)`; `1/(1 + x)` gera `(−1)ᵏ`.",
+      dica: "Série geométrica." },
+
+    { t: "E", sec: "7.2", q: "Resolva `aₙ = aₙ₋₁ + 2aₙ₋₂`, com `a₀ = 2`, `a₁ = 7`.",
+      o: ["`r² − r − 2 = 0` → `r = 2, −1`. `aₙ = α₁2ⁿ + α₂(−1)ⁿ`; `α₁ + α₂ = 2`, `2α₁ − α₂ = 7` → `α₁ = 3`, `α₂ = −1`. Resultado: `aₙ = 3·2ⁿ − (−1)ⁿ`.",
+          "`r² − r − 2 = 0` → `r = −2, 1`. Resultado: `aₙ = 3(−2)ⁿ − 1`.",
+          "`r² + r + 2 = 0` não tem raízes reais; a recorrência não tem solução fechada.",
+          "`r = 2, −1`; `α₁ = 2`, `α₂ = 7`. Resultado: `aₙ = 2·2ⁿ + 7(−1)ⁿ`."],
+      exp: "Exemplo da Seção 7.2. Confira: `a₂ = 7 + 4 = 11` e `3·4 − 1 = 11`.",
+      dica: "Fatore `r² − r − 2`." },
+    { t: "E", sec: "7.1", q: "Na Torre de Hanói, `Hₙ = 2Hₙ₋₁ + 1`, `H₁ = 1`. Qual é `Hₙ`?",
+      o: ["Iterando: `Hₙ = 2ⁿ⁻¹ + 2ⁿ⁻² + ⋯ + 2 + 1 = 2ⁿ − 1`.",
+          "`Hₙ = 2ⁿ`.",
+          "`Hₙ = 2n − 1`.",
+          "`Hₙ = n²`."],
+      exp: "Exemplo da Seção 7.1: move `n − 1` discos, o maior, e os `n − 1` de novo. Para 64 discos: `2⁶⁴ − 1` movimentos.",
+      dica: "Expanda a recorrência e some a PG." },
+    { t: "E", sec: "7.5", q: "Quantos inteiros positivos `≤ 1000` são divisíveis por 7 ou por 11?",
+      o: ["`⌊1000/7⌋ + ⌊1000/11⌋ − ⌊1000/77⌋ = 142 + 90 − 12 = 220`.",
+          "`142 + 90 = 232`.",
+          "`1000/7 + 1000/11 ≈ 233`.",
+          "`1000 − 220 = 780`."],
+      exp: "Exemplo da Seção 7.5. Divisíveis por 7 e 11 = divisíveis por `mmc(7, 11) = 77`.",
+      dica: "Desconte os múltiplos de 77." },
+    { t: "E", sec: "7.6", q: "Quantas funções sobrejetoras existem de um conjunto com 6 elementos em um com 3?",
+      o: ["Inclusão-exclusão: `3⁶ − C(3,1)2⁶ + C(3,2)1⁶ = 729 − 192 + 3 = 540`.",
+          "`3⁶ = 729`.",
+          "`P(6, 3) = 120`.",
+          "`3⁶ − 3·2⁶ = 537`."],
+      exp: "Exemplo da Seção 7.6. Subtraem-se as que omitem algum elemento do contradomínio, somando as que omitem dois.",
+      dica: "Descontar as que deixam algum valor sem pré-imagem." },
+
+    { t: "X", sec: "7.2", q: "Resolva `aₙ = 6aₙ₋₁ − 9aₙ₋₂`, `a₀ = 1`, `a₁ = 6`.",
+      o: ["`r² − 6r + 9 = (r − 3)² = 0`, raiz dupla 3. `aₙ = (α₁ + α₂n)3ⁿ`; `α₁ = 1`, `3(1 + α₂) = 6` → `α₂ = 1`. Resultado: `aₙ = 3ⁿ + n3ⁿ`.",
+          "Raiz dupla 3. `aₙ = α3ⁿ`, `α = 1`. Resultado: `aₙ = 3ⁿ` (mas `a₁ = 3 ≠ 6`).",
+          "Raízes 3 e −3. Resultado: `aₙ = (3ⁿ + (−3)ⁿ)/2 + 3ⁿ`.",
+          "Raiz dupla 3. `α₁ = 1`, `α₂ = 6`. Resultado: `aₙ = 3ⁿ + 6n3ⁿ`."],
+      exp: "Exemplo da Seção 7.2. Confira `a₂ = 36 − 9 = 27` e `9 + 2·9 = 27`.",
+      dica: "Raiz dupla pede o fator `n`." },
+    { t: "X", sec: "7.6", q: "Quantos desarranjos (permutações sem ponto fixo) existem de 4 elementos?",
+      o: ["`D₄ = 4!(1 − 1/1! + 1/2! − 1/3! + 1/4!) = 24 − 24 + 12 − 4 + 1 = 9`.",
+          "`4! − 4 = 20`.",
+          "`3! = 6`.",
+          "`4!/e ≈ 8,83`, logo 8."],
+      exp: "Fórmula da Seção 7.6. `n!/e` arredondado ao inteiro mais próximo dá 9, não truncado.",
+      dica: "Inclusão-exclusão sobre os pontos fixos." },
+    { t: "X", sec: "7.3", q: "Na busca binária, `f(n) = f(n/2) + 2`. Qual é a ordem de `f`?",
+      o: ["Teorema mestre com `a = 1`, `b = 2`, `d = 0`: `a = bᵈ = 1`, logo `O(n⁰ log n) = O(log n)`.",
+          "`a = 1 < bᵈ`, logo `O(1)`.",
+          "`O(n)`, pois soma 2 a cada nível.",
+          "`O(n log n)`."],
+      exp: "Exemplo da Seção 7.3. São `log n` níveis, cada um com custo constante.",
+      dica: "`cnᵈ = 2` dá `d = 0`." }
+  ]
+});
+
+// Rosen, Cap. 8 · Relações (Seções 8.1–8.6)
+capitulo("rosen", {
+  num: 8, nome: "Relações", secoes: "8.1–8.6",
+  desc: "Propriedades de relações, relações n-árias, representação por matriz e grafo, fechos, equivalência e ordens parciais.",
+  qs: [
+    { t: "T", sec: "8.1", q: "Uma relação `R` em `A` é antissimétrica quando:",
+      o: ["`∀a ∀b ((a, b) ∈ R ∧ (b, a) ∈ R → a = b)`.",
+          "`∀a ∀b ((a, b) ∈ R → (b, a) ∉ R)`.",
+          "Não é simétrica.",
+          "`∀a ((a, a) ∉ R)`."],
+      exp: "A segunda é assimetria (proíbe também laços). Antissimetria permite `(a, a)`. Uma relação pode ser simétrica e antissimétrica ao mesmo tempo (ex.: a igualdade) ou nenhuma das duas.",
+      dica: "Ida e volta só com elementos iguais." },
+    { t: "T", sec: "8.1", q: "Quantas relações reflexivas existem em um conjunto com `n` elementos?",
+      o: ["`2^(n(n−1))`: os `n` pares `(a, a)` são obrigatórios e os `n² − n` restantes são livres.",
+          "`2^(n²)`.", "`2ⁿ`.", "`2^(n(n+1)/2)`."],
+      exp: "`2^(n²)` conta todas as relações. `2^(n(n+1)/2)` é o número de relações simétricas.",
+      dica: "Alguns pares são obrigatórios." },
+    { t: "T", sec: "8.5", q: "Qual é a relação entre relações de equivalência e partições?",
+      o: ["As classes de equivalência de `R` formam uma partição de `A`; reciprocamente, toda partição de `A` define uma relação de equivalência.",
+          "Toda relação reflexiva induz uma partição.",
+          "As classes de equivalência podem se sobrepor parcialmente.",
+          "Só relações em conjuntos finitos induzem partições."],
+      exp: "Teorema da Seção 8.5: `[a] = [b]` ou `[a] ∩ [b] = ∅`, e a união das classes é `A`.",
+      dica: "Classes nunca se sobrepõem parcialmente." },
+    { t: "T", sec: "8.6", q: "Um conjunto parcialmente ordenado (poset) `(S, ≼)` exige que `≼` seja:",
+      o: ["Reflexiva, antissimétrica e transitiva.", "Reflexiva, simétrica e transitiva.", "Irreflexiva e transitiva apenas.", "Total, ou seja, todo par é comparável."],
+      exp: "A segunda é equivalência. Ordem total (linear) é um caso particular em que todos os pares são comparáveis; em geral, não são (ex.: divisibilidade: 2 e 3).",
+      dica: "Pense em `⊆` ou em `|`." },
+    { t: "T", sec: "8.4", q: "O fecho transitivo `R*` de `R` é:",
+      o: ["A conectividade `⋃_{n≥1} Rⁿ`: `(a, b) ∈ R*` se há um caminho de `a` até `b` no grafo de `R`.",
+          "`R ∪ R⁻¹`.",
+          "`R ∪ Δ`, com `Δ` a diagonal.",
+          "`R²`."],
+      exp: "`R ∪ R⁻¹` é o fecho simétrico; `R ∪ Δ`, o reflexivo. Para `|A| = n`, basta `R ∪ R² ∪ ⋯ ∪ Rⁿ` (Warshall calcula em `O(n³)`).",
+      dica: "Caminhos de qualquer comprimento." },
+    { t: "T", sec: "8.3", q: "Se `M_R` é a matriz booleana de `R`, como se reconhece pela matriz que `R` é simétrica?",
+      o: ["`M_R = (M_R)ᵀ`.", "A diagonal é toda 1.", "`M_R ⊙ M_R = M_R`.", "`M_R ∧ (M_R)ᵀ` só tem 1 na diagonal."],
+      exp: "A diagonal toda 1 indica reflexividade. A última condição caracteriza antissimetria.",
+      dica: "Simetria em relação à diagonal." },
+
+    { t: "E", sec: "8.5", q: "Mostre que a congruência módulo `m` (`a R b ⇔ m | a − b`) é uma relação de equivalência em `ℤ`.",
+      o: ["Reflexiva: `m | 0`. Simétrica: `a − b = km ⇒ b − a = (−k)m`. Transitiva: `a − b = km`, `b − c = lm ⇒ a − c = (k + l)m`.",
+          "Reflexiva: `m | a`. Simétrica: `m | a ⇒ m | b`. Transitiva: segue da simétrica.",
+          "Reflexiva, antissimétrica e transitiva, como a divisibilidade.",
+          "Basta mostrar que é reflexiva e simétrica; a transitividade é consequência."],
+      exp: "Exemplo da Seção 8.5. A transitividade não decorre das outras duas (ex.: “estar a distância ≤ 1”).",
+      dica: "Use a definição `a − b = km`." },
+    { t: "E", sec: "8.4", q: "Encontre o fecho transitivo de `R = {(1,3), (1,4), (2,1), (3,2)}` em `{1, 2, 3, 4}`.",
+      o: ["Caminhos: `1→3→2→1`, então 1, 2, 3 alcançam todos de `{1,2,3,4}`; 4 não alcança ninguém. `R* = {(i, j) : i ∈ {1,2,3}, j ∈ {1,2,3,4}}`, 12 pares.",
+          "`R* = R ∪ {(1,2), (2,3), (3,1)}`.",
+          "`R* = R ∪ {(1,1), (2,2), (3,3), (4,4)}`.",
+          "`R* = A × A`."],
+      exp: "Exemplo da Seção 8.4. `(4, j)` nunca entra porque 4 não tem arestas de saída.",
+      dica: "Desenhe o grafo e veja o ciclo." },
+    { t: "E", sec: "8.6", q: "No poset `({2, 4, 5, 10, 12, 20, 25}, |)`, quais são os elementos maximais e minimais?",
+      o: ["Maximais: 12, 20, 25 (nada que os divida propriamente está acima). Minimais: 2, 5.",
+          "Maximal: 25 (o maior). Minimal: 2 (o menor).",
+          "Maximais: 20, 25. Minimais: 2, 4, 5.",
+          "Não há maximais, pois o poset não é total."],
+      exp: "Exemplo da Seção 8.6. 12 é maximal porque nenhum outro elemento do conjunto é múltiplo de 12. 4 não é minimal, pois `2 | 4`.",
+      dica: "Maximal ≠ maior; use a relação, não o tamanho." },
+
+    { t: "X", sec: "8.1", q: "Quais propriedades tem a relação “divide” em `ℤ⁺`?",
+      o: ["Reflexiva (`a | a`), antissimétrica (`a | b`, `b | a` ⇒ `a = b` em `ℤ⁺`) e transitiva; não é simétrica (`1 | 2`, `2 ∤ 1`).",
+          "Reflexiva, simétrica e transitiva.",
+          "Só transitiva.",
+          "Reflexiva e simétrica, mas não transitiva."],
+      exp: "Exemplo da Seção 8.1. Em `ℤ` (com negativos) não seria antissimétrica: `1 | −1` e `−1 | 1`.",
+      dica: "Teste `1` e `2`." },
+    { t: "X", sec: "8.1", q: "Quantas relações simétricas há em um conjunto com `n` elementos?",
+      o: ["Escolhem-se livremente os `n` pares diagonais e os `C(n, 2)` pares `{a, b}` não ordenados: `2^(n + n(n−1)/2) = 2^(n(n+1)/2)`.",
+          "`2^(n²)/2`.", "`2^(C(n, 2))`.", "`2ⁿ`."],
+      exp: "Em uma relação simétrica, `(a, b)` e `(b, a)` entram juntos, então só se decide uma vez por par não ordenado.",
+      dica: "Cada par fora da diagonal é decidido junto com seu espelho." },
+    { t: "X", sec: "8.5", q: "Quais são as classes de equivalência da congruência módulo 4 em `ℤ`?",
+      o: ["`[0] = {…, −4, 0, 4, 8, …}`, `[1] = {…, −3, 1, 5, …}`, `[2] = {…, −2, 2, 6, …}`, `[3] = {…, −1, 3, 7, …}`: 4 classes.",
+          "Infinitas classes, uma para cada inteiro.",
+          "Duas classes: pares e ímpares.",
+          "`[0]`, `[1]`, `[2]`, `[3]`, `[4]`: 5 classes."],
+      exp: "`[4] = [0]`. As classes são `ℤ₄`.",
+      dica: "Restos possíveis da divisão por 4." }
+  ]
+});
+
+// Rosen, Cap. 9 · Grafos (Seções 9.1–9.8)
+capitulo("rosen", {
+  num: 9, nome: "Grafos", secoes: "9.1–9.8",
+  desc: "Terminologia, grafos especiais e bipartidos, representação, isomorfismo, conexidade, Euler e Hamilton, caminhos mínimos, planaridade e coloração.",
+  qs: [
+    { t: "T", sec: "9.2", q: "O teorema do aperto de mãos afirma que, em um grafo não dirigido com `m` arestas:",
+      o: ["`∑_{v ∈ V} grau(v) = 2m`; consequentemente, o número de vértices de grau ímpar é par.",
+          "`∑ grau(v) = m`.",
+          "Todo vértice tem grau par.",
+          "`∑ grau(v) = 2|V|`."],
+      exp: "Cada aresta contribui com 2 para a soma (um laço contribui com 2 para o mesmo vértice). Se a soma é par, os graus ímpares aparecem em quantidade par.",
+      dica: "Cada aresta tem duas pontas." },
+    { t: "T", sec: "9.5", q: "Um multigrafo conexo com pelo menos dois vértices tem circuito de Euler se e somente se:",
+      o: ["Todo vértice tem grau par.",
+          "Exatamente dois vértices têm grau ímpar.",
+          "Todo vértice tem grau pelo menos `n/2`.",
+          "O grafo não tem ciclos."],
+      exp: "Com exatamente dois vértices de grau ímpar há caminho de Euler (não circuito), começando em um e terminando no outro. Grau `≥ n/2` é o teorema de Dirac (Hamilton).",
+      dica: "Cada passagem por um vértice usa uma aresta de entrada e uma de saída." },
+    { t: "T", sec: "9.5", q: "O teorema de Dirac garante circuito de Hamilton em um grafo simples com `n ≥ 3` vértices quando:",
+      o: ["Todo vértice tem grau pelo menos `n/2`.",
+          "Todo vértice tem grau par.",
+          "O grafo é conexo.",
+          "O grafo é bipartido."],
+      exp: "É condição suficiente, não necessária (ex.: `C₅` tem circuito de Hamilton com graus 2 < 5/2). Não se conhece condição necessária e suficiente simples.",
+      dica: "Condição suficiente sobre o grau mínimo." },
+    { t: "T", sec: "9.2", q: "Um grafo simples é bipartido se e somente se:",
+      o: ["Admite coloração dos vértices com 2 cores sem vértices adjacentes da mesma cor (equivalentemente, não tem ciclo de comprimento ímpar).",
+          "Tem número par de vértices.",
+          "Tem número par de arestas.",
+          "É uma árvore."],
+      exp: "`C₄` é bipartido e `K₃` não. Toda árvore é bipartida, mas há bipartidos com ciclos (pares).",
+      dica: "Pense em `K₃`." },
+    { t: "T", sec: "9.7", q: "Para um grafo planar simples e conexo com `v ≥ 3` vértices e `e` arestas, vale:",
+      o: ["Fórmula de Euler `r = e − v + 2` e o corolário `e ≤ 3v − 6`.",
+          "`r = e + v − 2` e `e ≤ 2v`.",
+          "`e ≤ v − 1`.",
+          "`r = v − e`."],
+      exp: "Se além disso não houver ciclos de comprimento 3, `e ≤ 2v − 4`. Com isso, `K₅` (10 > 9) e `K₃,₃` (9 > 8) não são planares.",
+      dica: "Regiões = arestas − vértices + 2." },
+    { t: "T", sec: "9.3", q: "Qual destas é uma invariante de isomorfismo (se diferir, os grafos não são isomorfos)?",
+      o: ["A sequência de graus dos vértices.",
+          "Os rótulos dos vértices.",
+          "O desenho do grafo no plano.",
+          "A ordem em que as arestas foram listadas."],
+      exp: "Invariantes: número de vértices, de arestas, graus, existência de ciclos de dado comprimento. Atenção: graus iguais não garantem isomorfismo.",
+      dica: "Algo preservado por qualquer bijeção que preserva adjacência." },
+
+    { t: "E", sec: "9.2", q: "Quantas arestas tem um grafo com 10 vértices, todos de grau 6?",
+      o: ["Aperto de mãos: `2m = 10·6 = 60`, logo `m = 30`.", "`10·6 = 60`.", "`C(10, 2) = 45`.", "`6`."],
+      exp: "Exemplo da Seção 9.2.",
+      dica: "Divida a soma dos graus por 2." },
+    { t: "E", sec: "9.7", q: "Um grafo planar simples conexo tem 20 vértices, todos de grau 3. Em quantas regiões uma representação planar divide o plano?",
+      o: ["`2e = 20·3 = 60` → `e = 30`. Euler: `r = e − v + 2 = 30 − 20 + 2 = 12`.",
+          "`e = 60`; `r = 60 − 20 + 2 = 42`.",
+          "`r = 20 − 30 + 2 = −8`, logo não é planar.",
+          "`e = 30`; `r = e − v = 10`."],
+      exp: "Exemplo da Seção 9.7.",
+      dica: "Calcule `e` antes." },
+    { t: "E", sec: "9.7", q: "Mostre que `K₃,₃` não é planar.",
+      o: ["`K₃,₃` é bipartido, sem ciclos de comprimento 3; se fosse planar, `e ≤ 2v − 4 = 8`. Mas `e = 9`. Contradição.",
+          "`e ≤ 3v − 6 = 12` e `e = 9`, logo não é planar.",
+          "Tem 6 vértices de grau 3, número par, logo não é planar.",
+          "Todo grafo bipartido completo é não planar."],
+      exp: "Exemplo da Seção 9.7. A cota `3v − 6` é satisfeita por `K₃,₃` e não decide nada. `K₂,₃`, por exemplo, é planar.",
+      dica: "Sem triângulos, cada região tem pelo menos 4 arestas." },
+    { t: "E", sec: "9.2", q: "Quantas arestas tem o hipercubo `Qₙ`?",
+      o: ["`2ⁿ` vértices, cada um de grau `n`: `2m = n·2ⁿ` → `m = n·2ⁿ⁻¹`.",
+          "`2ⁿ`.", "`n²`.", "`C(2ⁿ, 2)`."],
+      exp: "Seção 9.2: em `Qₙ` dois vértices (cadeias de `n` bits) são adjacentes se diferem em exatamente um bit. `Q₃` tem 12 arestas.",
+      dica: "Cada cadeia tem `n` vizinhos (troca de um bit)." },
+
+    { t: "X", sec: "9.8", q: "Qual é o número cromático de `Cₙ` (ciclo com `n ≥ 3` vértices)?",
+      o: ["2 se `n` é par (alterne as cores); 3 se `n` é ímpar (2 cores levariam a dois vizinhos iguais ao fechar o ciclo).",
+          "Sempre 2.", "Sempre 3.", "`n`."],
+      exp: "Exemplo da Seção 9.8. Já `χ(Kₙ) = n`, pois todos os vértices são mutuamente adjacentes.",
+      dica: "Tente alternar duas cores em `C₅`." },
+    { t: "X", sec: "9.5", q: "Para quais `m, n ≥ 1` o grafo `Kₘ,ₙ` tem circuito de Euler?",
+      o: ["Quando `m` e `n` são pares: os vértices de um lado têm grau `n` e os do outro grau `m`.",
+          "Quando `m = n`.", "Quando `m + n` é par.", "Sempre."],
+      exp: "`K₁,₃`: graus 3 e 1, nenhum circuito. `K₃,₃`: grau 3, não tem. `K₂,₄`: graus 4 e 2, tem.",
+      dica: "Qual é o grau de cada vértice?" },
+    { t: "X", sec: "9.6", q: "No algoritmo de Dijkstra, por que a distância de um vértice incluído no conjunto `S` não muda mais?",
+      o: ["Porque, com pesos não negativos, qualquer outro caminho até ele passaria por um vértice fora de `S` com rótulo maior ou igual, então não pode ser mais curto.",
+          "Porque o algoritmo nunca revisita vértices, por definição.",
+          "Porque o grafo é acíclico.",
+          "Porque todas as arestas têm peso 1."],
+      exp: "A prova (Seção 9.6) é por indução e usa pesos não negativos. Com pesos negativos o algoritmo pode falhar.",
+      dica: "Onde os pesos não negativos entram?" }
+  ]
+});
+
+// Rosen, Cap. 10 · Árvores (Seções 10.1–10.5)
+capitulo("rosen", {
+  num: 10, nome: "Árvores", secoes: "10.1–10.5",
+  desc: "Propriedades de árvores, árvores m-árias, aplicações (busca, decisão, Huffman), percursos e árvores geradoras mínimas.",
+  qs: [
+    { t: "T", sec: "10.1", q: "Qual caracterização de árvore está correta?",
+      o: ["Um grafo não dirigido é árvore se e somente se há um único caminho simples entre quaisquer dois vértices.",
+          "Uma árvore é qualquer grafo sem ciclos.",
+          "Uma árvore é qualquer grafo conexo.",
+          "Uma árvore com `n` vértices tem `n` arestas."],
+      exp: "Árvore = conexo e acíclico. Grafo acíclico não conexo é floresta. Árvore com `n` vértices tem `n − 1` arestas.",
+      dica: "Conexo e sem ciclos ao mesmo tempo." },
+    { t: "T", sec: "10.1", q: "Uma árvore `m`-ária cheia com `i` vértices internos tem quantos vértices?",
+      o: ["`n = mi + 1`: cada vértice interno tem `m` filhos, e só a raiz não é filha de ninguém.",
+          "`n = mi`.", "`n = mⁱ`.", "`n = i + m`."],
+      exp: "Seguem também `l = (m − 1)i + 1` folhas e `i = (l − 1)/(m − 1)`.",
+      dica: "Conte os filhos e some a raiz." },
+    { t: "T", sec: "10.1", q: "Uma árvore `m`-ária de altura `h` tem no máximo quantas folhas?",
+      o: ["`mʰ`.", "`m·h`.", "`hᵐ`.", "`mʰ⁺¹ − 1`."],
+      exp: "Por indução na altura. Consequência: se tem `l` folhas, `h ≥ ⌈log_m l⌉`.",
+      dica: "Cada nível multiplica por `m`." },
+    { t: "T", sec: "10.2", q: "Por que todo algoritmo de ordenação baseado em comparações faz `Ω(n log n)` comparações no pior caso?",
+      o: ["A árvore de decisão binária tem pelo menos `n!` folhas, logo altura `≥ ⌈log₂ n!⌉`, e `log n! = Θ(n log n)`.",
+          "Porque mergesort é `Θ(n log n)`.",
+          "Porque cada elemento é comparado com todos os outros.",
+          "Porque a busca binária custa `log n` por elemento."],
+      exp: "Seção 10.2. O argumento vale para qualquer algoritmo, não só para os conhecidos.",
+      dica: "Quantas ordens diferentes precisam ser distinguidas?" },
+    { t: "T", sec: "10.5", q: "O que os algoritmos de Prim e Kruskal têm em comum?",
+      o: ["São gulosos e produzem árvore geradora mínima: escolhem sempre a aresta de menor peso que não cria ciclo (Kruskal) ou que liga a árvore a um novo vértice (Prim).",
+          "Ambos exigem que a árvore seja construída sempre conexa.",
+          "Ambos encontram caminhos mínimos a partir de um vértice.",
+          "Ambos só funcionam com pesos distintos."],
+      exp: "No Kruskal, a floresta intermediária pode ser desconexa; no Prim, a árvore é sempre conexa. Pesos repetidos podem gerar árvores mínimas diferentes.",
+      dica: "Guloso e sem ciclos." },
+    { t: "T", sec: "10.3", q: "Qual percurso de uma árvore de expressão produz a notação polonesa reversa (pós-fixa)?",
+      o: ["Pós-ordem.", "Pré-ordem.", "Em ordem (in-ordem).", "Por nível."],
+      exp: "Pré-ordem gera prefixa (polonesa); em ordem gera infixa (precisa de parênteses).",
+      dica: "O operador aparece depois dos operandos." },
+
+    { t: "E", sec: "10.1", q: "Uma corrente de cartas: cada pessoa que recebe pode enviar para 4 outras ou não enviar. Se 100 pessoas recebem e não enviam, quantas receberam no total (incluindo quem começou)?",
+      o: ["Árvore 4-ária cheia com `l = 100` folhas: `i = (l − 1)/(m − 1) = 99/3 = 33` internos; `n = mi + 1 = 133`. Total: 133 pessoas (33 enviaram).",
+          "`100·4 = 400`.",
+          "`100 + 4 = 104`.",
+          "`n = 4·100 + 1 = 401`."],
+      exp: "Exemplo da Seção 10.1. Quem envia é vértice interno; quem não envia é folha.",
+      dica: "Folhas = quem não enviou." },
+    { t: "E", sec: "10.3", q: "Qual o valor da expressão pós-fixa `7 2 3 * − 4 ↑ 9 3 / +`?",
+      o: ["`2 3 * = 6`; `7 6 − = 1`; `1 4 ↑ = 1`; `9 3 / = 3`; `1 3 + = 4`. Resultado: 4.",
+          "Lendo da esquerda: `7 − 2 = 5`, `5·3 = 15`, `15⁴`, … Resultado: muito grande.",
+          "`7·2 = 14`, `14 − 3 = 11`, `11 + 4 = 15`, `9/3 = 3`. Resultado: 18.",
+          "`(7 − 2·3)⁴ + 9/3 = 1 + 3 = 4`, mas a pós-fixa avalia da direita para a esquerda: −4."],
+      exp: "Exemplo da Seção 10.3. Em pós-fixa, usa-se uma pilha: cada operador consome os dois últimos valores.",
+      dica: "Use uma pilha." },
+    { t: "E", sec: "10.2", q: "Códigos de Huffman: com frequências A: 0,08, B: 0,10, C: 0,12, D: 0,15, E: 0,20, F: 0,35, qual o comprimento médio?",
+      o: ["Junta-se sempre as duas menores: A+B = 0,18; C+D = 0,27; 0,18+E = 0,38; 0,27+F = 0,62; total 1. Comprimentos A, B: 3; E: 2; C, D: 3; F: 2. Média: `3(0,08+0,10+0,12+0,15) + 2(0,20+0,35) = 2,45` bits.",
+          "Código de comprimento fixo de 3 bits: média 3.",
+          "Juntando as duas maiores primeiro: média 2,0.",
+          "Cada símbolo recebe `⌈−log₂ p⌉` bits: média 2,95."],
+      exp: "Exemplo da Seção 10.2. Huffman é ótimo entre os códigos de prefixo.",
+      dica: "Junte sempre as duas menores frequências." },
+
+    { t: "X", sec: "10.1", q: "Quantas arestas tem uma floresta com `n` vértices e `c` componentes conexas?",
+      o: ["Cada componente é uma árvore com `nᵢ − 1` arestas: total `∑(nᵢ − 1) = n − c`.",
+          "`n − 1`.", "`n`.", "`n + c`."],
+      exp: "Generaliza `n − 1` para árvores (`c = 1`).",
+      dica: "Some `nᵢ − 1` sobre as componentes." },
+    { t: "X", sec: "10.4", q: "Toda árvore geradora de um grafo conexo com `n` vértices tem quantas arestas e por quê existe uma?",
+      o: ["`n − 1` arestas; existe porque, enquanto houver ciclo, remove-se uma aresta dele sem desconectar o grafo.",
+          "`n` arestas; existe por busca em profundidade.",
+          "`n − 1` arestas; existe só se o grafo for planar.",
+          "Depende do grafo; só existe se não há ciclos."],
+      exp: "Teorema da Seção 10.4: um grafo simples é conexo se e somente se tem árvore geradora. DFS e BFS a constroem.",
+      dica: "Quebre ciclos um a um." },
+    { t: "X", sec: "10.2", q: "Em uma árvore binária de busca balanceada com `n` chaves, quantas comparações no máximo para localizar uma chave ou concluir que não está?",
+      o: ["`⌈log₂(n + 1)⌉`: a árvore estendida tem `n + 1` folhas e altura mínima `⌈log₂(n + 1)⌉`.",
+          "`n`.", "`log₂ n`, sempre exato.", "`n/2`."],
+      exp: "Seção 10.2. Uma árvore desbalanceada pode exigir `n` comparações.",
+      dica: "Folhas = buscas mal-sucedidas." }
+  ]
+});
+
+// Rosen, Cap. 11 · Álgebra Booleana (Seções 11.1–11.4)
+capitulo("rosen", {
+  num: 11, nome: "Álgebra Booleana", secoes: "11.1–11.4",
+  desc: "Funções e identidades booleanas, dualidade, forma de soma de produtos, completude funcional, portas lógicas e mapas de Karnaugh.",
+  qs: [
+    { t: "T", sec: "11.1", q: "Quantas funções booleanas de grau `n` existem?",
+      o: ["`2^(2ⁿ)`: há `2ⁿ` linhas na tabela e 2 valores possíveis em cada.",
+          "`2ⁿ`.", "`n²`.", "`2^(n²)`."],
+      exp: "Para `n = 2` são 16 funções.",
+      dica: "Cada linha da tabela é uma escolha livre." },
+    { t: "T", sec: "11.1", q: "O dual de uma expressão booleana é obtido:",
+      o: ["Trocando `+` por `·`, `·` por `+`, `0` por `1` e `1` por `0`, sem complementar as variáveis.",
+          "Complementando todas as variáveis.",
+          "Complementando a expressão inteira.",
+          "Invertendo a ordem dos termos."],
+      exp: "Princípio da dualidade: se uma identidade vale, sua dual também vale. Ex.: o dual de `x(y + 0)` é `x + y·1`.",
+      dica: "Troque operações e constantes." },
+    { t: "T", sec: "11.2", q: "Por que `{↓}` (NOR) sozinho é funcionalmente completo?",
+      o: ["Porque `x̄ = x ↓ x` e `x + y = (x ↓ y) ↓ (x ↓ y)`, e `{+, ‾}` já é completo (De Morgan dá o produto).",
+          "Porque toda porta é NOR internamente.",
+          "Porque NOR tem tabela simétrica.",
+          "Não é completo; precisa de NAND junto."],
+      exp: "Seção 11.2. O mesmo vale para `{|}` (NAND).",
+      dica: "Obtenha a negação primeiro." },
+    { t: "T", sec: "11.2", q: "O que é a forma normal disjuntiva (soma de produtos) de uma função booleana?",
+      o: ["A soma (OR) dos mintermos correspondentes às linhas em que a função vale 1.",
+          "O produto dos maxtermos das linhas em que a função vale 1.",
+          "A expressão com menor número de literais.",
+          "A soma das variáveis que aparecem na função."],
+      exp: "Cada mintermo é um produto de todos os literais (`xᵢ` ou `x̄ᵢ`) e vale 1 em exatamente uma linha. Não é necessariamente mínima.",
+      dica: "Um mintermo por linha que dá 1." },
+    { t: "T", sec: "11.4", q: "No mapa de Karnaugh, por que se agrupam células adjacentes em blocos de tamanho potência de 2?",
+      o: ["Porque células adjacentes diferem em um literal, e a combinação `xy + xȳ = x` elimina-o; um bloco de `2ᵏ` células elimina `k` literais.",
+          "Por convenção visual.",
+          "Porque o mapa tem sempre `2ⁿ` células.",
+          "Para contar as linhas da tabela que dão 0."],
+      exp: "O código de Gray na borda garante que vizinhos (inclusive nas bordas opostas) diferem em um só bit.",
+      dica: "`x(y + ȳ) = x`." },
+
+    { t: "E", sec: "11.2", q: "Encontre a soma de produtos de `F(x, y, z) = (x + y)z̄`.",
+      o: ["`F = 1` quando `z = 0` e `x + y = 1`: linhas `(1,1,0)`, `(1,0,0)`, `(0,1,0)`. `F = xyz̄ + xȳz̄ + x̄yz̄`.",
+          "Distribuindo: `F = xz̄ + yz̄`, que já é a forma canônica.",
+          "`F = xyz + xyz̄ + x̄yz̄`.",
+          "`F = x + y + z̄`."],
+      exp: "Exemplo da Seção 11.2. `xz̄ + yz̄` é uma soma de produtos, mas não a canônica (os termos não têm todas as variáveis).",
+      dica: "Monte a tabela e pegue as linhas com 1." },
+    { t: "E", sec: "11.3", q: "Projete um circuito que dê a maioria de 3 votos `x, y, z` (saída 1 se pelo menos dois votam 1).",
+      o: ["A saída é 1 se algum par vota 1: `xy + xz + yz`, com três portas AND e uma OR.",
+          "`x + y + z`.",
+          "`xyz`.",
+          "`x ⊕ y ⊕ z`."],
+      exp: "Exemplo da Seção 11.3. A soma de produtos canônica tem 4 mintermos, que se simplificam para `xy + xz + yz`.",
+      dica: "Basta um par concordar em 1." },
+    { t: "E", sec: "11.3", q: "Um meio-somador soma dois bits `x` e `y`. Quais são as saídas?",
+      o: ["Soma `s = x ⊕ y = xȳ + x̄y` e vai-um `c = xy`.",
+          "`s = x + y` e `c = xy`.",
+          "`s = xy` e `c = x ⊕ y`.",
+          "`s = x ⊕ y` e `c = x + y`."],
+      exp: "Exemplo da Seção 11.3. Com `x = y = 1`: soma 0 e vai-um 1 (`1 + 1 = 10₂`).",
+      dica: "`1 + 1 = 10` em binário." },
+
+    { t: "X", sec: "11.4", q: "Simplifique `xyz + xyz̄ + xȳz + xȳz̄` com o mapa de Karnaugh.",
+      o: ["As quatro células formam a linha `x = 1` inteira; eliminam-se `y` e `z`. Resultado: `x`.",
+          "`xy + xȳ`.", "`xz + xz̄`.", "`xyz`."],
+      exp: "Algebricamente: `xy(z + z̄) + xȳ(z + z̄) = xy + xȳ = x`.",
+      dica: "Todos os termos com `x`, em todas as combinações de `y, z`." },
+    { t: "X", sec: "11.1", q: "Prove a lei de absorção `x(x + y) = x` usando identidades.",
+      o: ["`x(x + y) = (x + 0)(x + y) = x + 0·y = x + 0 = x` (identidade, distributiva de `+` sobre `·`, dominação, identidade).",
+          "`x(x + y) = xx + xy = x + xy`, e `xy = 0`, logo `x`.",
+          "Por idempotência, `x(x + y) = x + y`.",
+          "Basta testar `x = 1`, `y = 0`."],
+      exp: "Exemplo da Seção 11.1. `xy` não é 0 em geral. Uma prova também pode ser feita pela tabela-verdade completa (4 linhas), não por um caso só.",
+      dica: "`x = x + 0` e distributiva." },
+    { t: "X", sec: "11.2", q: "Exprima `x + y` usando só a porta NAND `|`.",
+      o: ["`x + y = (x | x) | (y | y)`, pois `x | x = x̄` e `x̄ | ȳ = ¬(x̄ȳ) = x + y`.",
+          "`x + y = x | y`.",
+          "`x + y = (x | y) | (x | y)`.",
+          "`x + y = x̄ | y`."],
+      exp: "`(x | y) | (x | y)` dá `xy`, não `x + y`.",
+      dica: "De Morgan: `x + y = ¬(x̄ȳ)`." }
+  ]
+});
+
+// Rosen, Cap. 12 · Modelagem Computacional (Seções 12.1–12.5)
+capitulo("rosen", {
+  num: 12, nome: "Modelagem Computacional", secoes: "12.1–12.5",
+  desc: "Linguagens e gramáticas, máquinas de estados finitos com e sem saída, reconhecimento de linguagens e máquinas de Turing.",
+  qs: [
+    { t: "T", sec: "12.1", q: "Na hierarquia de Chomsky, uma gramática do tipo 3 (regular) tem produções da forma:",
+      o: ["`A → aB`, `A → a` (e `S → λ`), com `A, B` não terminais e `a` terminal.",
+          "`A → w`, com `w` qualquer cadeia de terminais e não terminais.",
+          "`w₁ → w₂` sem restrições.",
+          "`lAr → lwr`, sensível ao contexto."],
+      exp: "Tipo 2: livres de contexto (`A → w`). Tipo 1: sensíveis ao contexto. Tipo 0: sem restrição.",
+      dica: "No máximo um não terminal, à direita." },
+    { t: "T", sec: "12.4", q: "O teorema de Kleene afirma que:",
+      o: ["Um conjunto é regular (expresso por expressão regular) se e somente se é reconhecido por um autômato finito.",
+          "Todo autômato não determinístico é determinístico.",
+          "Toda linguagem livre de contexto é regular.",
+          "Toda linguagem é reconhecida por algum autômato finito."],
+      exp: "Seção 12.4. Também: conjuntos regulares = linguagens geradas por gramáticas regulares.",
+      dica: "Expressões regulares ↔ autômatos." },
+    { t: "T", sec: "12.3", q: "Todo autômato finito não determinístico (AFN) tem um determinístico (AFD) equivalente porque:",
+      o: ["Pela construção dos subconjuntos: cada estado do AFD é um conjunto de estados do AFN (no máximo `2ⁿ`).",
+          "Basta remover as transições repetidas.",
+          "AFNs reconhecem só linguagens finitas.",
+          "Não é verdade; AFNs são mais poderosos."],
+      exp: "Seção 12.3. AFN e AFD reconhecem a mesma classe (linguagens regulares), mas o AFD pode ser exponencialmente maior.",
+      dica: "Estado do AFD = conjunto de estados do AFN." },
+    { t: "T", sec: "12.4", q: "Por que `{0ⁿ1ⁿ : n ≥ 0}` não é regular?",
+      o: ["Um AF com `k` estados, lendo `0^(k+1)`, repete um estado (casas de pombo); então aceitaria também `0ⁱ1ʲ` com `i ≠ j`, contradição.",
+          "Porque é infinita.",
+          "Porque contém a cadeia vazia.",
+          "Porque usa dois símbolos."],
+      exp: "Seção 12.4. Linguagens regulares podem ser infinitas (ex.: `0*`). O problema é ter de “contar” sem limite.",
+      dica: "Um autômato finito tem memória finita." },
+    { t: "T", sec: "12.5", q: "O que é o problema da parada e qual é seu status?",
+      o: ["Decidir, dada uma máquina de Turing e uma entrada, se ela para. É indecidível: nenhuma máquina de Turing o resolve para todas as entradas.",
+          "Decidir se um AF aceita uma cadeia; é decidível em tempo linear.",
+          "É decidível, mas exige tempo exponencial.",
+          "É um problema em aberto."],
+      exp: "Provado por diagonalização (Seção 12.5): supondo uma máquina `H` que decide, constrói-se uma que contradiz `H` em sua própria descrição.",
+      dica: "Diagonalização, como Cantor." },
+
+    { t: "E", sec: "12.1", q: "Que linguagem a gramática `S → 0S1 | λ` gera?",
+      o: ["Cada aplicação de `S → 0S1` adiciona um 0 à esquerda e um 1 à direita; terminando com `λ`: `{0ⁿ1ⁿ : n ≥ 0}`.",
+          "`{0ⁿ1ᵐ : n, m ≥ 0}`.",
+          "`{(01)ⁿ : n ≥ 0}`.",
+          "Só `{01}`."],
+      exp: "Exemplo da Seção 12.1. Esta gramática é livre de contexto e a linguagem não é regular.",
+      dica: "Derive algumas cadeias." },
+    { t: "E", sec: "12.4", q: "Que conjunto representa a expressão regular `(0 ∪ 1)*00`?",
+      o: ["`(0 ∪ 1)*` é qualquer cadeia de bits; seguida de `00`: as cadeias de bits que terminam em `00`.",
+          "Cadeias que começam com `00`.",
+          "Cadeias com exatamente dois 0s.",
+          "Só a cadeia `00`."],
+      exp: "Exemplo da Seção 12.4.",
+      dica: "O fim da cadeia é fixo." },
+    { t: "E", sec: "12.3", q: "Um AFD sobre `{0, 1}` aceita exatamente as cadeias que terminam em `01`. Quantos estados são necessários no mínimo?",
+      o: ["3: “não vi nada útil”, “último símbolo foi 0” e “últimos dois foram 01” (final).",
+          "2.", "4.", "1."],
+      exp: "Cada estado lembra o maior sufixo que é prefixo de `01`. É um exemplo típico da Seção 12.3.",
+      dica: "O que é preciso lembrar do passado?" },
+
+    { t: "X", sec: "12.2", q: "Em uma máquina de Mealy (estados finitos com saída), de que depende a saída?",
+      o: ["Do estado atual e do símbolo de entrada; cada transição carrega uma saída.",
+          "Só do estado atual.",
+          "Só da entrada.",
+          "Do número de transições feitas."],
+      exp: "Seção 12.2. Na máquina de Moore, a saída depende só do estado.",
+      dica: "A saída está nas transições." },
+    { t: "X", sec: "12.1", q: "Gere `0011` com a gramática `S → 0S1 | λ` e diga quantas derivações são necessárias.",
+      o: ["`S ⇒ 0S1 ⇒ 00S11 ⇒ 0011`: três passos (duas vezes `0S1` e uma vez `λ`).",
+          "`S ⇒ 0011` diretamente: um passo.",
+          "`S ⇒ 0S1 ⇒ 0011`: dois passos.",
+          "Não é gerada, pois tem dois 0s seguidos."],
+      exp: "Cada passo substitui um único não terminal por um lado direito.",
+      dica: "Cada passo aplica uma única produção." },
+    { t: "X", sec: "12.5", q: "O que diz a tese de Church-Turing?",
+      o: ["Todo problema que pode ser resolvido por um algoritmo efetivo pode ser resolvido por uma máquina de Turing.",
+          "Toda máquina de Turing para em toda entrada.",
+          "Máquinas de Turing são equivalentes a autômatos finitos.",
+          "É um teorema provado por Turing."],
+      exp: "É uma tese (não demonstrável), pois “algoritmo efetivo” é uma noção informal.",
+      dica: "Relaciona “algoritmo” com um modelo formal." }
+  ]
+});
+
+// Gersting, Cap. 1 · Lógica Formal (Seções 1.1–1.6). Notação do livro: A′ = negação, fbf = fórmula bem formulada.
+capitulo("gersting", {
+  num: 1, nome: "Lógica Formal", secoes: "1.1–1.6",
+  desc: "Proposições e tautologias, lógica proposicional, quantificadores e validade, lógica de predicados, programação lógica e demonstração de correção.",
+  qs: [
+    { t: "T", sec: "1.1", q: "Na fbf `A ∨ B′ → (A ∨ B)′`, qual é o conectivo principal, segundo as regras de precedência do livro?",
+      o: ["O condicional `→`, pois a ordem é: parênteses, `′`, `∧` e `∨`, e só depois `→`.",
+          "A disjunção `∨` mais à esquerda.",
+          "A negação `′` aplicada a `(A ∨ B)`.",
+          "Não há conectivo principal sem parênteses externos."],
+      exp: "Exemplo 4 da Seção 1.1. A fbf é lida como `(A ∨ B′) → (A ∨ B)′`.",
+      dica: "O condicional tem precedência mais baixa que `∧` e `∨`." },
+    { t: "T", sec: "1.1", q: "“O fogo é uma condição necessária para a fumaça.” Como fica em forma de condicional?",
+      o: ["“Se há fumaça, então há fogo”: o antecedente é “há fumaça” e o consequente (condição necessária) é “há fogo”.",
+          "“Se há fogo, então há fumaça.”",
+          "“Há fogo se e somente se há fumaça.”",
+          "“Se não há fumaça, então não há fogo.”"],
+      exp: "Exemplo 2 da Seção 1.1. “`B` é condição necessária para `A`” = `A → B`. A última alternativa é a inversa de “se há fogo, há fumaça”.",
+      dica: "A condição necessária fica no consequente." },
+    { t: "T", sec: "1.2", q: "O argumento “George Washington foi o primeiro presidente dos EUA. Thomas Jefferson escreveu a Declaração de Independência. Portanto, todo dia tem 24 horas” é válido?",
+      o: ["Não: sua forma `A ∧ B → C` não é tautologia (`A, B` V e `C` F a torna falsa). Ter conclusão verdadeira não torna o argumento válido.",
+          "Sim, porque as hipóteses e a conclusão são todas verdadeiras.",
+          "Sim, porque não há como as hipóteses serem falsas.",
+          "Não, porque a conclusão é falsa."],
+      exp: "Exemplo 9 da Seção 1.2. Validade depende só da forma: `P₁ ∧ ⋯ ∧ Pₙ → Q` precisa ser tautologia, independentemente do significado.",
+      dica: "Validade é sobre a estrutura, não sobre os fatos." },
+    { t: "T", sec: "1.2", q: "O que permite o método dedutivo do Gersting?",
+      o: ["Para provar `P₁ ∧ ⋯ ∧ Pₙ → (R → S)`, acrescenta-se `R` como hipótese adicional e deduz-se `S`.",
+          "Deduzir `R` a partir de `S`.",
+          "Substituir um condicional por sua recíproca.",
+          "Supor a conclusão e chegar às hipóteses."],
+      exp: "Seção 1.2: `P → (R → S)` é equivalente a `(P ∧ R) → S` (regra de exportação).",
+      dica: "Conclusão condicional: o antecedente vira hipótese." },
+    { t: "T", sec: "1.3", q: "Por que `(∀x)P(x) → (∃x)P(x)` é uma fbf válida?",
+      o: ["Porque em toda interpretação o conjunto universo é não vazio: se todos têm `P`, algum elemento tem `P`.",
+          "Porque é uma tautologia proposicional.",
+          "Porque `∀` e `∃` são equivalentes.",
+          "Não é válida; a recíproca é que é."],
+      exp: "Exemplo 24 da Seção 1.3. A recíproca `(∃x)P(x) → (∀x)P(x)` não é válida.",
+      dica: "O universo de uma interpretação nunca é vazio." },
+    { t: "T", sec: "1.4", q: "Qual é a restrição da particularização existencial (pe) e por que importa a ordem com a particularização universal (pu)?",
+      o: ["pe introduz uma constante nova, ainda não usada na demonstração; por isso faz-se pe antes de pu, que pode depois usar a mesma constante.",
+          "pe pode usar qualquer constante já presente na demonstração.",
+          "pu só pode ser usada depois da generalização universal.",
+          "Não há restrições na lógica de predicados."],
+      exp: "Seção 1.4 (Exemplos 27 e 35). Se fizermos pu primeiro com `a`, não podemos depois afirmar que o elemento do `∃` é esse mesmo `a`.",
+      dica: "O elemento do “existe” é um elemento qualquer, não um já escolhido." },
+    { t: "T", sec: "1.4", q: "A fbf `(∃x)P(x) ∧ (∃x)Q(x) → (∃x)[P(x) ∧ Q(x)]` é válida?",
+      o: ["Não: no universo dos inteiros, com `P(x)`: “x é par” e `Q(x)`: “x é ímpar”, o antecedente é V e o consequente é F.",
+          "Sim, por pe aplicada duas vezes com a mesma constante.",
+          "Sim, pois `∃` distribui sobre `∧`.",
+          "Só se o universo for finito."],
+      exp: "Exemplo 34 da Seção 1.4. Usar a mesma constante nas duas pe viola a restrição de constante nova.",
+      dica: "Os elementos podem ser diferentes." },
+    { t: "T", sec: "1.5", q: "Em Prolog, como uma regra como `predador(X) if come(X, Y) and animal(Y)` é tratada logicamente?",
+      o: ["É uma cláusula de Horn: `come(X, Y) ∧ animal(Y) → predador(X)`, ou seja, `[come(X,Y)]′ ∨ [animal(Y)]′ ∨ predador(X)`, com no máximo um literal positivo.",
+          "É um bicondicional entre `predador` e `come`.",
+          "É um fato, que vale para todo `X`.",
+          "É uma cláusula com dois literais positivos."],
+      exp: "Seção 1.5. A resolução de Prolog usa cláusulas de Horn e busca em profundidade.",
+      dica: "Cláusula de Horn: no máximo um literal não negado." },
+    { t: "T", sec: "1.6", q: "O que diz o axioma de atribuição para `{Q} x = e {R}`?",
+      o: ["`Q` é a precondição obtida de `R` substituindo cada ocorrência de `x` por `e`; com isso, `{Rₓ←e} x = e {R}` é sempre correto.",
+          "A pós-condição é obtida da precondição substituindo `e` por `x`.",
+          "Qualquer precondição serve se `e` for constante.",
+          "`Q` e `R` devem ser iguais."],
+      exp: "Seção 1.6: trabalha-se de trás para frente, da pós-condição para a precondição.",
+      dica: "Substitua na pós-condição." },
+
+    { t: "E", sec: "1.2", q: "Prove o argumento `A ∧ (B → C) ∧ [(A ∧ B) → (D ∨ C′)] ∧ B → D`.",
+      o: ["Hips 1–4. 5. `C` (2, 4, mp). 6. `A ∧ B` (1, 4, conj). 7. `D ∨ C′` (3, 6, mp). 8. `C′ ∨ D` (7, com). 9. `C → D` (8, cond). 10. `D` (5, 9, mp).",
+          "Hips 1–4. 5. `C` (2, 4, mp). 6. `D ∨ C′` (3, 5, mp). 7. `D` (6, simp).",
+          "Hips 1–4. 5. `A ∧ B` (1, 4, conj). 6. `D ∨ C′` (3, 5, mp). 7. `D` (6, sd).",
+          "Hips 1–4. 5. `B′ ∨ C` (2, cond). 6. `C` (4, 5, mt). 7. `D` (3, 6, mp)."],
+      exp: "Exemplo 14 da Seção 1.2. Simplificação não se aplica a uma disjunção; silogismo disjuntivo exige ter `C` (linha 5) antes.",
+      dica: "Use `C` para eliminar `C′` da disjunção." },
+    { t: "E", sec: "1.2", q: "Prove `(A′ ∨ B) ∧ (B → C) → (A → C)`.",
+      o: ["1. `A′ ∨ B` hip. 2. `B → C` hip. 3. `A → B` (1, cond). 4. `A → C` (3, 2, sh).",
+          "1. `A′ ∨ B` hip. 2. `B → C` hip. 3. `B` (1, simp). 4. `C` (2, 3, mp). 5. `A → C`.",
+          "1. `A′ ∨ B` hip. 2. `B → C` hip. 3. `A′` (1, sd). 4. `A → C` (3, ad).",
+          "1. `A′ ∨ B` hip. 2. `B → C` hip. 3. `B → A` (1, cond). 4. `A → C` (3, 2, sh)."],
+      exp: "Exemplo 17 da Seção 1.2. A regra `cond` dá `P → Q ⟺ P′ ∨ Q`, então `A′ ∨ B ⟺ A → B`.",
+      dica: "Transforme a disjunção em condicional." },
+    { t: "E", sec: "1.2", q: "“Meu cliente é canhoto, mas, se o diário não tivesse sumido, então meu cliente não seria canhoto; portanto, o diário sumiu.” Com `C`: canhoto e `D`: o diário sumiu, é válido?",
+      o: ["Forma: `C ∧ (D′ → C′) → D`. 1. `C` hip. 2. `D′ → C′` hip. 3. `(D′)′` (1, 2, mt). 4. `D` (3, dn). Válido.",
+          "Forma: `C ∧ (D → C′) → D`. Não é válido.",
+          "Forma: `C ∧ (D′ → C′) → D′`. Válido por mp.",
+          "Forma: `C ∧ (D′ → C′) → D`. Inválido: falácia de afirmar o consequente."],
+      exp: "Exemplo 19 da Seção 1.2.",
+      dica: "Negue o consequente `C′` com `C`." },
+    { t: "E", sec: "1.3", q: "Simbolize “Todas as girafas são altas”, com `G(x)`: x é girafa e `A(x)`: x é alto.",
+      o: ["`(∀x)[G(x) → A(x)]`: para qualquer coisa, se for girafa, então é alta.",
+          "`(∀x)[G(x) ∧ A(x)]`.",
+          "`(∃x)[G(x) ∧ A(x)]`.",
+          "`(∀x)G(x) → (∀x)A(x)`."],
+      exp: "Exemplo 23 da Seção 1.3. A conjunção diria que tudo é girafa e alto. A última diz: “se tudo for girafa, então tudo é alto”.",
+      dica: "“Todo” combina com condicional." },
+    { t: "E", sec: "1.4", q: "Prove: “Todo laptop tem um disco interno. Alguns laptops têm entrada para DVD. Portanto, alguns laptops têm disco interno e entrada para DVD.”",
+      o: ["1. `(∀x)[L(x) → D(x)]` hip. 2. `(∃x)[L(x) ∧ E(x)]` hip. 3. `L(a) ∧ E(a)` (2, pe). 4. `L(a) → D(a)` (1, pu). 5. `L(a)` (3, simp). 6. `D(a)` (4, 5, mp). 7. `L(a) ∧ D(a) ∧ E(a)` (conj). 8. `(∃x)[…]` (ge).",
+          "1–2 hips. 3. `L(a) → D(a)` (1, pu). 4. `L(a) ∧ E(a)` (2, pe). … 8. `(∃x)[…]` (ge).",
+          "1–2 hips. 3. `L(a) ∧ E(a)` (2, pe). … 7. `L(a) ∧ D(a) ∧ E(a)`. 8. `(∀x)[…]` (gu).",
+          "Não é válido, pois não se sabe se o laptop com DVD é o mesmo com disco."],
+      exp: "Exemplo 35 da Seção 1.4. A segunda faz pu antes de pe com a mesma constante `a`, o que é proibido. A terceira generaliza universalmente uma constante vinda de pe.",
+      dica: "pe antes de pu." },
+
+    { t: "X", sec: "1.4", q: "A fbf `(∀x)[P(x) ∨ Q(x)] → (∃x)P(x) ∨ (∀x)Q(x)` é válida?",
+      o: ["Sim. Suponha o antecedente. Se `(∀x)Q(x)`, a conclusão vale. Senão, existe `a` com `Q(a)` falso; como `P(a) ∨ Q(a)`, vale `P(a)`, logo `(∃x)P(x)`.",
+          "Não: com `P` e `Q` complementares em ℤ (par/ímpar), o antecedente é V e o consequente é F.",
+          "Sim, pois é uma tautologia proposicional.",
+          "Não, porque `∀` não distribui sobre `∨`."],
+      exp: "Exemplo 33 da Seção 1.4. No contraexemplo da segunda, `(∃x)P(x)` é verdadeira (existem pares), então o consequente é V.",
+      dica: "Separe o caso em que `(∀x)Q(x)` falha." },
+    { t: "X", sec: "1.6", q: "Verifique `{x − 1 > 0} x = x − 1 {x > 0}`.",
+      o: ["Axioma de atribuição: substituindo `x` por `x − 1` na pós-condição `x > 0` obtém-se `x − 1 > 0`, que é exatamente a precondição. Correto.",
+          "Substituindo `x − 1` por `x` na precondição obtém-se `x > 0`. Correto.",
+          "Incorreto, pois depois da atribuição `x` diminui.",
+          "Precisaria de `{x > 1}`, que é diferente de `{x − 1 > 0}`."],
+      exp: "Exemplo 41 da Seção 1.6. `x − 1 > 0` e `x > 1` são a mesma condição sobre inteiros/reais.",
+      dica: "Trabalhe de trás para frente." },
+    { t: "X", sec: "1.6", q: "Verifique `{n = 5}  se n >= 10 então y = 100 senão y = n + 1  {y = 6}`.",
+      o: ["Regra do condicional: `{n = 5 ∧ n ≥ 10} y = 100 {y = 6}` vale por vacuidade (precondição falsa); `{n = 5 ∧ n < 10} y = n + 1 {y = 6}` vale, pois `n + 1 = 6`. Correto.",
+          "Só o ramo senão importa; o então é ignorado.",
+          "É incorreto, pois o ramo então daria `y = 100`.",
+          "É preciso verificar `{n = 5} y = 100 {y = 6}`, que é falso."],
+      exp: "Exemplo 45 da Seção 1.6. Ambos os ramos são verificados, cada um com a condição correspondente.",
+      dica: "Cada ramo recebe a condição do teste." }
+  ]
+});
+
+// Gersting, Cap. 2 · Demonstrações, Indução e Teoria dos Números (Seções 2.1–2.4)
+capitulo("gersting", {
+  num: 2, nome: "Demonstrações, Indução e Números", secoes: "2.1–2.4",
+  desc: "Técnicas de demonstração, primeiro e segundo princípios de indução, invariantes de laço, algoritmo de Euclides e teoria dos números.",
+  qs: [
+    { t: "T", sec: "2.1", q: "Para refutar a conjectura “`∀n ∈ ℤ⁺, n! ≤ n²`”, o que basta?",
+      o: ["Um único contraexemplo: `n = 4` dá `24 > 16`.",
+          "Mostrar que vale para `n = 1, 2, 3`.",
+          "Provar que `n! > n²` para todo `n`.",
+          "Uma demonstração por indução."],
+      exp: "Exemplo 1 da Seção 2.1. Para refutar um “para todo”, um contraexemplo basta; para provar, casos não bastam.",
+      dica: "Teste valores até falhar." },
+    { t: "T", sec: "2.1", q: "Quando a demonstração por exaustão é aceitável?",
+      o: ["Quando há um número finito de casos e todos são verificados, como em “todo inteiro entre 1 e 20 divisível por 6 é divisível por 3”.",
+          "Sempre que testamos muitos casos.",
+          "Quando o universo é infinito mas enumerável.",
+          "Nunca é uma demonstração formal."],
+      exp: "Exemplo 2 da Seção 2.1: os casos são 6, 12 e 18.",
+      dica: "Finito e completo." },
+    { t: "T", sec: "2.1", q: "Na demonstração por absurdo de `P → Q`, supõe-se:",
+      o: ["`P` e `Q′`, e deduz-se uma contradição; justificativa: `(P ∧ Q′ → 0) → (P → Q)` é tautologia.",
+          "`Q` e deduz-se `P`.",
+          "`P′` e deduz-se `Q′`.",
+          "`Q′` e deduz-se `P′`; é a contraposição."],
+      exp: "Seção 2.1. A contraposição é outra técnica (supõe só `Q′`).",
+      dica: "Hipótese verdadeira e conclusão falsa juntas." },
+    { t: "T", sec: "2.2", q: "Qual é a diferença entre o primeiro e o segundo princípios de indução no Gersting?",
+      o: ["No primeiro, supõe-se `P(k)` para provar `P(k + 1)`; no segundo, supõe-se `P(r)` para todo `1 ≤ r ≤ k` (ou `r < k + 1`).",
+          "O primeiro vale para ℕ e o segundo para ℤ.",
+          "O segundo dispensa o passo básico.",
+          "O segundo só vale para desigualdades."],
+      exp: "Seção 2.2. Os dois são equivalentes e equivalentes ao princípio da boa ordenação.",
+      dica: "Quanta informação se pode usar na hipótese?" },
+    { t: "T", sec: "2.3", q: "Para usar a regra de inferência do laço na demonstração de correção, o que é preciso provar sobre o predicado `Q`?",
+      o: ["Que `Q` é um invariante: se `Q` e a condição `B` valem antes de uma iteração, `Q` vale depois. Ao sair, tem-se `Q ∧ B′`.",
+          "Que `Q` é falso ao final do laço.",
+          "Que o laço executa exatamente `n` vezes.",
+          "Que `Q` implica a condição do laço."],
+      exp: "Seção 2.3. O invariante costuma ser provado por indução no número de iterações.",
+      dica: "Algo que o corpo do laço preserva." },
+    { t: "T", sec: "2.4", q: "O teorema fundamental da aritmética afirma que todo inteiro `n ≥ 2`:",
+      o: ["É primo ou produto de primos, de forma única a menos da ordem dos fatores.",
+          "Tem exatamente dois divisores.",
+          "É soma de dois primos.",
+          "É primo ou quadrado de primo."],
+      exp: "A existência se prova pelo segundo princípio de indução (Exemplo 23 da Seção 2.2); a unicidade usa a propriedade de primos `p | ab ⇒ p | a` ou `p | b`.",
+      dica: "Fatoração única." },
+    { t: "T", sec: "2.4", q: "O que é a função fi de Euler `φ(n)` e quanto vale `φ(p)` para `p` primo?",
+      o: ["É o número de inteiros `k` com `1 ≤ k ≤ n` e `mdc(k, n) = 1`; `φ(p) = p − 1`.",
+          "É o número de divisores de `n`; `φ(p) = 2`.",
+          "É o número de primos menores que `n`; `φ(p) = p`.",
+          "É a soma dos divisores; `φ(p) = p + 1`."],
+      exp: "Seção 2.4. Ex.: `φ(9) = 6` (1, 2, 4, 5, 7, 8).",
+      dica: "Contam-se os primos entre si com `n`." },
+
+    { t: "E", sec: "2.1", q: "Prove: “se `n²` é ímpar, então `n` é ímpar”.",
+      o: ["Por contraposição: provar “`n` par → `n²` par”. Se `n = 2m`, `n² = 4m² = 2(2m²)`, par.",
+          "Diretamente: `n² = 2k + 1`, então `n = √(2k+1)`, ímpar.",
+          "Por absurdo: suponha `n` ímpar e `n²` ímpar, contradição.",
+          "Por contraposição: provar “`n` ímpar → `n²` ímpar”."],
+      exp: "Exemplo 6 da Seção 2.1. A última prova a recíproca, não a contrapositiva.",
+      dica: "Contrapositiva de `P → Q` é `Q′ → P′`." },
+    { t: "E", sec: "2.1", q: "Um torneio de tênis tem 342 jogadores; o perdedor de cada partida é eliminado. Quantas partidas há até sair o campeão?",
+      o: ["Cada partida elimina exatamente um jogador e todos menos o campeão são eliminados: 341 partidas.",
+          "`342/2 = 171`.",
+          "`⌈log₂ 342⌉ = 9`.",
+          "`171 + 85 + 43 + … = 340`."],
+      exp: "Exemplo 12 da Seção 2.1 (demonstração por “serendipidade”). Somar rodada a rodada é mais trabalhoso e fácil de errar.",
+      dica: "Conte eliminações, não rodadas." },
+    { t: "E", sec: "2.2", q: "Prove `n² > 3n` para `n ≥ 4`.",
+      o: ["Base: `16 > 12`. Passo: `(k+1)² = k² + 2k + 1 > 3k + 2k + 1 ≥ 3k + 3 = 3(k+1)`, pois `2k + 1 ≥ 3` para `k ≥ 1`.",
+          "Base: `n = 1`. Passo análogo.",
+          "Base: `16 > 12`. Passo: `(k+1)² = k² + 1 > 3k + 1 = 3(k+1)`.",
+          "`n² > 3n ⟺ n > 3`, logo vale sem indução para `n ≥ 4`, mas indução é obrigatória."],
+      exp: "Exemplo 17 da Seção 2.2. Para `n = 1, 2, 3` a desigualdade é falsa; a base é 4.",
+      dica: "Expanda `(k+1)²` corretamente." },
+    { t: "E", sec: "2.2", q: "Prove que `2^(2n) − 1` é divisível por 3 para todo `n ≥ 1`.",
+      o: ["Base: `4 − 1 = 3`. Passo: `2^(2(k+1)) − 1 = 4·2^(2k) − 1 = 4(2^(2k) − 1) + 3`; ambos os termos são múltiplos de 3 (HI).",
+          "Passo: `2^(2(k+1)) − 1 = 2^(2k) − 1 + 4`, divisível por 3.",
+          "Base: `n = 0` dá 0, divisível por 3. Basta isso.",
+          "`2^(2n) − 1 = (2ⁿ − 1)(2ⁿ + 1)`, e um dos fatores é 3."],
+      exp: "Exemplo 18 da Seção 2.2. Na última, o produto de três consecutivos `(2ⁿ − 1)2ⁿ(2ⁿ + 1)` é múltiplo de 3 e `2ⁿ` não é, mas um fator não precisa ser igual a 3.",
+      dica: "Isole a hipótese indutiva somando e subtraindo." },
+    { t: "E", sec: "2.2", q: "Prove que toda franquia de `n ≥ 8` centavos pode ser obtida com selos de 3 e 5 centavos.",
+      o: ["Segundo princípio. Bases: `8 = 3+5`, `9 = 3+3+3`, `10 = 5+5`. Para `k + 1 ≥ 11`, `P(k − 2)` vale (pois `k − 2 ≥ 8`); some um selo de 3.",
+          "Primeiro princípio com base 8; some 1 centavo.",
+          "Bases 8 e 9 bastam.",
+          "Segundo princípio com base 8 somente; use `P(k − 2)`."],
+      exp: "Exemplo 24 da Seção 2.2. Saltos de 3 exigem 3 bases.",
+      dica: "Quantas bases para pular de 3 em 3?" },
+    { t: "E", sec: "2.3", q: "Use o algoritmo de Euclides para `mdc(420, 66)` e escreva-o como combinação linear.",
+      o: ["`420 = 6·66 + 24`; `66 = 2·24 + 18`; `24 = 1·18 + 6`; `18 = 3·6`. mdc = 6. Voltando: `6 = 3·420 − 19·66`.",
+          "mdc = 6, `6 = 420 − 6·66 − 18`.",
+          "mdc = 2, `2 = 420 − 6·66 − 22`.",
+          "mdc = 6, `6 = 19·420 − 3·66`."],
+      exp: "Exemplos 27 e 29 da Seção 2.3 e 2.4. Confira: `1260 − 1254 = 6`.",
+      dica: "Último resto não nulo." },
+
+    { t: "X", sec: "2.2", q: "Prove `1 + 2 + 2² + ⋯ + 2ⁿ = 2^(n+1) − 1` para `n ≥ 1`.",
+      o: ["Base: `1 + 2 = 3 = 2² − 1`. Passo: `(2^(k+1) − 1) + 2^(k+1) = 2·2^(k+1) − 1 = 2^(k+2) − 1`.",
+          "Base: `1 = 2¹ − 1`. Passo: `(2^(k+1) − 1) + 2ᵏ = 2^(k+2) − 1`.",
+          "É PG: `(2ⁿ − 1)/(2 − 1)`. Resultado: `2ⁿ − 1`.",
+          "Passo: `2^(k+1) − 1 + 1 = 2^(k+1)`."],
+      exp: "Exemplo 15 da Seção 2.2. O termo novo é `2^(k+1)`, não `2ᵏ`.",
+      dica: "Qual é o termo `k + 1` da soma?" },
+    { t: "X", sec: "2.4", q: "Fatore 825 e decida se 1021 é primo.",
+      o: ["`825 = 3·5²·11`. Para 1021, `√1021 < 32`; nenhum primo até 31 divide 1021, logo é primo.",
+          "`825 = 3·5·55`; 1021 não é primo pois é ímpar e maior que 1000.",
+          "`825 = 5²·33`; 1021 = 7·146.",
+          "`825 = 3·5²·11`; para 1021 é preciso testar todos os primos até 510."],
+      exp: "Exemplos 31 e 32 da Seção 2.4. Se `n` é composto, tem um fator primo `≤ √n`. `55` e `33` não são primos.",
+      dica: "Teste primos até `√n`." },
+    { t: "X", sec: "2.4", q: "Calcule `φ(133848)`, sabendo que `133848 = 2³·3²·11·13²`.",
+      o: ["`φ(n) = n ∏(1 − 1/p) = 133848·(1/2)(2/3)(10/11)(12/13) = 37440`.",
+          "`φ = (2−1)(3−1)(11−1)(13−1) = 240`.",
+          "`φ = 133848 − 4 = 133844`.",
+          "`φ = 2³·3²·11·13² − 2·3·11·13 = 132990`."],
+      exp: "Exemplo 36 da Seção 2.4. Usa-se `φ(pᵏ) = pᵏ − pᵏ⁻¹` e a multiplicatividade de `φ` para fatores primos entre si.",
+      dica: "Fórmula do produto sobre primos distintos." }
+  ]
+});
+
+// Gersting, Cap. 3 · Recorrência (Seções 3.1–3.3)
+capitulo("gersting", {
+  num: 3, nome: "Recorrência", secoes: "3.1–3.3",
+  desc: "Definições recorrentes, relações de recorrência (fórmula, equação característica, dividir para conquistar) e análise de algoritmos.",
+  qs: [
+    { t: "T", sec: "3.1", q: "Uma definição recorrente de um objeto consiste em:",
+      o: ["Uma condição básica (casos simples definidos explicitamente) e um passo recorrente (novos casos definidos a partir de casos anteriores).",
+          "Uma fórmula fechada em função de `n`.",
+          "Um laço que repete até convergir.",
+          "Apenas a regra recursiva; o caso base é opcional."],
+      exp: "Seção 3.1. Sem a condição básica a definição não começa (ou seria circular).",
+      dica: "Base + passo, como na indução." },
+    { t: "T", sec: "3.2", q: "Para a relação linear de primeira ordem `S(n) = cS(n − 1) + g(n)`, a fórmula de solução do Gersting é:",
+      o: ["`S(n) = cⁿ⁻¹S(1) + ∑_{i=2}^{n} cⁿ⁻ⁱ g(i)`.",
+          "`S(n) = cⁿ S(1)`.",
+          "`S(n) = S(1) + ∑ g(i)`, independentemente de `c`.",
+          "`S(n) = c S(1) + g(n)`."],
+      exp: "Equação (8) da Seção 3.2. Com `c = 1` reduz-se a `S(1) + ∑ g(i)`.",
+      dica: "Expanda alguns passos e veja o padrão." },
+    { t: "T", sec: "3.2", q: "Para `S(n) = c₁S(n − 1) + c₂S(n − 2)` com raízes distintas `r₁, r₂` de `t² − c₁t − c₂ = 0`, a forma da solução no Gersting é:",
+      o: ["`S(n) = p r₁ⁿ⁻¹ + q r₂ⁿ⁻¹`, com `p + q = S(1)` e `p r₁ + q r₂ = S(2)`.",
+          "`S(n) = (p + qn) r₁ⁿ`.",
+          "`S(n) = r₁ⁿ + r₂ⁿ`.",
+          "`S(n) = p r₁ⁿ − q r₂ⁿ`, com `p = q`."],
+      exp: "O Gersting indexa a partir de `S(1)`, por isso os expoentes `n − 1`.",
+      dica: "Os expoentes começam em 0 para `n = 1`." },
+    { t: "T", sec: "3.3", q: "Na análise de algoritmos, o que se conta normalmente para medir o trabalho?",
+      o: ["O número de vezes que a operação básica (ex.: comparações em busca) é executada, em função do tamanho da entrada, em geral no pior caso.",
+          "O tempo em segundos em um computador específico.",
+          "O número de linhas do código.",
+          "A quantidade de variáveis."],
+      exp: "Seção 3.3. Assim a medida não depende de máquina ou linguagem.",
+      dica: "Operação básica × tamanho da entrada." },
+    { t: "T", sec: "3.3", q: "Qual é o número de comparações no pior caso da busca sequencial e da busca binária em listas de `n` elementos?",
+      o: ["Sequencial: `n`. Binária (lista ordenada, `n = 2ᵐ`): `1 + log n`.",
+          "Sequencial: `log n`. Binária: `n`.",
+          "Ambas: `n/2`.",
+          "Sequencial: `n²`. Binária: `n`."],
+      exp: "Seção 3.3 (Exemplos 29 e 30). A busca binária exige lista ordenada.",
+      dica: "Quantas vezes se divide ao meio?" },
+
+    { t: "E", sec: "3.2", q: "Resolva `S(n) = 2S(n − 1) + 3`, `S(1) = 4`.",
+      o: ["Fórmula com `c = 2`, `g = 3`: `S(n) = 2ⁿ⁻¹·4 + ∑_{i=2}^{n} 2ⁿ⁻ⁱ·3 = 2ⁿ⁺¹ + 3(2ⁿ⁻¹ − 1)`. Ex.: `S(5) = 64 + 45 = 109`.",
+          "`S(n) = 4·2ⁿ⁻¹ = 2ⁿ⁺¹`; `S(5) = 64`.",
+          "`S(n) = 2ⁿ + 3n`; `S(5) = 47`.",
+          "`S(n) = 4 + 3(n − 1)`; `S(5) = 16`."],
+      exp: "Exemplo 17 da Seção 3.2. Confira: `S(2) = 11`, `S(3) = 25`, `S(4) = 53`, `S(5) = 109`.",
+      dica: "Não esqueça a parte não homogênea." },
+    { t: "E", sec: "3.2", q: "Resolva `T(n) = T(n − 1) + (n + 1)`, `T(1) = 2`.",
+      o: ["`c = 1`, `g(i) = i + 1`: `T(n) = 2 + ∑_{i=2}^{n}(i + 1) = 2 + (n(n+1)/2 − 1) + (n − 1) = n(n + 3)/2`.",
+          "`T(n) = 2 + n(n + 1)/2`.",
+          "`T(n) = (n + 1)!`.",
+          "`T(n) = 2ⁿ`."],
+      exp: "Exemplo 18 da Seção 3.2. Confira: `T(2) = 5 = 2·5/2`.",
+      dica: "Com `c = 1`, é só somar `g(i)`." },
+    { t: "E", sec: "3.2", q: "Resolva `S(n) = 2S(n − 1) + 3S(n − 2)`, `S(1) = 3`, `S(2) = 1`.",
+      o: ["`t² − 2t − 3 = 0` → `r = 3, −1`. `p + q = 3`, `3p − q = 1` → `p = 1`, `q = 2`. Resultado: `S(n) = 3ⁿ⁻¹ + 2(−1)ⁿ⁻¹`.",
+          "`r = 3, −1`; `p = 3`, `q = 1`. Resultado: `3ⁿ + (−1)ⁿ`.",
+          "`t² + 2t + 3 = 0`, sem raízes reais.",
+          "`r = −3, 1`. Resultado: `S(n) = (−3)ⁿ⁻¹ + 2`."],
+      exp: "Exemplo 21 da Seção 3.2. Confira: `S(3) = 2 + 9 = 11 = 9 + 2`.",
+      dica: "Monte o sistema com `S(1)` e `S(2)`." },
+    { t: "E", sec: "3.2", q: "Resolva `S(n) = 8S(n − 1) − 16S(n − 2)`, `S(1) = 1`, `S(2) = 12`.",
+      o: ["`(t − 4)² = 0`, raiz dupla 4: `S(n) = p4ⁿ⁻¹ + q(n − 1)4ⁿ⁻¹`; `p = 1`, `4p + 4q = 12` → `q = 2`. Resultado: `S(n) = (2n − 1)4ⁿ⁻¹`.",
+          "Raiz dupla 4: `S(n) = p4ⁿ⁻¹` com `p = 1`; `S(n) = 4ⁿ⁻¹`.",
+          "Raízes 4 e −4: `S(n) = 4ⁿ⁻¹ + (−4)ⁿ⁻¹`.",
+          "Raiz dupla 4: `p = 1`, `q = 12`; `S(n) = (12n − 11)4ⁿ⁻¹`."],
+      exp: "Exemplo 22 da Seção 3.2. Confira: `S(3) = 96 − 16 = 80 = 5·16`.",
+      dica: "Raiz repetida pede o fator `(n − 1)`." },
+
+    { t: "X", sec: "3.2", q: "Resolva `C(n) = 1 + C(n/2)`, `C(1) = 1`, para `n = 2ᵐ` (busca binária).",
+      o: ["Expandindo: `C(n) = k + C(n/2ᵏ)`; para `n/2ᵏ = 1`, `k = log n`. Resultado: `C(n) = 1 + log n` (confirmado por indução sobre potências de 2).",
+          "`C(n) = n`.",
+          "`C(n) = log n`.",
+          "`C(n) = n log n`."],
+      exp: "Exemplo 24 da Seção 3.2.",
+      dica: "Quantas divisões até chegar a 1?" },
+    { t: "X", sec: "3.1", q: "Prove diretamente (sem indução) que `F(n + 4) = 3F(n + 2) − F(n)` na sequência de Fibonacci.",
+      o: ["`F(n+4) = F(n+3) + F(n+2) = [F(n+2) + F(n+1)] + F(n+2) = 2F(n+2) + [F(n+2) − F(n)] = 3F(n+2) − F(n)`.",
+          "`F(n+4) = F(n+3) + F(n+2) = 2F(n+2)`, logo vale.",
+          "Basta verificar `n = 1`: `F(5) = 5 = 3·2 − 1`.",
+          "`F(n+4) = 4F(n)`, e `3F(n+2) − F(n) = 4F(n)`."],
+      exp: "Exemplo 4 da Seção 3.1. Usa-se `F(n+1) = F(n+2) − F(n)`.",
+      dica: "Reescreva `F(n+1)` em termos de `F(n+2)` e `F(n)`." },
+    { t: "X", sec: "3.1", q: "O conjunto `S` de cadeias binárias é definido por: `λ ∈ S`; se `x ∈ S`, então `1x0 ∈ S` e `0x1 ∈ S`. Que cadeias de comprimento 4 estão em `S`?",
+      o: ["De `λ`: `10`, `01`. Aplicando de novo: `1100`, `1010`, `0101`, `0011`.",
+          "Todas as 16 cadeias de 4 bits.",
+          "Só `1100` e `0011`.",
+          "`1001`, `0110`, `1010`, `0101`."],
+      exp: "Exemplo 8 da Seção 3.1. Toda cadeia de `S` tem o mesmo número de 0s e 1s, mas nem toda cadeia equilibrada está em `S` (ex.: `1001`).",
+      dica: "Envolva `10` e `01` com `1…0` e `0…1`." }
+  ]
+});
+
+// Gersting, Cap. 4 · Conjuntos, Combinatória e Probabilidade (Seções 4.1–4.6)
+capitulo("gersting", {
+  num: 4, nome: "Conjuntos, Combinatória e Probabilidade", secoes: "4.1–4.6",
+  desc: "Conjuntos, operações binárias, enumerabilidade, contagem, inclusão-exclusão, casas de pombo, permutações, combinações, binômio e probabilidade.",
+  qs: [
+    { t: "T", sec: "4.1", q: "Para que `∘` seja uma operação binária em um conjunto `S`, é preciso que:",
+      o: ["`x ∘ y` exista, seja único (bem definida) e pertença a `S` para todo par `(x, y)` de `S` (fechamento).",
+          "`x ∘ y = y ∘ x` para todo `x, y`.",
+          "Exista elemento neutro.",
+          "`S` seja finito."],
+      exp: "Seção 4.1. A divisão não é operação binária em `ℤ` (`x ÷ 0` não existe) e a subtração não é em `ℕ` (`1 − 10 ∉ ℕ`).",
+      dica: "Existência, unicidade e fechamento." },
+    { t: "T", sec: "4.1", q: "Como se prova que o intervalo de reais `(0, 1)` não é enumerável?",
+      o: ["Diagonal de Cantor: dada qualquer lista `0,d₁₁d₁₂…`, `0,d₂₁d₂₂…`, …, constrói-se um real cujo `n`-ésimo dígito difere de `dₙₙ`; ele não está na lista.",
+          "Porque entre dois reais há infinitos outros.",
+          "Porque `(0, 1)` contém `ℚ ∩ (0, 1)`.",
+          "Porque `(0, 1)` é infinito."],
+      exp: "Exemplo 23 da Seção 4.1. Tomam-se dígitos diferentes de 0 e 9 para evitar a ambiguidade `0,4999… = 0,5`.",
+      dica: "Construa um número fora da lista." },
+    { t: "T", sec: "4.3", q: "O princípio das casas de pombo do Gersting diz:",
+      o: ["Se mais de `k` itens são colocados em `k` caixas, pelo menos uma caixa contém mais de um item.",
+          "Se `k` itens vão para `k` caixas, cada caixa tem um item.",
+          "Se `k` itens vão para mais de `k` caixas, há uma caixa vazia e outra com dois.",
+          "Toda caixa recebe pelo menos um item."],
+      exp: "Seção 4.3. Se `k` itens vão para `k` caixas, pode haver um por caixa, mas também várias vazias.",
+      dica: "Mais itens que caixas." },
+    { t: "T", sec: "4.4", q: "Qual relação há entre `P(n, r)` e `C(n, r)`?",
+      o: ["`P(n, r) = C(n, r)·r!`: escolhe-se o subconjunto e depois ordena-se.",
+          "`C(n, r) = P(n, r)·r!`.",
+          "`P(n, r) = C(n, r) + r!`.",
+          "São iguais quando `r > 1`."],
+      exp: "Seção 4.4. Ex.: `P(7, 3) = 210 = 35·6 = C(7, 3)·3!`.",
+      dica: "Ordenar depois de escolher." },
+    { t: "T", sec: "4.5", q: "O teorema binomial afirma que `(a + b)ⁿ = ∑_{k=0}^{n} C(n, k) aⁿ⁻ᵏ bᵏ`. Tomando `a = b = 1`, obtém-se:",
+      o: ["`∑_{k=0}^{n} C(n, k) = 2ⁿ`: o total de subconjuntos de um conjunto com `n` elementos.",
+          "`∑ C(n, k) = n!`.",
+          "`∑ C(n, k) = 0`.",
+          "`C(n, n) = 2ⁿ`."],
+      exp: "Exemplo 64 da Seção 4.5. Com `a = 1`, `b = −1`, a soma alternada dá 0 (para `n ≥ 1`).",
+      dica: "Soma de uma linha do triângulo de Pascal." },
+    { t: "T", sec: "4.6", q: "No Gersting, a probabilidade de `E₁ ∪ E₂` é:",
+      o: ["`P(E₁ ∪ E₂) = P(E₁) + P(E₂) − P(E₁ ∩ E₂)`, e se `E₁ ∩ E₂ = ∅`, simplesmente a soma.",
+          "Sempre `P(E₁) + P(E₂)`.",
+          "`P(E₁)·P(E₂)`.",
+          "`max(P(E₁), P(E₂))`."],
+      exp: "Seção 4.6: é a inclusão-exclusão dividida por `|S|` (resultados equiprováveis).",
+      dica: "Inclusão-exclusão." },
+
+    { t: "E", sec: "4.1", q: "Prove `{x ∈ ℕ | x² < 15} = {x ∈ ℕ | 2x < 7}`.",
+      o: ["Dupla inclusão: se `x² < 15`, então `x ≤ 3`, logo `2x ≤ 6 < 7`; se `2x < 7`, `x ≤ 3`, logo `x² ≤ 9 < 15`. Ambos são `{0, 1, 2, 3}`.",
+          "Os dois conjuntos são infinitos, logo iguais.",
+          "`x² < 15 ⟺ x < √15 ≈ 3,87` e `2x < 7 ⟺ x < 3,5`; como os limites diferem, os conjuntos diferem.",
+          "Basta `A ⊆ B`."],
+      exp: "Exemplo 5 da Seção 4.1. Os limites reais diferem, mas em `ℕ` os conjuntos coincidem.",
+      dica: "Trabalhe em `ℕ`, não em `ℝ`." },
+    { t: "E", sec: "4.3", q: "13 comem calabresa, 10 salame, 12 queijo extra; 4 calabresa e salame, 5 salame e queijo, 7 calabresa e queijo, 3 tudo. Quantos estudantes (todos comem algo)?",
+      o: ["`|A ∪ B ∪ C| = 13 + 10 + 12 − 4 − 5 − 7 + 3 = 22`.",
+          "`13 + 10 + 12 = 35`.",
+          "`35 − 16 = 19`.",
+          "`35 − 16 − 3 = 16`."],
+      exp: "Exemplo 41 da Seção 4.3. Também se resolve com diagrama de Venn de dentro para fora.",
+      dica: "Inclusão-exclusão com três conjuntos." },
+    { t: "E", sec: "4.3", q: "Prove que, escolhendo 51 inteiros entre 1 e 100, um deles divide outro.",
+      o: ["Escreva cada um como `2ᵏm`, `m` ímpar. Há só 50 ímpares em 1..100; pelas casas de pombo, dois têm o mesmo `m`, e o de menor potência de 2 divide o outro.",
+          "Entre 51 números, dois são consecutivos, e um consecutivo divide o outro.",
+          "Algum deles é 1, que divide todos.",
+          "Algum é par e divide outro par."],
+      exp: "Exemplo 44 da Seção 4.3. Consecutivos não se dividem em geral (ex.: 3 e 4).",
+      dica: "Caixas = partes ímpares." },
+    { t: "E", sec: "4.4", q: "Comissão de 8 alunos escolhida entre 19 do 1º ano e 34 do 2º. Quantas têm pelo menos 1 aluno do 1º ano?",
+      o: ["Complemento: todas menos as só com 2º ano: `C(53, 8) − C(34, 8)`.",
+          "Escolha 1 do 1º ano e 7 quaisquer: `19·C(52, 7)`.",
+          "`C(19, 1)·C(34, 7)`.",
+          "`C(53, 8) − C(19, 8)`."],
+      exp: "Exemplos 55(d) e 56. A segunda conta comissões várias vezes (uma para cada aluno do 1º ano que poderia ter sido o “escolhido”).",
+      dica: "“Pelo menos um” sugere complemento." },
+    { t: "E", sec: "4.4", q: "Quantas permutações distintas têm as letras de MISSISSIPI?",
+      o: ["10 letras: M×1, I×4, S×4, P×1. Resultado: `10!/(4!·4!) = 6300`.",
+          "`10! = 3628800`.",
+          "`10!/(4!·4!·1!·1!·2!) = 3150`.",
+          "`4!·4! = 576`."],
+      exp: "Exemplo 57 da Seção 4.4 (grafia do livro: MISSISSIPI, com um P).",
+      dica: "Divida pelas trocas de letras iguais." },
+
+    { t: "X", sec: "4.2", q: "Quantos números de telefone de 4 dígitos têm pelo menos um dígito repetido?",
+      o: ["Complemento: `10⁴ − 10·9·8·7 = 10000 − 5040 = 4960`.",
+          "`10·10·10·1 = 1000`.",
+          "`C(4, 2)·10³ = 6000`.",
+          "`10⁴ − 10 = 9990`."],
+      exp: "Exemplo 37 da Seção 4.2.",
+      dica: "Conte os sem repetição e subtraia." },
+    { t: "X", sec: "4.4", q: "Um joalheiro faz um broche com 5 pedras escolhidas entre diamantes, rubis e esmeraldas. Quantos broches diferentes?",
+      o: ["Combinações com repetição de 3 tipos, 5 objetos: `C(5 + 3 − 1, 5) = C(7, 5) = 21`.",
+          "`3⁵ = 243`.",
+          "`C(5, 3) = 10`.",
+          "`P(7, 5) = 2520`."],
+      exp: "Exemplo 58 da Seção 4.4 (estrelas e barras: 5 pedras, 2 separadores).",
+      dica: "Pedras do mesmo tipo são iguais, ordem irrelevante." },
+    { t: "X", sec: "4.5", q: "Expanda `(x − 3)⁴`.",
+      o: ["Com `a = x`, `b = −3`: `x⁴ + 4x³(−3) + 6x²(9) + 4x(−27) + 81 = x⁴ − 12x³ + 54x² − 108x + 81`.",
+          "`x⁴ − 81`.",
+          "`x⁴ − 12x³ + 54x² − 108x − 81`.",
+          "`x⁴ + 12x³ + 54x² + 108x + 81`."],
+      exp: "Exemplo 63 da Seção 4.5. `(−3)⁴ = 81` é positivo.",
+      dica: "Sinais alternados, último termo positivo." },
+    { t: "X", sec: "4.2", q: "Jogando uma moeda 5 vezes, quantos resultados não têm duas caras consecutivas?",
+      o: ["Pela árvore de decisão (ou pela recorrência de Fibonacci `a(n) = a(n−1) + a(n−2)`, `a(1) = 2`, `a(2) = 3`): `a(5) = 13`.",
+          "`2⁵ = 32`.",
+          "`2⁵ − 4 = 28`.",
+          "`C(5, 2) = 10`."],
+      exp: "Exemplo 39 da Seção 4.2: 2, 3, 5, 8, 13.",
+      dica: "Termina em coroa ou em “coroa, cara”." }
+  ]
+});
+
+// Gersting, Cap. 5 · Relações, Funções e Matrizes (Seções 5.1–5.7)
+capitulo("gersting", {
+  num: 5, nome: "Relações, Funções e Matrizes", secoes: "5.1–5.7",
+  desc: "Relações e ordens parciais, ordenação topológica, bancos de dados relacionais, funções, ordem de grandeza, a função mod e matrizes.",
+  qs: [
+    { t: "T", sec: "5.1", q: "No Gersting, uma relação binária em `S` é:",
+      o: ["Um subconjunto de `S × S`.", "Uma função de `S` em `S`.", "Um par ordenado.", "Uma operação binária em `S`."],
+      exp: "Seção 5.1. Toda função é uma relação, mas não o contrário.",
+      dica: "Um conjunto de pares." },
+    { t: "T", sec: "5.1", q: "Qual é a diferença entre predecessor imediato e predecessor em um conjunto parcialmente ordenado?",
+      o: ["`x` é predecessor imediato de `y` se `x ≺ y` e não existe `z` com `x ≺ z ≺ y`; no diagrama de Hasse só aparecem as arestas dos predecessores imediatos.",
+          "São sinônimos.",
+          "O predecessor imediato é o menor elemento do conjunto.",
+          "O predecessor imediato precisa ser maximal."],
+      exp: "Seção 5.1. O diagrama de Hasse omite laços e arestas implicadas pela transitividade.",
+      dica: "Nada entre eles." },
+    { t: "T", sec: "5.2", q: "O que é uma ordenação topológica de um conjunto parcialmente ordenado finito?",
+      o: ["Uma ordem total que estende a ordem parcial: se `x ≺ y` na ordem parcial, `x` aparece antes de `y`.",
+          "Uma ordenação crescente numérica.",
+          "Uma partição em classes de equivalência.",
+          "A ordem dos elementos minimais."],
+      exp: "Seção 5.2. Obtém-se removendo repetidamente um elemento minimal; útil para agendar tarefas (PERT).",
+      dica: "Respeitar as precedências." },
+    { t: "T", sec: "5.3", q: "Nas operações de banco de dados relacional, o que faz a projeção?",
+      o: ["Seleciona atributos (colunas) de uma relação, eliminando tuplas repetidas.",
+          "Seleciona tuplas (linhas) que satisfazem uma condição.",
+          "Combina duas relações por um atributo comum.",
+          "Ordena as tuplas."],
+      exp: "Seção 5.3: restrição = linhas; projeção = colunas; junção = combinação por atributo comum.",
+      dica: "Colunas." },
+    { t: "T", sec: "5.4", q: "Quantas funções existem de um conjunto com `n` elementos em um com `m` elementos, e quantas são injetoras (`n ≤ m`)?",
+      o: ["Funções: `mⁿ`. Injetoras: `m(m − 1)⋯(m − n + 1) = P(m, n)`.",
+          "Funções: `nᵐ`. Injetoras: `n!`.",
+          "Funções: `m·n`. Injetoras: `C(m, n)`.",
+          "Funções: `2^(mn)`. Injetoras: `mⁿ`."],
+      exp: "Seção 5.4. `2^(mn)` é o número de relações entre os conjuntos.",
+      dica: "Cada elemento do domínio escolhe uma imagem." },
+    { t: "T", sec: "5.5", q: "No Gersting, `f = Θ(g)` (mesma ordem de grandeza) quando:",
+      o: ["Existem constantes `n₀`, `c₁ > 0`, `c₂ > 0` com `c₁g(x) ≤ f(x) ≤ c₂g(x)` para todo `x ≥ n₀`.",
+          "`f(x) = g(x)` para todo `x`.",
+          "`f(x) ≤ g(x)` para `x` grande.",
+          "`f(x) − g(x)` é constante."],
+      exp: "Seção 5.5. Ex.: `3x² + 4x + 7 = Θ(x²)`.",
+      dica: "Sanduíche entre múltiplos de `g`." },
+    { t: "T", sec: "5.6", q: "Por que a aritmética módulo `n` funciona: `(a + b) mod n` e `(a·b) mod n`?",
+      o: ["Porque `(a + b) mod n = ((a mod n) + (b mod n)) mod n` e o análogo para o produto: pode-se reduzir antes de operar.",
+          "Porque `a mod n = a` sempre.",
+          "Porque `mod` é injetora.",
+          "Só vale para `n` primo."],
+      exp: "Seção 5.6. É a base de hashing, dígitos verificadores, cifras e RSA.",
+      dica: "Reduza antes de calcular." },
+
+    { t: "E", sec: "5.1", q: "Em `S = {1, 2, 3}`, a relação `ρ = {(1,1), (2,2), (3,3), (1,2), (2,1)}` é de equivalência? Quais as classes?",
+      o: ["Reflexiva (todos os laços), simétrica (`(1,2)` e `(2,1)`), transitiva (verifica-se todos os pares). Classes: `[1] = {1, 2}`, `[3] = {3}`.",
+          "Não é transitiva, pois falta `(1,3)`.",
+          "Não é simétrica, pois falta `(3,1)`.",
+          "É uma ordem parcial com classes `{1}, {2}, {3}`."],
+      exp: "Transitividade exige `(1,3)` só se houvesse `(1,x)` e `(x,3)`. Não é ordem parcial: `(1,2)` e `(2,1)` com `1 ≠ 2` violam a antissimetria.",
+      dica: "Transitividade só cobra pares encadeados." },
+    { t: "E", sec: "5.4", q: "Quantas funções de `{1, 2, 3}` em `{a, b}` são sobrejetoras?",
+      o: ["Total `2³ = 8`; menos as constantes (2). Resultado: 6.",
+          "`2³ = 8`.", "`3² = 9`.", "`P(2, 3) = 0`."],
+      exp: "Seção 5.4. Nenhuma é injetora (3 > 2), e as sobrejetoras são as não constantes.",
+      dica: "Elimine as que usam um só valor." },
+    { t: "E", sec: "5.6", q: "Uma tabela de hash tem 11 posições e `h(x) = x mod 11`. Onde ficam 25 e 47?",
+      o: ["`25 mod 11 = 3`, `47 mod 11 = 3`: ambos na posição 3, uma colisão a ser resolvida (ex.: sondagem linear para a 4).",
+          "25 na posição 2 e 47 na posição 4.",
+          "Em posições diferentes, pois são números diferentes.",
+          "25 na posição 25 mod 10 = 5 e 47 na 7."],
+      exp: "Seção 5.6. Funções de hash não são injetoras em geral.",
+      dica: "Calcule os restos." },
+
+    { t: "X", sec: "5.5", q: "Mostre que `f(x) = 3x³ + 7x` é `Θ(x³)`.",
+      o: ["Para `x ≥ 1`: `3x³ ≤ 3x³ + 7x ≤ 3x³ + 7x³ = 10x³`. Constantes `c₁ = 3`, `c₂ = 10`, `n₀ = 1`.",
+          "`3x³ + 7x ≤ x³` para `x` grande.",
+          "`lim f(x)/x² = ∞`, logo é `Θ(x³)`.",
+          "Só é `O(x³)`, não `Θ`."],
+      exp: "Seção 5.5. Polinômios de grau `k` com coeficiente líder positivo são `Θ(xᵏ)`.",
+      dica: "Majore `7x` por `7x³`." },
+    { t: "X", sec: "5.7", q: "Se `A` é `2 × 3` e `B` é `3 × 4`, qual o tamanho de `AB` e `BA` está definido?",
+      o: ["`AB` é `2 × 4`; `BA` não está definido (`4 ≠ 2`).",
+          "`AB` é `3 × 3`; `BA` é `4 × 2`.",
+          "Ambos são `2 × 4`.",
+          "`AB` não está definido."],
+      exp: "Seção 5.7. O produto de matrizes não é comutativo, e pode nem existir nas duas ordens.",
+      dica: "Colunas da primeira = linhas da segunda." },
+    { t: "X", sec: "5.4", q: "Seja `f: ℝ → ℝ`, `f(x) = 3x + 4`. É bijetora? Qual a inversa?",
+      o: ["Injetora: `3x + 4 = 3y + 4 ⇒ x = y`; sobrejetora: `f((y − 4)/3) = y`. Inversa `f⁻¹(y) = (y − 4)/3`.",
+          "Não é sobrejetora em `ℝ`.",
+          "Inversa `f⁻¹(y) = 1/(3y + 4)`.",
+          "Inversa `f⁻¹(y) = 3y − 4`."],
+      exp: "Seção 5.4. Confira: `f(f⁻¹(y)) = 3(y − 4)/3 + 4 = y`.",
+      dica: "Isole `x` em `y = 3x + 4`." }
+  ]
+});
+
+// Gersting, Cap. 6 · Grafos e Árvores (Seções 6.1–6.4)
+capitulo("gersting", {
+  num: 6, nome: "Grafos e Árvores", secoes: "6.1–6.4",
+  desc: "Grafos e suas representações, árvores e percursos, árvores de decisão e códigos de Huffman.",
+  qs: [
+    { t: "T", sec: "6.1", q: "Para um grafo simples com `n` nós e poucas arestas (esparso), qual representação o Gersting recomenda e por quê?",
+      o: ["Lista de adjacência: usa espaço proporcional a `n + arestas`, enquanto a matriz usa `n²` mesmo com poucas arestas.",
+          "Matriz de adjacência, pois sempre é mais compacta.",
+          "Lista de arestas ordenada por peso.",
+          "Desenho do grafo."],
+      exp: "Seção 6.1. A matriz permite testar adjacência em tempo constante, mas desperdiça espaço em grafos esparsos.",
+      dica: "Muitos zeros na matriz." },
+    { t: "T", sec: "6.1", q: "O que significa dois grafos serem isomorfos?",
+      o: ["Existe uma bijeção entre os nós que preserva adjacências (e uma correspondente entre arestas).",
+          "Têm o mesmo número de nós.",
+          "Têm o mesmo desenho.",
+          "Têm o mesmo número de arestas e de nós."],
+      exp: "Seção 6.1. Mesmo número de nós e arestas é necessário, mas não suficiente.",
+      dica: "Renomear nós sem mudar a estrutura." },
+    { t: "T", sec: "6.2", q: "Em uma árvore binária, os percursos em pré-ordem, em ordem e pós-ordem diferem em:",
+      o: ["Quando a raiz é visitada: antes das subárvores (pré), entre a esquerda e a direita (em ordem) ou depois de ambas (pós).",
+          "Qual subárvore é visitada primeiro (direita ou esquerda).",
+          "Quantos nós são visitados.",
+          "Só se aplicam a árvores de busca."],
+      exp: "Seção 6.2. Todos visitam todos os nós uma vez; sempre a esquerda antes da direita.",
+      dica: "A posição da raiz." },
+    { t: "T", sec: "6.3", q: "Na árvore de decisão de uma busca por comparações em uma lista de `n` elementos, qual o número mínimo de comparações no pior caso?",
+      o: ["`⌊log n⌋ + 1`, pois a árvore binária precisa ter pelo menos `n` nós (um por possível resultado).",
+          "`n`.",
+          "`n log n`.",
+          "`n/2`."],
+      exp: "Seção 6.3. A busca binária atinge esse limite, então é ótima.",
+      dica: "Altura de uma árvore binária com `n` nós." },
+    { t: "T", sec: "6.4", q: "Por que um código de Huffman pode ser decodificado sem ambiguidade?",
+      o: ["Porque é um código de prefixo: nenhum código é prefixo de outro, pois os caracteres ficam só nas folhas da árvore.",
+          "Porque todos os códigos têm o mesmo tamanho.",
+          "Porque usa separadores entre caracteres.",
+          "Porque é ASCII."],
+      exp: "Seção 6.4. Ao ler bits, desce-se na árvore até uma folha e volta-se à raiz.",
+      dica: "Caracteres só nas folhas." },
+
+    { t: "E", sec: "6.2", q: "Para a árvore com raiz `a`, filhos `b` (esq) e `c` (dir), e `b` com filhos `d` (esq) e `e` (dir), quais são os percursos?",
+      o: ["Pré-ordem: `a b d e c`. Em ordem: `d b e a c`. Pós-ordem: `d e b c a`.",
+          "Pré-ordem: `a b c d e`. Em ordem: `d b e a c`. Pós-ordem: `d e b c a`.",
+          "Pré-ordem: `a b d e c`. Em ordem: `a b d e c`. Pós-ordem: `c e d b a`.",
+          "Pré-ordem: `d e b c a`. Em ordem: `d b e a c`. Pós-ordem: `a b d e c`."],
+      exp: "Seção 6.2. `a b c d e` é percurso por nível (largura), não pré-ordem.",
+      dica: "Pré: raiz, esq, dir. Pós: esq, dir, raiz." },
+    { t: "E", sec: "6.4", q: "Com o código de Huffman `a = 0`, `b = 10`, `c = 110`, `d = 111`, decodifique `0110100111`.",
+      o: ["Lendo da esquerda: `0 → a`, `110 → c`, `10 → b`, `0 → a`, `111 → d`. Resultado: `acbad`.",
+          "`0 → a`, `11 → ?`; é ambíguo.",
+          "`01 → b`, `10 → b`, … Resultado: `bbbad`.",
+          "Resultado: `abcad`."],
+      exp: "Seção 6.4. O código de prefixo permite ler gulosamente da esquerda para a direita.",
+      dica: "Pare ao completar um código." },
+    { t: "E", sec: "6.1", q: "Um grafo completo `Kₙ` tem quantas arestas e qual o grau de cada nó?",
+      o: ["Cada par de nós é ligado: `C(n, 2) = n(n − 1)/2` arestas; cada nó tem grau `n − 1`.",
+          "`n²` arestas; grau `n`.",
+          "`n − 1` arestas; grau 1.",
+          "`2ⁿ` arestas; grau `n − 1`."],
+      exp: "Seção 6.1. Confere com o aperto de mãos: `n(n − 1) = 2·C(n, 2)`.",
+      dica: "Pares de nós." },
+
+    { t: "X", sec: "6.2", q: "Uma árvore binária completa de altura `d` tem quantos nós?",
+      o: ["`1 + 2 + 4 + ⋯ + 2ᵈ = 2^(d+1) − 1` nós.",
+          "`2ᵈ` nós.", "`2d + 1` nós.", "`d²` nós."],
+      exp: "Seção 6.2 (prova por indução em `d`). Ela tem `2ᵈ` folhas.",
+      dica: "Some os níveis." },
+    { t: "X", sec: "6.3", q: "Qual o limite inferior de comparações no pior caso para ordenar `n` elementos por comparações?",
+      o: ["A árvore de decisão tem `n!` folhas, altura `≥ log n!`, e `log n! = Θ(n log n)`.",
+          "`n − 1`.", "`n²/2`.", "`log n`."],
+      exp: "Seção 6.3. Mergesort e heapsort atingem essa ordem.",
+      dica: "Quantas permutações distinguir?" },
+    { t: "X", sec: "6.4", q: "Para frequências `a: 50`, `b: 25`, `c: 15`, `d: 10` (em 100 caracteres), quantos bits Huffman usa no total?",
+      o: ["Junta `d+c = 25`, depois `25+b = 50`, depois `50+a = 100`: códigos `a: 1 bit`, `b: 2`, `c: 3`, `d: 3`. Total `50 + 50 + 45 + 30 = 175` bits.",
+          "Código fixo de 2 bits: 200 bits.",
+          "`a: 1`, `b: 1`, `c: 2`, `d: 2`: 135 bits.",
+          "`a: 1`, `b: 2`, `c: 2`, `d: 3`: 160 bits."],
+      exp: "Seção 6.4. Huffman economiza 25 bits em relação ao código fixo. A terceira alternativa não é código de prefixo.",
+      dica: "Junte sempre as duas menores frequências." }
+  ]
+});
+
+// Gersting, Cap. 7 · Algoritmos em Grafos (Seções 7.1–7.5)
+capitulo("gersting", {
+  num: 7, nome: "Algoritmos em Grafos", secoes: "7.1–7.5",
+  desc: "Grafos direcionados e relações (Warshall), caminho de Euler, Hamilton, caminho mínimo (Dijkstra), árvore geradora mínima, percursos e pontos de articulação.",
+  qs: [
+    { t: "T", sec: "7.1", q: "O que calcula o algoritmo de Warshall e qual sua ordem de grandeza?",
+      o: ["A matriz de alcançabilidade (fecho transitivo) de um grafo direcionado com `n` nós, em `Θ(n³)`.",
+          "Caminhos mínimos com pesos, em `Θ(n²)`.",
+          "Uma árvore geradora mínima, em `Θ(n log n)`.",
+          "Um caminho de Euler, em `Θ(n)`."],
+      exp: "Seção 7.1: para cada `k`, se `i` alcança `k` e `k` alcança `j`, então `i` alcança `j`. São três laços aninhados.",
+      dica: "Fecho transitivo com três laços." },
+    { t: "T", sec: "7.2", q: "Em um grafo conexo, existe caminho de Euler se e somente se:",
+      o: ["Não há nós ímpares ou há exatamente dois nós ímpares (o caminho começa em um e termina no outro).",
+          "Todos os nós são ímpares.",
+          "Há exatamente um nó ímpar.",
+          "O grafo é completo."],
+      exp: "Seção 7.2. Um único nó ímpar é impossível (soma dos graus é par).",
+      dica: "Pontas do caminho." },
+    { t: "T", sec: "7.2", q: "Qual é a diferença de complexidade entre os problemas do caminho de Euler e do circuito hamiltoniano?",
+      o: ["Euler se decide contando graus, em tempo polinomial (`Θ(n²)` com matriz); para Hamilton não se conhece algoritmo eficiente.",
+          "Ambos são resolvidos contando graus.",
+          "Hamilton é fácil e Euler é difícil.",
+          "Ambos são impossíveis de decidir."],
+      exp: "Seção 7.2. O caixeiro-viajante (Hamilton com pesos) também não tem algoritmo eficiente conhecido.",
+      dica: "Um tem teste simples por graus." },
+    { t: "T", sec: "7.3", q: "No algoritmo de Dijkstra, o que acontece a cada passo?",
+      o: ["Inclui-se no conjunto `IN` o nó fora de `IN` com menor distância provisória e atualizam-se as distâncias dos demais via esse nó.",
+          "Inclui-se a aresta de menor peso do grafo.",
+          "Percorre-se o grafo em profundidade.",
+          "Relaxam-se todas as arestas `n − 1` vezes."],
+      exp: "Seção 7.3. É guloso e exige pesos não negativos; ordem `Θ(n²)` com matriz.",
+      dica: "O mais próximo ainda não fixado." },
+    { t: "T", sec: "7.3", q: "No algoritmo de Prim, como a árvore geradora mínima cresce?",
+      o: ["Começa em um nó e, a cada passo, acrescenta a aresta de menor peso ligando um nó da árvore a um nó fora dela.",
+          "Ordena todas as arestas e acrescenta as menores que não formam ciclo, mesmo desconexas.",
+          "Remove as arestas mais pesadas até não haver ciclos.",
+          "Usa busca em largura."],
+      exp: "Seção 7.3. A segunda descreve Kruskal.",
+      dica: "Cresce a partir de um nó." },
+    { t: "T", sec: "7.5", q: "O que é um ponto de articulação em um grafo conexo?",
+      o: ["Um nó cuja remoção (com suas arestas) desconecta o grafo.",
+          "Um nó de grau máximo.",
+          "Uma aresta que pertence a todos os ciclos.",
+          "A raiz da árvore de busca em profundidade."],
+      exp: "Seção 7.5. Em redes de computadores, são pontos únicos de falha; encontram-se com busca em profundidade.",
+      dica: "Remover desconecta." },
+
+    { t: "E", sec: "7.4", q: "Grafo com arestas `a–b`, `a–c`, `b–d`, `c–d`, `d–e`. Percursos a partir de `a`, visitando vizinhos em ordem alfabética?",
+      o: ["Profundidade: `a b d c e` (desce de `b` para `d`, depois `c`, volta e vai para `e`). Largura: `a b c d e`.",
+          "Profundidade: `a b c d e`. Largura: `a b d c e`.",
+          "Ambos: `a b c d e`.",
+          "Profundidade: `a c d b e`. Largura: `a b c d e`."],
+      exp: "Seção 7.4. A profundidade usa pilha/recursão; a largura usa fila.",
+      dica: "Profundidade: vá o mais longe possível." },
+    { t: "E", sec: "7.3", q: "Arestas com pesos: `x–a: 1`, `x–b: 4`, `a–b: 2`, `a–y: 6`, `b–y: 3`. Menor distância de `x` a `y` por Dijkstra?",
+      o: ["Fixa `a` (1); via `a`: `b = 3`, `y = 7`. Fixa `b` (3); via `b`: `y = 6`. Fixa `y`: distância 6 (caminho `x a b y`).",
+          "`x a y`: 7.",
+          "`x b y`: 7.",
+          "`x a b y`: 5."],
+      exp: "Seção 7.3. `1 + 2 + 3 = 6`.",
+      dica: "Atualize `b` ao fixar `a`." },
+    { t: "E", sec: "7.2", q: "Um grafo conexo tem nós com graus `2, 4, 3, 3, 2`. Ele tem caminho de Euler? E circuito?",
+      o: ["Exatamente dois nós ímpares (grau 3): tem caminho de Euler, de um ímpar ao outro, mas não circuito.",
+          "Tem circuito, pois a soma dos graus é par.",
+          "Não tem caminho, pois há nós ímpares.",
+          "Tem circuito e caminho."],
+      exp: "Seção 7.2. Circuito exige todos os graus pares.",
+      dica: "Conte os ímpares." },
+
+    { t: "X", sec: "7.1", q: "A matriz de adjacência booleana `A` de um grafo direcionado. O que representa `A⁽²⁾ = A × A` (produto booleano)?",
+      o: ["`A⁽²⁾[i, j] = 1` se e somente se existe caminho de comprimento exatamente 2 de `i` para `j`.",
+          "O número de caminhos de comprimento 2.",
+          "A matriz de alcançabilidade.",
+          "O grafo com arestas invertidas."],
+      exp: "Seção 7.1. A alcançabilidade é `A ∨ A⁽²⁾ ∨ ⋯ ∨ A⁽ⁿ⁾`; com produto comum (não booleano), contariam-se os caminhos.",
+      dica: "Produto booleano: existe `k` com `i → k → j`." },
+    { t: "X", sec: "7.3", q: "Qual é a diferença entre o resultado de Dijkstra (a partir de `x`) e o de Prim no mesmo grafo ponderado?",
+      o: ["Dijkstra gera a árvore de caminhos mínimos a partir de `x`; Prim gera a árvore de peso total mínimo. Em geral são árvores diferentes.",
+          "São sempre a mesma árvore.",
+          "Dijkstra gera uma floresta.",
+          "Prim só funciona com grafos direcionados."],
+      exp: "Seção 7.3. Ex.: triângulo com pesos `x–a: 2`, `x–b: 2`, `a–b: 1`: Prim pode escolher `{a–b, x–a}` (peso 3); Dijkstra usa `{x–a, x–b}` (peso 4).",
+      dica: "Objetivos diferentes." },
+    { t: "X", sec: "7.5", q: "Em uma árvore de busca em profundidade, quando a raiz é ponto de articulação?",
+      o: ["Quando tem mais de um filho na árvore de busca em profundidade.",
+          "Sempre.",
+          "Nunca.",
+          "Quando tem grau maior que 2 no grafo."],
+      exp: "Seção 7.5. Se tem dois ou mais filhos, não há aresta ligando as subárvores (senão a busca as teria juntado).",
+      dica: "Subárvores sem ligação entre si." }
+  ]
+});
+
+// Gersting, Cap. 8 · Álgebra de Boole e Lógica Computacional (Seções 8.1–8.3)
+capitulo("gersting", {
+  num: 8, nome: "Álgebra de Boole e Circuitos", secoes: "8.1–8.3",
+  desc: "Estrutura de álgebra de Boole, isomorfismos, circuitos lógicos, forma canônica e minimização (Karnaugh e Quine-McCluskey).",
+  qs: [
+    { t: "T", sec: "8.1", q: "No Gersting, uma álgebra de Boole é um conjunto `B` com `+`, `·`, `′`, `0` e `1` que satisfaz:",
+      o: ["Comutatividade, associatividade, distributividade (de `+` sobre `·` e de `·` sobre `+`), elementos neutros e complemento (`x + x′ = 1`, `x·x′ = 0`).",
+          "Apenas comutatividade e associatividade.",
+          "As propriedades de um corpo, como os reais.",
+          "Apenas `x + x = x` e `x·x = x`."],
+      exp: "Seção 8.1. Idempotência, absorção e De Morgan são teoremas derivados das propriedades básicas.",
+      dica: "Pense em conjuntos com `∪`, `∩` e complemento." },
+    { t: "T", sec: "8.1", q: "Qual é o exemplo de álgebra de Boole com conjuntos?",
+      o: ["`P(S)` com `∪`, `∩`, complemento em `S`, `∅` como 0 e `S` como 1.",
+          "`ℤ` com `+`, `·`, `0` e `1`.",
+          "`ℕ` com máximo e mínimo.",
+          "`ℝ` com `+` e `·`."],
+      exp: "Seção 8.1. `ℤ` não é álgebra de Boole: não vale `x + x′ = 1` nem a distributividade de `+` sobre `·`.",
+      dica: "Conjunto das partes." },
+    { t: "T", sec: "8.2", q: "A forma canônica (soma de produtos) de uma função booleana obtida da tabela-verdade é:",
+      o: ["A soma dos produtos (mintermos) das linhas com saída 1, cada produto contendo todas as variáveis, normais ou complementadas.",
+          "O produto das linhas com saída 0.",
+          "A expressão mínima.",
+          "A tabela-verdade escrita em uma linha."],
+      exp: "Seção 8.2. Nem sempre é a mais simples; por isso existe a minimização (Seção 8.3).",
+      dica: "Um termo por linha com 1." },
+    { t: "T", sec: "8.3", q: "Qual a vantagem do procedimento de Quine-McCluskey sobre o mapa de Karnaugh?",
+      o: ["É sistemático e mecanizável, funcionando para muitas variáveis, enquanto o mapa de Karnaugh fica impraticável acima de 4–6 variáveis.",
+          "Sempre dá uma expressão menor.",
+          "Não precisa da forma canônica.",
+          "Só funciona com 2 variáveis."],
+      exp: "Seção 8.3. Ambos combinam termos que diferem em uma variável (`xy + xy′ = x`).",
+      dica: "Pensa-se em programar." },
+
+    { t: "E", sec: "8.2", q: "Encontre a forma canônica de `f(x₁, x₂, x₃)` com saída 1 nas linhas `(1,1,1)`, `(1,0,1)` e `(0,0,1)`.",
+      o: ["Um mintermo por linha: `x₁x₂x₃ + x₁x₂′x₃ + x₁′x₂′x₃`.",
+          "`x₁ + x₂ + x₃`.",
+          "`x₁x₂x₃ + x₁x₂x₃′ + x₁′x₂x₃′`.",
+          "`(x₁ + x₂ + x₃)(x₁ + x₂′ + x₃)(x₁′ + x₂′ + x₃)`."],
+      exp: "Seção 8.2. Variáveis com valor 0 entram complementadas.",
+      dica: "0 → complementada; 1 → normal." },
+    { t: "E", sec: "8.3", q: "Minimize `x₁x₂x₃ + x₁x₂′x₃ + x₁′x₂′x₃`.",
+      o: ["`x₁x₂x₃ + x₁x₂′x₃ = x₁x₃`; `x₁x₂′x₃ + x₁′x₂′x₃ = x₂′x₃` (o termo do meio pode ser usado duas vezes). Resultado: `x₁x₃ + x₂′x₃`.",
+          "`x₃`.",
+          "`x₁x₃ + x₁′x₂′x₃`, que já é mínima.",
+          "`x₁ + x₂′ + x₃`."],
+      exp: "Seção 8.3. Pela idempotência (`A = A + A`), um termo pode ser combinado mais de uma vez. `x₃` sozinho incluiria `x₁′x₂x₃`, que não está na função.",
+      dica: "Combine pares que diferem em uma variável." },
+    { t: "E", sec: "8.2", q: "Expressione `x₁ + x₂` usando apenas portas NAND.",
+      o: ["`x₁ + x₂ = (x₁′x₂′)′ = (x₁ NAND x₁) NAND (x₂ NAND x₂)`.",
+          "`x₁ NAND x₂`.",
+          "`(x₁ NAND x₂) NAND (x₁ NAND x₂)`.",
+          "Não é possível."],
+      exp: "Seção 8.2: NAND é completa. A terceira dá `x₁x₂`.",
+      dica: "De Morgan e `x NAND x = x′`." },
+
+    { t: "X", sec: "8.1", q: "Prove a idempotência `x + x = x` a partir das propriedades básicas da álgebra de Boole.",
+      o: ["`x + x = (x + x)·1 = (x + x)(x + x′) = x + x·x′ = x + 0 = x`.",
+          "`x + x = 2x = x`.",
+          "Basta a tabela de `x = 1`.",
+          "`x + x = x·x = x`."],
+      exp: "Seção 8.1. Usa neutro, complemento, distributividade de `+` sobre `·`, complemento e neutro. Não existe `2x` em álgebra de Boole.",
+      dica: "Multiplique por `1 = x + x′`." },
+    { t: "X", sec: "8.2", q: "Quantas linhas tem a tabela-verdade de um circuito com 4 entradas e quantas funções diferentes podem ser implementadas?",
+      o: ["`2⁴ = 16` linhas; `2¹⁶ = 65536` funções.",
+          "4 linhas; 16 funções.",
+          "16 linhas; 16 funções.",
+          "8 linhas; 256 funções."],
+      exp: "Cada linha é uma combinação de entradas; cada função escolhe 0 ou 1 por linha.",
+      dica: "Funções = `2^(linhas)`." },
+    { t: "X", sec: "8.3", q: "No mapa de Karnaugh de 3 variáveis, por que as colunas seguem a ordem `00, 01, 11, 10`?",
+      o: ["É código de Gray: colunas vizinhas (inclusive a primeira e a última) diferem em um só bit, permitindo combinar células adjacentes.",
+          "É a ordem binária crescente.",
+          "Por convenção sem motivo.",
+          "Para que o mapa seja simétrico."],
+      exp: "Seção 8.3. Na ordem `00, 01, 10, 11`, `01` e `10` seriam vizinhas diferindo em 2 bits.",
+      dica: "Vizinhos diferem em uma variável." }
+  ]
+});
+
+// Gersting, Cap. 9 · Modelagem Aritmética, Computação e Linguagens (Seções 9.1–9.5)
+capitulo("gersting", {
+  num: 9, nome: "Estruturas Algébricas, Máquinas e Linguagens", secoes: "9.1–9.5",
+  desc: "Estruturas algébricas (semigrupos, monoides, grupos), teoria da codificação, máquinas de estado finito, máquinas de Turing e linguagens formais.",
+  qs: [
+    { t: "T", sec: "9.1", q: "Uma estrutura `[S, ·]` é um grupo quando:",
+      o: ["`·` é associativa, há elemento identidade e todo elemento tem inverso.",
+          "`·` é comutativa e associativa.",
+          "Há identidade apenas.",
+          "Todo elemento tem inverso, sem exigir associatividade."],
+      exp: "Seção 9.1: semigrupo (associativa), monoide (+ identidade), grupo (+ inversos); comutativo = abeliano. Ex.: `[ℤ, +]` é grupo; `[ℕ, +]` é só monoide.",
+      dica: "Semigrupo → monoide → grupo." },
+    { t: "T", sec: "9.1", q: "Pelo teorema de Lagrange, se `G` é um grupo finito e `H` um subgrupo, então:",
+      o: ["A ordem de `H` divide a ordem de `G`.",
+          "`H = G`.",
+          "A ordem de `H` é metade da de `G`.",
+          "`G` é comutativo."],
+      exp: "Seção 9.1. Consequência: um grupo de ordem prima só tem os subgrupos triviais.",
+      dica: "Classes laterais têm o mesmo tamanho." },
+    { t: "T", sec: "9.2", q: "Um código com distância mínima `d` entre palavras-código pode:",
+      o: ["Detectar até `d − 1` erros e corrigir até `⌊(d − 1)/2⌋` erros.",
+          "Corrigir até `d` erros.",
+          "Detectar `d` erros e corrigir `d − 1`.",
+          "Só detectar 1 erro, qualquer que seja `d`."],
+      exp: "Seção 9.2. O código de Hamming tem `d = 3`: detecta 2 e corrige 1 erro.",
+      dica: "Para corrigir, a palavra recebida precisa estar mais perto da original." },
+    { t: "T", sec: "9.3", q: "Qual é a limitação fundamental de uma máquina de estado finito?",
+      o: ["Tem memória finita (só o estado atual), então não reconhece conjuntos como `{0ⁿ1ⁿ}`, que exigem contar sem limite.",
+          "Não aceita entradas binárias.",
+          "Não pode ter saída.",
+          "Não pode ter ciclos."],
+      exp: "Seções 9.3 e 9.4. Máquinas de Turing, com fita ilimitada, superam essa limitação.",
+      dica: "Quantos estados para lembrar `n`?" },
+    { t: "T", sec: "9.3", q: "O que faz o algoritmo de minimização de máquinas de estado finito?",
+      o: ["Agrupa estados equivalentes (mesma saída para toda sequência de entrada) por partições refinadas sucessivamente, e cada classe vira um estado.",
+          "Remove os estados finais.",
+          "Junta estados com o mesmo nome.",
+          "Elimina as transições com entrada 0."],
+      exp: "Seção 9.3. Começa separando por saída; refina enquanto as transições levarem a classes diferentes.",
+      dica: "Estados indistinguíveis viram um só." },
+    { t: "T", sec: "9.5", q: "Qual relação entre linguagens e máquinas está correta?",
+      o: ["Linguagens regulares (tipo 3) são exatamente as reconhecidas por autômatos finitos; linguagens do tipo 0 são as reconhecidas por máquinas de Turing.",
+          "Toda linguagem livre de contexto é regular.",
+          "Autômatos finitos reconhecem todas as linguagens livres de contexto.",
+          "Máquinas de Turing só reconhecem linguagens regulares."],
+      exp: "Seção 9.5. As livres de contexto são reconhecidas por autômatos de pilha.",
+      dica: "Hierarquia de Chomsky." },
+
+    { t: "E", sec: "9.2", q: "Qual a distância de Hamming entre `10110` e `11011`?",
+      o: ["Compare bit a bit: posições 2, 3 e 5 diferem. Distância 3.",
+          "2.", "5.", "1."],
+      exp: "Seção 9.2. A distância é o número de posições em que as palavras diferem (peso do XOR: `01101`).",
+      dica: "Faça o XOR." },
+    { t: "E", sec: "9.1", q: "`[ℤ₅, +₅]` é um grupo? Qual o inverso de 3?",
+      o: ["Sim: soma mod 5 é associativa, 0 é a identidade e cada `x` tem inverso `5 − x` (0 tem 0). Inverso de 3 é 2 (`3 +₅ 2 = 0`).",
+          "Não, pois falta inverso para 0.",
+          "Sim; o inverso de 3 é `1/3`.",
+          "Sim; o inverso de 3 é `−3`, que não está em `ℤ₅`, logo não é grupo."],
+      exp: "Seção 9.1. `−3 ≡ 2 (mod 5)`.",
+      dica: "O que somado a 3 dá 0 mod 5?" },
+    { t: "E", sec: "9.5", q: "A gramática `S → aS | b` gera que linguagem?",
+      o: ["Aplicando `S → aS` `n` vezes e depois `S → b`: `{aⁿb : n ≥ 0}`, que é regular (`a*b`).",
+          "`{aⁿbⁿ}`.",
+          "`{ab}`.",
+          "`{bⁿa}`."],
+      exp: "Seção 9.5. É uma gramática regular (tipo 3).",
+      dica: "Derive `S ⇒ aS ⇒ aaS ⇒ aab`." },
+
+    { t: "X", sec: "9.4", q: "Por que o problema da parada é indecidível?",
+      o: ["Se uma máquina `H` decidisse, construir-se-ia `T` que, com sua própria descrição, para se `H` disser que não para e vice-versa: contradição.",
+          "Porque as máquinas de Turing são lentas.",
+          "Porque a fita é infinita.",
+          "É decidível para todas as máquinas com fita finita, então em geral também."],
+      exp: "Seção 9.4. Argumento diagonal, como na não enumerabilidade dos reais.",
+      dica: "Autorreferência." },
+    { t: "X", sec: "9.3", q: "Uma máquina de estado finito reconhece cadeias binárias com número par de 1s. Quantos estados mínimos?",
+      o: ["2 estados: “par” (inicial e final) e “ímpar”; cada 1 troca de estado e cada 0 mantém.",
+          "1 estado.", "3 estados.", "Infinitos, pois é preciso contar os 1s."],
+      exp: "Seção 9.3. Basta lembrar a paridade, não a quantidade.",
+      dica: "O que importa lembrar?" },
+    { t: "X", sec: "9.2", q: "Quantos erros um código com distância mínima 5 consegue corrigir?",
+      o: ["`⌊(5 − 1)/2⌋ = 2` erros (e detectar até 4).",
+          "5.", "4.", "1."],
+      exp: "Seção 9.2. Com até 2 erros, a palavra recebida continua mais próxima da palavra-código original.",
+      dica: "Bolas de raio 2 não se sobrepõem." }
+  ]
+});
+
+
+// ---------- Configuração do jogo ----------
+const NIVEIS = [
+  [0, "Calouro das Tabelas-Verdade"],
+  [200, "Aprendiz de Quantificadores"],
+  [500, "Domador da Indução"],
+  [950, "Contador de Combinações"],
+  [1600, "Mestre das Relações"],
+  [2500, "Lenda dos Grafos"],
+  [3600, "Q.E.D. Supremo"]
+];
+const ACERTOS = ["Q.E.D.!", "Tautologia confirmada.", "Passo indutivo perfeito.", "Sem contraexemplo à vista.", "Modus ponens na veia.", "Bijeção encontrada!", "Vai gabaritar a prova kkk"];
+const ERROS = ["Contraexemplo encontrado... tenta de novo kkk", "Quase! Isso é afirmar o consequente.", "A hipótese de indução não fechou.", "Ops, faltou um caso base.", "Esse argumento não é válido."];
+const TIPOS = { T: "Teoria", E: "Exemplo resolvido", X: "Exercício resolvido" };
+const TIPOS_CURTO = { T: "Teoria", E: "Exemplo", X: "Exercício" };
+const FILTROS = [["todos", "Tudo"], ["T", "Teoria"], ["E", "Exemplos resolvidos"], ["X", "Exercícios resolvidos"], ["EX", "Exemplos + exercícios"]];
+const ABAS = [
+  { id: "rosen", nome: LIVROS.rosen.aba },
+  { id: "gersting", nome: LIVROS.gersting.aba },
+  { id: "erros", nome: "Revisar erros" },
+  { id: "simulado", nome: "Simulado" }
+];
+
+// ---------- Estado salvo ----------
+const KEY = "mc358-caderno-v1";
+const padrao = () => ({ xp: 0, estrelas: {}, res: {}, erros: {}, som: true, melhorCombo: 0, aba: "rosen", filtro: "todos", tema: "auto" });
+let S = padrao();
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(padrao(), JSON.parse(raw)); } catch (e) {}
+function salvar() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+// Numera tudo: id estável = livro-capítulo-índice
+Object.values(LIVROS).forEach(L => {
+  L.caps.sort((a, b) => a.num - b.num);
+  L.caps.forEach(c => {
+    c.key = L.id + "-" + c.num; c.livro = L;
+    c.qs.forEach((q, i) => Object.assign(q, { id: c.key + "-" + i, cap: c, livro: L }));
+  });
+});
+const TODAS = Object.values(LIVROS).flatMap(L => L.caps.flatMap(c => c.qs));
+const porId = Object.fromEntries(TODAS.map(q => [q.id, q]));
+
+// ---------- Utilidades ----------
+const $ = s => document.querySelector(s);
+const view = $("#view");
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// Dentro de `...`: _{..} vira subscrito; ^{..} e ^(..) (parênteses balanceados) viram sobrescrito
+function mat(s) {
+  let out = "", i = 0;
+  while (i < s.length) {
+    const c = s[i], d = s[i + 1];
+    if ((c === "_" || c === "^") && (d === "{" || (c === "^" && d === "("))) {
+      const fecha = d === "{" ? "}" : ")";
+      let j = i + 2, prof = 1;
+      while (j < s.length && prof) { if (s[j] === d) prof++; else if (s[j] === fecha) prof--; j++; }
+      if (!prof) { const tagn = c === "_" ? "sub" : "sup"; out += `<${tagn}>${mat(s.slice(i + 2, j - 1))}</${tagn}>`; i = j; continue; }
+    }
+    out += c; i++;
+  }
+  return out;
+}
+const fmt = s => esc(s).replace(/`([^`]+)`/g, (_, m) => `<span class="m">${mat(m)}</span>`);
+const embaralhar = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const sorteio = a => a[Math.floor(Math.random() * a.length)];
+const passa = (q, f) => f === "todos" || (f === "EX" ? q.t !== "T" : q.t === f);
+function nivel(xp) {
+  let i = 0; while (i + 1 < NIVEIS.length && xp >= NIVEIS[i + 1][0]) i++;
+  return { i, nome: NIVEIS[i][1], ini: NIVEIS[i][0], prox: NIVEIS[i + 1] };
+}
+function estrelasHTML(n, cls = "stars") {
+  return `<span class="${cls}" aria-label="${n} de 3 estrelas">` + [1, 2, 3].map(k => `<span class="${k <= n ? "on" : ""}">★</span>`).join("") + "</span>";
+}
+const tag = t => `<span class="tagu ${t}">${TIPOS_CURTO[t]}</span>`;
+const fonte = q => `${q.livro.autor}, <i>${q.livro.titulo}</i>, ${q.livro.edicao} · Cap. ${q.cap.num}, Seção ${q.sec}`;
+function hud() {
+  $("#hud-xp").textContent = S.xp; $("#hud-combo").textContent = S.melhorCombo;
+  const b = $("#btn-som"); b.textContent = "Som: " + (S.som ? "ligado" : "desligado"); b.setAttribute("aria-pressed", S.som);
+  $("#btn-tema").textContent = "Tema: " + ({ auto: "automático", light: "claro", dark: "escuro" })[S.tema];
+}
+function aplicarTema() {
+  if (S.tema === "auto") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme", S.tema);
+}
+const errosPendentes = () => TODAS.filter(q => S.res[q.id] === 0);
+
+// ---------- Som (WebAudio, sem arquivos) ----------
+let ctxAudio = null;
+function tom(freqs, dur = 0.09, tipo = "sine") {
+  if (!S.som) return;
+  try {
+    ctxAudio = ctxAudio || new (window.AudioContext || window.webkitAudioContext)();
+    freqs.forEach((f, k) => {
+      const o = ctxAudio.createOscillator(), g = ctxAudio.createGain(), t0 = ctxAudio.currentTime + k * dur;
+      o.type = tipo; o.frequency.value = f; g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(0.12, t0 + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.connect(g).connect(ctxAudio.destination); o.start(t0); o.stop(t0 + dur + 0.02);
+    });
+  } catch (e) {}
+}
+const somAcerto = () => tom([660, 880]);
+const somErro = () => tom([220, 180], 0.12, "triangle");
+const somFim = () => tom([523, 659, 784, 1046], 0.11);
+
+// ---------- Confete ----------
+function confete() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = $("#confetti"), cx = cv.getContext("2d");
+  cv.width = innerWidth; cv.height = innerHeight;
+  const cores = ["#5b2fb0", "#e8a91a", "#1f8a5b", "#c9302c", "#1d5fa8"];
+  const ps = Array.from({ length: 140 }, () => ({ x: Math.random() * cv.width, y: -20 - Math.random() * cv.height * 0.4, vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3, r: 4 + Math.random() * 5, c: sorteio(cores), a: Math.random() * 6 }));
+  let f = 0;
+  (function passo() {
+    cx.clearRect(0, 0, cv.width, cv.height);
+    ps.forEach(p => { p.x += p.vx; p.y += p.vy; p.a += 0.1; cx.fillStyle = p.c; cx.save(); cx.translate(p.x, p.y); cx.rotate(p.a); cx.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2); cx.restore(); });
+    if (++f < 160) requestAnimationFrame(passo); else cx.clearRect(0, 0, cv.width, cv.height);
+  })();
+}
+function flutuarXP(el, n) {
+  const r = el.getBoundingClientRect(), d = document.createElement("div");
+  d.className = "floatxp"; d.textContent = "+" + n + " XP";
+  d.style.left = (r.right - 90) + "px"; d.style.top = (r.top - 6) + "px";
+  document.body.appendChild(d); setTimeout(() => d.remove(), 1000);
+}
+
+// ---------- Abas ----------
+function abas() {
+  const n = errosPendentes().length;
+  $("#tabs").innerHTML = ABAS.map(a => {
+    const cnt = a.id === "erros" && n ? `<span class="cnt">(${n})</span>` : "";
+    return `<button class="tab" role="tab" type="button" data-aba="${a.id}" aria-selected="${S.aba === a.id && !Q}">${esc(a.nome)}${cnt}</button>`;
+  }).join("");
+  document.querySelectorAll(".tab").forEach(b => b.onclick = () => { Q = null; S.aba = b.dataset.aba; salvar(); render(); });
+}
+
+function levelbar() {
+  const nv = nivel(S.xp);
+  const pct = nv.prox ? Math.min(100, ((S.xp - nv.ini) / (nv.prox[0] - nv.ini)) * 100) : 100;
+  return `<section class="levelbar">
+    <div class="rank"><small>Nível ${nv.i + 1}</small>${esc(nv.nome)}</div>
+    <div class="next">${nv.prox ? `${nv.prox[0] - S.xp} XP para <b>${esc(nv.prox[1])}</b>` : "Nível máximo!"}</div>
+    <div class="meter"><i style="width:${pct}%"></i></div>
+  </section>`;
+}
+
+// ---------- Tela de um livro ----------
+function telaLivro(L) {
+  const f = S.filtro;
+  const total = L.caps.reduce((s, c) => s + c.qs.filter(q => passa(q, f)).length, 0);
+  const feitas = L.caps.reduce((s, c) => s + c.qs.filter(q => passa(q, f) && S.res[q.id] === 1).length, 0);
+  view.innerHTML = levelbar() + `
+    <h2 class="section-h">${esc(L.titulo)}</h2>
+    <p class="section-p">${esc(L.autor)} · ${esc(L.edicao)}. ${L.caps.length} capítulos, ${total} questões no filtro atual (${feitas} acertadas). Em exemplos e exercícios resolvidos, as alternativas descrevem o processo de resolução e o resultado: só uma está certa nos dois.</p>
+    <div class="filters" role="group" aria-label="Tipo de questão">
+      ${FILTROS.map(([id, nome]) => `<button class="fbtn" type="button" data-f="${id}" aria-pressed="${f === id}">${nome}</button>`).join("")}
+    </div>
+    <div class="map">
+      ${L.caps.map(c => {
+        const qs = c.qs.filter(q => passa(q, f));
+        const ok = qs.filter(q => S.res[q.id] === 1).length;
+        const est = S.estrelas[c.key] || 0;
+        const n = t => c.qs.filter(q => q.t === t).length;
+        return `<button class="page ${est ? "done" : ""}" type="button" data-cap="${c.key}" ${qs.length ? "" : "disabled"}>
+          <span class="num">${c.num}<small>Seções ${esc(c.secoes)}</small></span>
+          <span class="name">${esc(c.nome)}</span>
+          <span class="desc">${esc(c.desc)}</span>
+          <span class="counts">${tag("T")} ${n("T")} ${tag("E")} ${n("E")} ${tag("X")} ${n("X")}</span>
+          <span class="foot"><span>${ok}/${qs.length} acertadas</span>${estrelasHTML(est)}</span>
+        </button>`;
+      }).join("")}
+    </div>
+    <div class="extras">
+      <div class="card"><h3>Embaralhar o livro todo</h3><p>15 questões sorteadas de todos os capítulos do ${esc(L.curto)}, respeitando o filtro escolhido.</p>
+        <button class="btn" type="button" id="btn-mix">Começar</button></div>
+      <div class="card"><h3>Como jogar</h3><p>Acerto vale 10 XP (teoria) ou 15 XP (exemplos e exercícios). Dica corta o XP pela metade. Combos dão bônus. Errou? A questão vai para “Revisar erros”.</p></div>
+    </div>
+    <div class="howto"><span><kbd>1</kbd>–<kbd>4</kbd> ou <kbd>A</kbd>–<kbd>D</kbd> respondem</span><span><kbd>H</kbd> dica</span><span><kbd>Enter</kbd> próxima</span><span><kbd>Esc</kbd> voltar</span></div>`;
+  view.querySelectorAll(".fbtn").forEach(b => b.onclick = () => { S.filtro = b.dataset.f; salvar(); render(); });
+  view.querySelectorAll(".page").forEach(b => b.onclick = () => {
+    const c = L.caps.find(c => c.key === b.dataset.cap);
+    iniciar({ titulo: `${L.curto} · Cap. ${c.num}: ${c.nome}`, qs: c.qs.filter(q => passa(q, S.filtro)), capKey: c.key, modo: "cap" });
+  });
+  $("#btn-mix").onclick = () => {
+    const qs = embaralhar(L.caps.flatMap(c => c.qs).filter(q => passa(q, S.filtro))).slice(0, 15);
+    iniciar({ titulo: `${L.curto} · Sorteio`, qs, modo: "mix" });
+  };
+}
+
+// ---------- Revisar erros ----------
+function telaErros() {
+  const qs = errosPendentes();
+  if (!qs.length) {
+    view.innerHTML = levelbar() + `<h2 class="section-h">Revisar erros</h2>
+      <div class="empty">Nenhum erro pendente. Quando você errar uma questão, ela aparece aqui até ser acertada.</div>`;
+    return;
+  }
+  const grupos = {};
+  qs.forEach(q => (grupos[q.cap.key] = grupos[q.cap.key] || []).push(q));
+  view.innerHTML = levelbar() + `<h2 class="section-h">Revisar erros</h2>
+    <p class="section-p">${qs.length} questões erradas na última tentativa. Acertar remove da lista.</p>
+    <div class="row" style="margin-bottom:18px"><button class="btn" type="button" id="btn-todos-erros">Treinar todos os erros</button></div>
+    ${Object.values(grupos).map(g => `<h3 class="section-p" style="margin:16px 0 8px;font-weight:700;color:var(--fg)">${esc(g[0].livro.curto)} · Cap. ${g[0].cap.num}: ${esc(g[0].cap.nome)}</h3>
+      <div class="qlist">${g.map(q => `<button class="qrow" type="button" data-q="${q.id}"><span class="qt">${fmt(q.q)}</span><span class="side">${tag(q.t)} §${esc(q.sec)} · ${S.erros[q.id] || 1}×</span></button>`).join("")}</div>`).join("")}`;
+  $("#btn-todos-erros").onclick = () => iniciar({ titulo: "Revisão de erros", qs: embaralhar(qs), modo: "erros" });
+  view.querySelectorAll(".qrow").forEach(b => b.onclick = () => iniciar({ titulo: "Revisão de erros", qs: [porId[b.dataset.q]], modo: "erros" }));
+}
+
+// ---------- Simulado ----------
+const SIMULADOS = [
+  { id: "misto", nome: "Simulado misto", desc: "20 questões dos dois livros, todos os tipos.", f: q => true, n: 20 },
+  { id: "mc358", nome: "Núcleo de MC358", desc: "20 questões de lógica, demonstrações, indução, conjuntos, funções, relações e recorrência (Rosen 1–4, 7–8; Gersting 1–5).",
+    f: q => (q.livro.id === "rosen" ? [1, 2, 3, 4, 7, 8] : [1, 2, 3, 4, 5]).includes(q.cap.num), n: 20 },
+  { id: "teoria", nome: "Só teoria", desc: "15 perguntas teóricas rigorosas dos dois livros.", f: q => q.t === "T", n: 15 },
+  { id: "resolvidos", nome: "Só resolvidos", desc: "15 exemplos e exercícios resolvidos: escolha o processo e o resultado corretos.", f: q => q.t !== "T", n: 15 },
+  { id: "rosen", nome: "Só Rosen", desc: "20 questões do Livro 1.", f: q => q.livro.id === "rosen", n: 20 },
+  { id: "gersting", nome: "Só Gersting", desc: "20 questões do Livro 2.", f: q => q.livro.id === "gersting", n: 20 }
+];
+function telaSimulado() {
+  view.innerHTML = levelbar() + `<h2 class="section-h">Simulado</h2>
+    <p class="section-p">Questões sorteadas, sem dica. A nota aparece no fim, com a revisão de cada erro.</p>
+    <div class="extras">${SIMULADOS.map(s => `<div class="card"><h3>${esc(s.nome)}</h3><p>${esc(s.desc)}</p>
+      <div class="row"><button class="btn" type="button" data-s="${s.id}">Começar</button>${S.estrelas["sim-" + s.id] ? estrelasHTML(S.estrelas["sim-" + s.id]) : ""}</div></div>`).join("")}</div>`;
+  view.querySelectorAll("[data-s]").forEach(b => b.onclick = () => {
+    const s = SIMULADOS.find(s => s.id === b.dataset.s);
+    iniciar({ titulo: s.nome, qs: embaralhar(TODAS.filter(s.f)).slice(0, s.n), capKey: "sim-" + s.id, modo: "simulado" });
+  });
+}
+
+// ---------- Quiz ----------
+let Q = null;
+function iniciar(cfg) {
+  if (!cfg.qs.length) return;
+  Q = Object.assign({ i: 0, acertos: 0, xp: 0, combo: 0, res: [], erradas: [] }, cfg);
+  render(); scrollTo({ top: 0 });
+}
+function prepararQuestao() {
+  const q = Q.qs[Q.i];
+  Q.ordem = embaralhar([0, 1, 2, 3].slice(0, q.o.length));
+  Q.respondida = false; Q.dica = false;
+}
+function telaQuestao() {
+  if (Q.ordem === undefined || Q.prep !== Q.i) { prepararQuestao(); Q.prep = Q.i; }
+  const q = Q.qs[Q.i], sim = Q.modo === "simulado";
+  view.innerHTML = `
+    <div class="quizhead">
+      <button class="iconbtn" type="button" id="btn-sair">← Sair</button>
+      <span class="title">${esc(Q.titulo)}</span>
+      <span class="chip">${Q.i + 1} / ${Q.qs.length}</span>
+    </div>
+    <div class="progress" aria-hidden="true">${Q.qs.map((_, k) => `<span class="${k < Q.i ? (Q.res[k] ? "ok" : "bad") : k === Q.i ? "cur" : ""}"></span>`).join("")}</div>
+    <article class="sheet" id="sheet">
+      <div class="qmeta"><span>${esc(q.livro.curto)} · Cap. ${q.cap.num} · Seção ${esc(q.sec)}</span>${tag(q.t)}</div>
+      <p class="qtext"><span class="qnum">${Q.i + 1}.</span>${fmt(q.q)}</p>
+      ${q.t !== "T" ? `<p class="lead">Escolha a alternativa cujo processo de resolução e resultado estão ambos corretos.</p>` : ""}
+      <div class="opts" id="opts">
+        ${Q.ordem.map((k, j) => `<button class="opt" type="button" data-k="${k}"><span class="l">${"ABCD"[j]}</span><span class="t">${fmt(q.o[k])}</span></button>`).join("")}
+      </div>
+      <div id="hintbox"></div>
+      <div id="fb"></div>
+      <div class="actions">
+        <span class="combo ${Q.combo >= 3 ? "hot" : ""}" id="combo">${Q.combo >= 2 ? "Combo ×" + Q.combo : ""}</span>
+        <div class="row">
+          ${sim || !q.dica ? "" : `<button class="btn ghost" type="button" id="btn-dica">Dica (H)</button>`}
+          <button class="btn" type="button" id="btn-prox" hidden>${Q.i + 1 < Q.qs.length ? "Próxima" : "Ver resultado"} (Enter)</button>
+        </div>
+      </div>
+    </article>`;
+  $("#btn-sair").onclick = sair;
+  view.querySelectorAll(".opt").forEach(b => b.onclick = () => responder(+b.dataset.k, b));
+  const bd = $("#btn-dica"); if (bd) bd.onclick = mostrarDica;
+  $("#btn-prox").onclick = proxima;
+}
+function mostrarDica() {
+  if (!Q || Q.respondida || Q.dica || Q.modo === "simulado") return;
+  const q = Q.qs[Q.i]; if (!q.dica) return;
+  Q.dica = true;
+  $("#hintbox").innerHTML = `<div class="hint"><b>Dica:</b> ${fmt(q.dica)}</div>`;
+  const bd = $("#btn-dica"); if (bd) bd.disabled = true;
+}
+function responder(k, el) {
+  if (!Q || Q.respondida) return;
+  Q.respondida = true;
+  const q = Q.qs[Q.i], certo = k === 0;
+  view.querySelectorAll(".opt").forEach(b => {
+    b.disabled = true;
+    if (+b.dataset.k === 0) b.classList.add("right");
+    else if (b === el) b.classList.add("wrong");
+  });
+  Q.res[Q.i] = certo;
+  let ganho = 0;
+  if (certo) {
+    Q.acertos++; Q.combo++;
+    ganho = (q.t === "T" ? 10 : 15);
+    if (Q.dica) ganho = Math.ceil(ganho / 2);
+    ganho += Math.min(Q.combo - 1, 5) * 2;
+    S.xp += ganho; Q.xp += ganho;
+    S.melhorCombo = Math.max(S.melhorCombo, Q.combo);
+    S.res[q.id] = 1;
+    somAcerto(); flutuarXP(el, ganho);
+  } else {
+    Q.combo = 0; Q.erradas.push(q);
+    S.res[q.id] = 0; S.erros[q.id] = (S.erros[q.id] || 0) + 1;
+    somErro(); $("#sheet").classList.add("shake");
+  }
+  salvar(); hud(); abas();
+  $("#fb").innerHTML = `<div class="feedback ${certo ? "good" : "bad"}">
+      <span class="who">${certo ? sorteio(ACERTOS) : sorteio(ERROS)}</span>
+      ${fmt(q.exp)}
+    </div>
+    <div class="ref"><b>Fonte:</b> ${fonte(q)}</div>`;
+  $("#combo").textContent = Q.combo >= 2 ? "Combo ×" + Q.combo : "";
+  $("#combo").className = "combo" + (Q.combo >= 3 ? " hot" : "");
+  const bd = $("#btn-dica"); if (bd) bd.hidden = true;
+  const bp = $("#btn-prox"); bp.hidden = false; bp.focus({ preventScroll: true });
+}
+function proxima() {
+  if (!Q || !Q.respondida) return;
+  Q.i++;
+  if (Q.i >= Q.qs.length) { telaResultado(); return; }
+  render(); scrollTo({ top: 0, behavior: "smooth" });
+}
+function sair() { Q = null; render(); }
+function telaResultado() {
+  const n = Q.qs.length, pct = Q.acertos / n;
+  const est = pct >= 0.9 ? 3 : pct >= 0.7 ? 2 : pct >= 0.5 ? 1 : 0;
+  if (Q.capKey) { S.estrelas[Q.capKey] = Math.max(S.estrelas[Q.capKey] || 0, est); salvar(); }
+  const frase = est === 3 ? "Demonstração completa!" : est === 2 ? "Quase lá, falta pouco." : est === 1 ? "Passou no caso base." : "Vale revisar a teoria.";
+  const nota = (pct * 10).toFixed(1).replace(".", ",");
+  const fim = Q; Q = { fim: true };
+  view.innerHTML = `<article class="sheet result">
+    <div class="bigstars">${[1, 2, 3].map(k => `<span class="${k <= est ? "on" : ""}">★</span>`).join("")}</div>
+    <h2>${frase}</h2>
+    <p>${esc(fim.titulo)}</p>
+    <div class="stats">
+      <div class="stat"><b>${fim.acertos}/${n}</b><span>Acertos</span></div>
+      <div class="stat"><b>${nota}</b><span>Nota</span></div>
+      <div class="stat"><b>+${fim.xp}</b><span>XP</span></div>
+    </div>
+    <div class="row">
+      ${fim.erradas.length ? `<button class="btn" type="button" id="r-erros">Refazer os ${fim.erradas.length} erros</button>` : ""}
+      <button class="btn ghost" type="button" id="r-de-novo">Refazer tudo</button>
+      <button class="btn ghost" type="button" id="r-voltar">Voltar</button>
+    </div>
+    ${fim.erradas.length ? `<div class="qlist" style="width:100%;text-align:left;margin-top:12px">${fim.erradas.map(q => `<div class="qrow" style="cursor:default"><span class="qt">${fmt(q.q)}</span><span class="side">${tag(q.t)} ${esc(q.livro.curto)} §${esc(q.sec)}</span></div>`).join("")}</div>` : ""}
+  </article>`;
+  if (est === 3) confete();
+  somFim();
+  const re = $("#r-erros"); if (re) re.onclick = () => iniciar({ titulo: fim.titulo + " · erros", qs: embaralhar(fim.erradas), modo: fim.modo === "simulado" ? "erros" : fim.modo });
+  $("#r-de-novo").onclick = () => iniciar({ titulo: fim.titulo, qs: fim.modo === "cap" ? fim.qs : embaralhar(fim.qs), capKey: fim.capKey, modo: fim.modo });
+  $("#r-voltar").onclick = sair;
+}
+
+// ---------- Render ----------
+function render() {
+  hud(); abas();
+  if (Q && Q.fim) return;
+  if (Q) { telaQuestao(); return; }
+  if (S.aba === "erros") telaErros();
+  else if (S.aba === "simulado") telaSimulado();
+  else telaLivro(LIVROS[S.aba] || LIVROS.rosen);
+}
+
+document.addEventListener("keydown", e => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.key === "Escape") { if (Q) sair(); return; }
+  if (!Q || Q.fim) return;
+  const k = e.key.toLowerCase();
+  const idx = "1234".indexOf(k) >= 0 ? "1234".indexOf(k) : "abcd".indexOf(k);
+  if (!Q.respondida && idx >= 0 && k.length === 1) {
+    const b = view.querySelectorAll(".opt")[idx]; if (b) { e.preventDefault(); b.click(); }
+  } else if (k === "h") mostrarDica();
+  else if (e.key === "Enter" && Q.respondida) { e.preventDefault(); proxima(); }
+});
+$("#home").onclick = () => { Q = null; render(); };
+$("#btn-som").onclick = () => { S.som = !S.som; salvar(); hud(); };
+$("#btn-tema").onclick = () => { S.tema = ({ auto: "light", light: "dark", dark: "auto" })[S.tema]; salvar(); aplicarTema(); hud(); };
+aplicarTema();
+render();
+</script>
+<script>if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));</script>
+</body>
+</html>
